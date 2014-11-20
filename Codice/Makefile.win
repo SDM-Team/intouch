@@ -5,8 +5,8 @@ CPP  = g++.exe
 CC   = gcc.exe
 WINDRES = windres.exe
 RES  = 
-OBJ  = main.o intouch.o utente.o $(RES)
-LINKOBJ  = main.o intouch.o utente.o $(RES)
+OBJ  = main.o intouch.o utente.o amicizia.o $(RES)
+LINKOBJ  = main.o intouch.o utente.o amicizia.o $(RES)
 LIBS =  -L"C:/Dev-Cpp/lib"  
 INCS =  -I"C:/Dev-Cpp/include" 
 CXXINCS =  -I"C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include"  -I"C:/Dev-Cpp/include/c++/3.4.2/backward"  -I"C:/Dev-Cpp/include/c++/3.4.2/mingw32"  -I"C:/Dev-Cpp/include/c++/3.4.2"  -I"C:/Dev-Cpp/include" 
@@ -34,3 +34,6 @@ intouch.o: intouch.cpp
 
 utente.o: utente.cpp
 	$(CPP) -c utente.cpp -o utente.o $(CXXFLAGS)
+
+amicizia.o: amicizia.cpp
+	$(CPP) -c amicizia.cpp -o amicizia.o $(CXXFLAGS)

@@ -1,7 +1,7 @@
 [Project]
 FileName=InTouch.dev
 Name=Progetto1
-UnitCount=5
+UnitCount=7
 Type=1
 Ver=1
 ObjFiles=
@@ -89,6 +89,26 @@ BuildCmd=
 
 [Unit5]
 FileName=utente.cpp
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit6]
+FileName=amicizia.h
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit7]
+FileName=amicizia.cpp
 CompileCpp=1
 Folder=
 Compile=1

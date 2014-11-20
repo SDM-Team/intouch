@@ -27,5 +27,4 @@ class Utente {
        void logout();
 };
 
-
 #endif
