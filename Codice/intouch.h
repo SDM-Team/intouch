@@ -15,9 +15,7 @@ class InTouch {
        list<Utente> lista_utenti;
     public:
        void schermata_autenticazione();
-       void schermata_iniziale();
        void login();
-       void logout();
        void registrazione();
 };
 

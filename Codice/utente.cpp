@@ -1,4 +1,7 @@
 #include "utente.h"
+#include "intouch.h"
+
+extern InTouch applicazione;
 
 int id_u = 1;
 
@@ -48,8 +51,6 @@ void Utente::aggiungi_utente(list<Utente>* p_lista_utenti) {
     utenti << email << endl;
     utenti << password << endl << endl;
     
-
-    
     utenti.close();*/
     
     id_u++;
@@ -73,3 +74,53 @@ void Utente::stampa() {
     cout << password << endl << endl;
 }
 
+// Schermata iniziale che si visualizza una volte autenticato correttamente
+void Utente::schermata_iniziale() {
+    int s = 0;
+    while ((s < 1) || (s > 7)) {
+       cout << "Benvenuto!" << endl;
+       cout << "Seleziona la funzione desiderata:" << endl;
+       cout << "1. Gestisci amicizie" << endl;
+       cout << "2. Visualizza i post degli amici" << endl;
+       cout << "3. Visualizza la tua bacheca" << endl;
+       cout << "4. Visualizza e modifica il tuo profilo" << endl;
+       cout << "5. Visualizza il profilo e la bacheca di un amico" << endl;
+       cout << "6. Crea post" << endl;
+       cout << "7. Logout" << endl;
+       cin >> s;
+       cout << endl;
+       if ((s < 1) && (s > 7)) {
+          cout << "Errore: Scelta non possibile" << endl << endl;
+       }
+    }
+    
+    switch (s) {
+       case 1:
+          // Amicizie
+          break;
+       case 2:
+          // Post amici
+          break;
+       case 3:
+          // Bacheca
+          break;
+       case 4:
+          // Profilo
+          break;
+       case 5:
+          // Profilo e bacheca amico
+          break;
+       case 6:
+          // Crea post
+          break;
+       case 7:
+          cout << "Logout effettuato!" << endl << endl;
+          logout();
+          break;
+    }
+}
+
+// Metodo di logout, rimanda alla schermata di autenticazione
+void Utente::logout() {
+    applicazione.schermata_autenticazione();
+}

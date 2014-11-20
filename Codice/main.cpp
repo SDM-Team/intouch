@@ -4,9 +4,10 @@
 
 using namespace std;
 
+InTouch applicazione;
+
 int main(int argc, char *argv[])
 {
-    InTouch applicazione;
     applicazione.schermata_autenticazione();
     
     system("PAUSE");

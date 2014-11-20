@@ -29,52 +29,6 @@ void InTouch::schermata_autenticazione() {
     }
 }
 
-// Schermata iniziale che si visualizza una volte autenticato correttamente
-void InTouch::schermata_iniziale() {
-    int s = 0;
-    while ((s < 1) || (s > 7)) {
-       cout << "Benvenuto!" << endl;
-       cout << "Seleziona la funzione desiderata:" << endl;
-       cout << "1. Gestisci amicizie" << endl;
-       cout << "2. Visualizza i post degli amici" << endl;
-       cout << "3. Visualizza la tua bacheca" << endl;
-       cout << "4. Visualizza e modifica il tuo profilo" << endl;
-       cout << "5. Visualizza il profilo e la bacheca di un amico" << endl;
-       cout << "6. Crea post" << endl;
-       cout << "7. Logout" << endl;
-       cin >> s;
-       cout << endl;
-       if ((s < 1) && (s > 7)) {
-          cout << "Errore: Scelta non possibile" << endl << endl;
-       }
-    }
-    
-    switch (s) {
-       case 1:
-          // Amicizie
-          break;
-       case 2:
-          // Post amici
-          break;
-       case 3:
-          // Bacheca
-          break;
-       case 4:
-          // Profilo
-          break;
-       case 5:
-          // Profilo e bacheca amico
-          break;
-       case 6:
-          // Crea post
-          break;
-       case 7:
-          cout << "Logout effettuato!" << endl << endl;
-          logout();
-          break;
-    }
-}
-
 // Metodo di login
 void InTouch::login() {
     string email;
@@ -98,18 +52,13 @@ void InTouch::login() {
     } else if (u.check_login(&lista_utenti)) {
        // Se l'utente esiste e la password inserita è corretta rimanda alla schermata principale
        cout << "Login riuscito!" << endl << endl;
-       schermata_iniziale();
+       u.schermata_iniziale();
     } else {
        // Se l'utente esiste ma la password inserita non è corretta stampa un messaggio di errore
        // e rimanda alla schermata di autenticazione
        cout << "Errore: Mancata corrispondenza tra indirizzo email e password" << endl << endl;
        schermata_autenticazione();
     }
-}
-
-// Metodo di logout, rimanda alla schermata di autenticazione
-void InTouch::logout() {
-    schermata_autenticazione();
 }
 
 // Metodo di registrazione

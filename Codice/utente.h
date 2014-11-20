@@ -23,6 +23,8 @@ class Utente {
        bool utente_esiste(list<Utente>* p_lista_utenti);
        void aggiungi_utente(list<Utente>* p_lista_utenti);
        void stampa();
+       void schermata_iniziale();
+       void logout();
 };
 
 
