@@ -1,7 +1,5 @@
 #include "utente.h"
 
-extern list<Utente> lista_utenti;
-
 int id_u = 1;
 
 // Costruttore specifico a due parametri per la procedura di login
@@ -23,9 +21,9 @@ Utente::Utente(string n, string c, string e, string p) {
 }
 
 // Metodo che controlla se un utente esiste già o meno
-bool Utente::utente_esiste() {
+bool Utente::utente_esiste(list<Utente>* p_lista_utenti) {
     list<Utente>::iterator iter;
-    for (iter = lista_utenti.begin(); iter != lista_utenti.end(); iter++) {
+    for (iter = p_lista_utenti->begin(); iter != p_lista_utenti->end(); iter++) {
        if (email == iter->email) return true;
     }
        
@@ -33,8 +31,8 @@ bool Utente::utente_esiste() {
 }
 
 // Metodo che aggiunge un nuovo utente nella lista degli utenti
-void Utente::aggiungi_utente() {
-    lista_utenti.push_back(*this);
+void Utente::aggiungi_utente(list<Utente>* p_lista_utenti) {
+    p_lista_utenti->push_back(*this);
     
     /*fstream utenti;
     utenti.open("utenti.txt");
@@ -58,9 +56,9 @@ void Utente::aggiungi_utente() {
 }
 
 // Metodo che verifica la correttezza della password inserita in fase di login
-bool Utente::check_login() {
+bool Utente::check_login(list<Utente>* p_lista_utenti) {
     list<Utente>::iterator iter;
-    for (iter = lista_utenti.begin(); iter != lista_utenti.end(); iter++) {
+    for (iter = p_lista_utenti->begin(); iter != p_lista_utenti->end(); iter++) {
        if ((email == iter->email) && (password == iter->password)) return true;
     }
     return false;
@@ -74,3 +72,4 @@ void Utente::stampa() {
     cout << email << endl;
     cout << password << endl << endl;
 }
+

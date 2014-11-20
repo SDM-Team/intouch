@@ -4,8 +4,6 @@
 
 using namespace std;
 
-list<Utente> lista_utenti;
-
 int main(int argc, char *argv[])
 {
     InTouch applicazione;

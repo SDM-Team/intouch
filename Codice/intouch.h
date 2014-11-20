@@ -4,14 +4,15 @@
 #include <cstdlib>
 #include <iostream>
 #include <string>
+#include <list>
 
 #include "utente.h"
 
 using namespace std;
 
-extern list<Utente> lista_utenti;
-
 class InTouch {
+    private:
+       list<Utente> lista_utenti;
     public:
        void schermata_autenticazione();
        void schermata_iniziale();

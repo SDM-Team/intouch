@@ -91,11 +91,11 @@ void InTouch::login() {
     
     Utente u(email,password);
     
-    if (!(u.utente_esiste())) {
+    if (!(u.utente_esiste(&lista_utenti))) {
        // Se l'utente non esiste stampa un messaggio di errore e rimanda alla schermata di autenticazione
        cout << "Errore: Indirizzo email non registrato" << endl << endl;
        schermata_autenticazione();
-    } else if (u.check_login()) {
+    } else if (u.check_login(&lista_utenti)) {
        // Se l'utente esiste e la password inserita è corretta rimanda alla schermata principale
        cout << "Login riuscito!" << endl << endl;
        schermata_iniziale();
@@ -148,16 +148,16 @@ void InTouch::registrazione() {
        case 1:
           Utente u(nome,cognome,email,password);
           
-          if (u.utente_esiste()) {
+          if (u.utente_esiste(&lista_utenti)) {
              // Se l'utente esiste già stampa un messaggio di errore e rimanda alla schermata di autenticazione
              cout << "Errore: Indirizzo email gia' registrato" << endl << endl;
           } else {
              // Se l'utente non esiste ancora richama la funzione di creazione utente
-             u.aggiungi_utente();
+             u.aggiungi_utente(&lista_utenti);
           }
           break;
     }
-    
+
     // In ogni caso rimanda alla schermata di autenticazione per registrarsi o effettuare il login
     schermata_autenticazione();
 }
