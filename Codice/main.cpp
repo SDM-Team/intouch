@@ -1,14 +1,15 @@
 #include <cstdlib>
 #include <iostream>
-#include "intouch.h"
+#include "profilo.h"
 
 using namespace std;
 
-InTouch applicazione;
-
 int main(int argc, char *argv[])
 {
-    applicazione.schermata_autenticazione();
+    Profilo p;
+    p.visualizza_profilo();
+    
+    
     
     system("PAUSE");
     return EXIT_SUCCESS;
