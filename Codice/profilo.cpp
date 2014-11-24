@@ -38,7 +38,7 @@ void Profilo::visualizza_profilo(){
                              cin >> s;                             
          }
          switch(s){
-                   //case 0: schermata_iniziale(); break;
+                   // case 0: schermata_iniziale(); break;
                    case 1: modifica_profilo(); break;          
          }                                    
 }

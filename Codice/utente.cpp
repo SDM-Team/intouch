@@ -105,7 +105,7 @@ void Utente::schermata_iniziale() {
           // Bacheca
           break;
        case 4:
-          // Profilo
+          profilo.visualizza_profilo();
           break;
        case 5:
           // Profilo e bacheca amico

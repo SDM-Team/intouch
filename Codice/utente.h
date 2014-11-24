@@ -6,6 +6,7 @@
 #include <string>
 #include <fstream>
 #include <list>
+#include "profilo.h"
 
 using namespace std;
 
@@ -16,6 +17,7 @@ class Utente {
        string cognome;
        string email;
        string password;
+       Profilo profilo;
     public:
        Utente(string e, string p);
        Utente(string n, string c, string e, string p);
