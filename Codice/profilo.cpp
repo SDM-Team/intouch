@@ -1,5 +1,6 @@
 #include <cstdlib>
 #include <iostream>
+#include <string.h>
 #include "profilo.h"
 
 using namespace std;

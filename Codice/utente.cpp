@@ -1,6 +1,9 @@
 #include "utente.h"
 #include "intouch.h"
 
+//per le prove
+#include "post.h"
+
 extern InTouch applicazione;
 
 int id_u = 1;
@@ -76,23 +79,35 @@ void Utente::stampa() {
 
 // Schermata iniziale che si visualizza una volte autenticato correttamente
 void Utente::schermata_iniziale() {
-    int s = 0;
-    while ((s < 1) || (s > 7)) {
-       cout << "Benvenuto!" << endl;
-       cout << "Seleziona la funzione desiderata:" << endl;
-       cout << "1. Gestisci amicizie" << endl;
-       cout << "2. Visualizza i post degli amici" << endl;
-       cout << "3. Visualizza la tua bacheca" << endl;
-       cout << "4. Visualizza e modifica il tuo profilo" << endl;
-       cout << "5. Visualizza il profilo e la bacheca di un amico" << endl;
-       cout << "6. Crea post" << endl;
-       cout << "7. Logout" << endl;
-       cin >> s;
-       cout << endl;
-       if ((s < 1) && (s > 7)) {
-          cout << "Errore: Scelta non possibile" << endl << endl;
-       }
+    int s = 7;
+    
+    do{ 
+	//che belo l menu tuto pulito ara
+	system("CLS");
+	
+	if ((s < 1) || (s > 7)) {
+        cout << "Errore: Scelta non possibile" << endl << endl;
     }
+    
+	//schermata iniziale
+    cout << "Benvenuto!" << endl;
+    cout << "Seleziona la funzione desiderata:" << endl;
+    cout << "1. Gestisci amicizie" << endl;
+    cout << "2. Visualizza i post degli amici" << endl;
+    cout << "3. Visualizza la tua bacheca" << endl;
+    cout << "4. Visualizza e modifica il tuo profilo" << endl;
+    cout << "5. Visualizza il profilo e la bacheca di un amico" << endl;
+    cout << "6. Crea post" << endl;
+    cout << "7. Logout" << endl;
+	
+	//flush stdin
+	cin.clear();
+	//impedisce loop su input non-int
+	cin.get();
+		
+	cin >> s;
+    cout << endl;
+    
     
     switch (s) {
        case 1:
@@ -112,12 +127,27 @@ void Utente::schermata_iniziale() {
           break;
        case 6:
           // Crea post
+          //prove post e commenti
+          {
+		  string s = "ciao come va?";
+		  string t = "titolonzo";
+		  Post a(s);
+		  Post b(t,s);
+		  b.commenta_post();
+		  b.visualizza_post();
+		  system("PAUSE");
+		  }
           break;
        case 7:
-          cout << "Logout effettuato!" << endl << endl;
-          logout();
           break;
-    }
+    	}
+	}while(s != 7);
+    
+    //if (s == 7){
+    cout << "Logout effettuato!" << endl << endl;
+    logout();	
+    //}
+    
 }
 
 // Metodo di logout, rimanda alla schermata di autenticazione

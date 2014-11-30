@@ -20,3 +20,4 @@ class InTouch {
 };
 
 #endif
+

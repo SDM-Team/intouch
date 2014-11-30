@@ -110,3 +110,39 @@ void InTouch::registrazione() {
     // In ogni caso rimanda alla schermata di autenticazione per registrarsi o effettuare il login
     schermata_autenticazione();
 }
+
+//controllo input: http://www.dreamincode.net/forums/topic/137648-limiting-string-length/
+
+/*
+
+int charsread = 0;
+string str;
+char c;
+while (// more input
+)
+{
+    // read a character (c)
+    if (charsread < 5)
+        str += c;
+    ++charsread;
+}
+
+*/
+//alternativa: https://www.daniweb.com/software-development/cpp/threads/398829/restricting-string-input-size-c-vs-c-strings
+/* 
+
+std::string name ;
+    constexpr std::string::size_type MAX_CHARS = 20 ;
+    if( std::cout << "name (max " << MAX_CHARS << " chars)? " && std::getline( std::cin, name  ) )
+    {
+        if( name.size() > MAX_CHARS )
+        {
+            std::cerr << name << " is too long; truncating it\n" ;
+            name = name.substr( 0, MAX_CHARS ) ;
+        }
+        // use name
+    }
+    // else i/o error
+    
+*/
+
