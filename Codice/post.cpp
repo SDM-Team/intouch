@@ -1,5 +1,7 @@
 #include "post.h"
 
+#include <fstream>
+
 using namespace std;
 
 int id_p = 1;
@@ -16,6 +18,21 @@ Post::Post(string _testo){
 	titolo = "";
 	
 	testo = _testo;
+	
+	/*
+	//scrivo su csv
+	ofstream outfile("Post.csv", ios::app);
+	//controllare!
+     outfile
+	 << id_post << ';'
+	 << "nome" << ';'
+	 << "conome" << ';'
+	 << tempo << ';'
+     << titolo << ';'
+     << testo << ';'
+     <<'\n';
+     outfile.close();
+     */
 }
 
 //costruttore specifico creazione post completo di titolo con timestamp corrente
@@ -30,6 +47,21 @@ Post::Post(string _titolo, string _testo){
 	titolo = _titolo;
 	
 	testo = _testo;
+	
+	/*
+	//scrivo su csv
+	ofstream outfile("Post.csv", ios::app);
+	//controllare!
+     outfile
+	 << id_post << ';'
+	 << "nome" << ';'
+	 << "cognome" << ';'
+	 << tempo << ';'
+     << titolo << ';'
+     << testo << ';'
+     <<'\n';
+     outfile.close();
+     */
 }
 
 //metodo che stampa a video il post e tutta la lista dei commenti relativi ad esso
@@ -59,5 +91,14 @@ void Post::commenta_post(){
 	//controllo input MAXPOST
 	cin >> temp;
 	lista_commenti.push_back( Commento(temp) );
+	
+	/*
+	//scrivo su csv id_post del commento
+	ofstream outfile("Commenti.csv", ios::app);
+	//controllare!
+     outfile << id_post << ';';	
+     outfile.close();
+	lista_commenti.push_back( Commento(temp) );
+	*/
 		
 }

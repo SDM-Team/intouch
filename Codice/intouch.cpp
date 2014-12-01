@@ -1,20 +1,40 @@
+#include <sstream>
 #include "intouch.h"
 
 // Schermata iniziale per registrarsi o autenticarsi nell'applicazione
 void InTouch::schermata_autenticazione() {
-    int s = 0;
-    while ((s < 1) || (s > 3)) {
+    int s = 3;
+    string input = "";
+     do{
+     	//system("CLS");
+     	
+     	//controllo range int input
+     	if ((s < 1) || (s > 3)) {
+          cout << "Errore: Scelta non possibile" << endl << endl;
+       }
+       
+       //voci menu
        cout << "Benvenuto!" << endl;
        cout << "Seleziona cosa vuoi fare:" << endl;
        cout << "1. Registrati" << endl;
        cout << "2. Autenticati" << endl;
        cout << "3. Chiudi applicazione" << endl;
-       cin >> s;
+       
+	   //controllo input non-int
+ 	   while (true) {
+ 	   		cin.clear();
+  			getline(cin, input);
+  			
+   			//Questo codice converte da stringa a int in modo sicuro
+   			stringstream myStream(input);
+   			if (myStream >> s)
+     				break;
+   			cout << "Errore: numero non valido" << endl;
+ 		}
+ 		
        cout << endl;
-       if ((s < 1) || (s > 3)) {
-          cout << "Errore: Scelta non possibile" << endl << endl;
-       }
-    }
+       
+    }while ((s < 1) || (s > 3));
     
     switch (s) {
        case 1:
@@ -41,6 +61,7 @@ void InTouch::login() {
     // Inserimento password
     cout << "Inserisci la tua password: ";
     cin >> password;
+    cin.ignore();
     cout << endl;
     
     Utente u(email,password);
@@ -89,6 +110,7 @@ void InTouch::registrazione() {
     cout << "Premi 0 per annullare e tornare alla schermata di accesso" << endl;
     cin >> s;
     cout << endl;
+    cin.ignore();
     
     switch (s) {
        case 0:

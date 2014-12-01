@@ -31,12 +31,14 @@ void Profilo::visualizza_profilo(){
          cout<< "Per modificare il tuo profilo premi 1"<<endl;
          cout<< "Per tornare alla schermata iniziale premi 0"<<endl<<endl;
          cin>> s;
+         cin.ignore();
          
          while((s<0)||(s>1)){
                              if((s<0)||(s>1)){cout<< "Errore scelta non possibile"<<endl;}
                              cout<< "Per modificare il tuo profilo premi 1"<<endl;
                              cout<< "Per tornare alla schermata iniziale premi 0"<<endl<<endl;
-                             cin >> s;                             
+                             cin >> s;       
+							 cin.ignore();                      
          }
          switch(s){
                    // case 0: schermata_iniziale(); break;
@@ -53,13 +55,16 @@ void Profilo::modifica_profilo(){
          cout<< "5. Luogo di nascita: "<< luogonasc<<endl<<endl; 
          cout<< "Per modificare i campi selezionare il numero corrispondente: "<<endl;
          cout<< "Per tornare alla schermata iniziale premi 0 "<<endl<<endl;
-         cin>> s;
+         
+		 //controllo input
+		 cin>> s;
          
          while((s<1)||(s>5)){
                              if((s<1)||(s>5)){cout<< "Errore scelta non possibile"<<endl;}
                              cout<< "Per modificare i campi selezionare il numero corrispondente: "<<endl;
                              cout<< "Per tornare alla schermata iniziale premi 0 "<<endl<<endl;
-                             cin >> s;                             
+                             //controllo input
+							 cin >> s;                             
          }
          switch(s){
                    case 1: cout<<"Inserire Sesso: "; cin>>sesso; cout<<endl; break;

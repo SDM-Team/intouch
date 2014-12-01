@@ -1,5 +1,6 @@
 #include "utente.h"
 #include "intouch.h"
+#include <sstream>
 
 //per le prove
 #include "post.h"
@@ -80,10 +81,10 @@ void Utente::stampa() {
 // Schermata iniziale che si visualizza una volte autenticato correttamente
 void Utente::schermata_iniziale() {
     int s = 7;
-    
+    string input = "";
     do{ 
 	//che belo l menu tuto pulito ara
-	system("CLS");
+	//system("CLS");
 	
 	if ((s < 1) || (s > 7)) {
         cout << "Errore: Scelta non possibile" << endl << endl;
@@ -100,12 +101,18 @@ void Utente::schermata_iniziale() {
     cout << "6. Crea post" << endl;
     cout << "7. Logout" << endl;
 	
-	//flush stdin
-	cin.clear();
-	//impedisce loop su input non-int
-	cin.get();
-		
-	cin >> s;
+	//controllo input non-int
+ 	while (true) {
+ 	   		cin.clear();
+  			getline(cin, input);
+  			
+   			//Questo codice converte da stringa a int in modo sicuro
+   			stringstream myStream(input);
+   			if (myStream >> s)
+     				break;
+   			cout << "Errore: numero non valido" << endl;
+ 	}
+ 	
     cout << endl;
     
     
