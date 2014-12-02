@@ -1,4 +1,5 @@
 #include <sstream>
+#include <fstream>
 #include "intouch.h"
 
 extern int id_u;
@@ -146,21 +147,15 @@ bool InTouch::utente_esiste(const Utente& u) {
 void InTouch::aggiungi_utente(const Utente& u) {
     lista_utenti.insert(pair<string,Utente> (u.get_email(), u));
     
-    /*fstream utenti;
-    utenti.open("utenti.txt");
+    ofstream utenti("utenti.csv", ios::app);
     
-    if(utenti == NULL) {
-       perror("Errore in apertura del file");
-       exit(1);
-    }
+    utenti << u.get_idutente() << ";";
+    utenti << u.get_nome() << ";";
+    utenti << u.get_cognome() << ";";
+    utenti << u.get_email() << ";";
+    utenti << u.get_password() << endl;
     
-    utenti << id_utente << endl;
-    utenti << nome << endl;
-    utenti << cognome << endl;
-    utenti << email << endl;
-    utenti << password << endl << endl;
-    
-    utenti.close();*/
+    utenti.close();
     
     id_u++;
 }

@@ -27,6 +27,18 @@ Utente::Utente(string n, string c, string e, string p) {
     password = p;
 }
 
+int Utente::get_idutente() const {
+    return id_utente;
+}
+
+string Utente::get_nome() const {
+    return nome;
+}
+
+string Utente::get_cognome() const {
+    return cognome;
+}
+
 string Utente::get_email() const {
     return email;
 }

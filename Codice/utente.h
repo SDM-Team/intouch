@@ -21,6 +21,9 @@ class Utente {
     public:
        Utente(string e, string p);
        Utente(string n, string c, string e, string p);
+       int get_idutente() const;
+       string get_nome() const;
+       string get_cognome() const;
        string get_email() const;
        string get_password() const;
        void stampa();
