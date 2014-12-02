@@ -4,6 +4,11 @@
 
 extern int id_u;
 
+// Costruttore di default, per importare i dati da file all'avvio
+InTouch::InTouch() {
+    importa_utenti();
+}
+
 // Schermata iniziale per registrarsi o autenticarsi nell'applicazione
 void InTouch::schermata_autenticazione() {
     int s = 3;
@@ -167,6 +172,44 @@ bool InTouch::check_login(const Utente& u) {
     if ((u.get_email() == iter->second.get_email()) && (u.get_password() == iter->second.get_password())) return true;
     return false;
 }
+
+// Metodo che carica gli utenti presenti sul file di testo
+void InTouch::importa_utenti() {
+    lista_utenti.clear();
+    ifstream utenti;
+    
+    char linea[100];
+    
+    utenti.open("utenti.csv", ios::in);
+    while (!utenti.getline(linea,100).eof()) {
+       char* pch;
+       
+       // Primo token: ID utente
+       pch = strtok (linea,";");
+       int id_utente = atoi(pch);
+       
+       // Secondo token: Nome
+       string nome = strtok (NULL,";");
+       
+       // Terzo token: Cognome
+       string cognome = strtok (NULL,";");
+       
+       // Quarto token: Email
+       string email = strtok (NULL,";");
+       
+       // Quinto token: Password
+       string password = strtok (NULL,";");
+       
+       Utente u(nome,cognome,email,password);
+       
+       lista_utenti.insert(pair<string,Utente> (email,u));
+       
+       id_u = id_utente + 1;
+    } 
+    
+    utenti.close();
+}
+    
 
 //controllo input: http://www.dreamincode.net/forums/topic/137648-limiting-string-length/
 
