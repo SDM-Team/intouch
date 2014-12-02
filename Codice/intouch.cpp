@@ -137,17 +137,14 @@ void InTouch::registrazione() {
 
 // Metodo che controlla se un utente esiste già o meno
 bool InTouch::utente_esiste(const Utente& u) {
-    list<Utente>::iterator iter;
-    for (iter = lista_utenti.begin(); iter != lista_utenti.end(); iter++) {
-       if (u.get_email() == iter->get_email()) return true;
-    }
-       
-    return false;
+    map<string,Utente>::iterator iter;
+    iter = lista_utenti.find(u.get_email());
+    return (iter != lista_utenti.end());
 }
 
 // Metodo che aggiunge un nuovo utente nella lista degli utenti
 void InTouch::aggiungi_utente(const Utente& u) {
-    lista_utenti.push_back(u);
+    lista_utenti.insert(pair<string,Utente> (u.get_email(), u));
     
     /*fstream utenti;
     utenti.open("utenti.txt");
@@ -170,10 +167,9 @@ void InTouch::aggiungi_utente(const Utente& u) {
 
 // Metodo che verifica la correttezza della password inserita in fase di login
 bool InTouch::check_login(const Utente& u) {
-    list<Utente>::iterator iter;
-    for (iter = lista_utenti.begin(); iter != lista_utenti.end(); iter++) {
-       if ((u.get_email() == iter->get_email()) && (u.get_password() == iter->get_password())) return true;
-    }
+    map<string,Utente>::iterator iter;
+    iter = lista_utenti.find(u.get_email());
+    if ((u.get_email() == iter->second.get_email()) && (u.get_password() == iter->second.get_password())) return true;
     return false;
 }
 

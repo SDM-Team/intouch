@@ -5,6 +5,7 @@
 #include <iostream>
 #include <string>
 #include <list>
+#include <map>
 
 #include "utente.h"
 
@@ -12,7 +13,7 @@ using namespace std;
 
 class InTouch {
     private:
-       list<Utente> lista_utenti;
+       map<string,Utente> lista_utenti;
     public:
        void schermata_autenticazione();
        void login();
