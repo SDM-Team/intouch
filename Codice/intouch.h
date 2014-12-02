@@ -17,6 +17,9 @@ class InTouch {
        void schermata_autenticazione();
        void login();
        void registrazione();
+       bool check_login(const Utente& u);
+       bool utente_esiste(const Utente& u);
+       void aggiungi_utente(const Utente& u);
 };
 
 #endif

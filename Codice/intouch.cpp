@@ -1,6 +1,8 @@
 #include <sstream>
 #include "intouch.h"
 
+extern int id_u;
+
 // Schermata iniziale per registrarsi o autenticarsi nell'applicazione
 void InTouch::schermata_autenticazione() {
     int s = 3;
@@ -66,11 +68,11 @@ void InTouch::login() {
     
     Utente u(email,password);
     
-    if (!(u.utente_esiste(&lista_utenti))) {
+    if (!(utente_esiste(u))) {
        // Se l'utente non esiste stampa un messaggio di errore e rimanda alla schermata di autenticazione
        cout << "Errore: Indirizzo email non registrato" << endl << endl;
        schermata_autenticazione();
-    } else if (u.check_login(&lista_utenti)) {
+    } else if (check_login(u)) {
        // Se l'utente esiste e la password inserita è corretta rimanda alla schermata principale
        cout << "Login riuscito!" << endl << endl;
        u.schermata_iniziale();
@@ -119,18 +121,60 @@ void InTouch::registrazione() {
        case 1:
           Utente u(nome,cognome,email,password);
           
-          if (u.utente_esiste(&lista_utenti)) {
+          if (utente_esiste(u)) {
              // Se l'utente esiste già stampa un messaggio di errore e rimanda alla schermata di autenticazione
              cout << "Errore: Indirizzo email gia' registrato" << endl << endl;
           } else {
              // Se l'utente non esiste ancora richama la funzione di creazione utente
-             u.aggiungi_utente(&lista_utenti);
+             aggiungi_utente(u);
           }
           break;
     }
 
     // In ogni caso rimanda alla schermata di autenticazione per registrarsi o effettuare il login
     schermata_autenticazione();
+}
+
+// Metodo che controlla se un utente esiste già o meno
+bool InTouch::utente_esiste(const Utente& u) {
+    list<Utente>::iterator iter;
+    for (iter = lista_utenti.begin(); iter != lista_utenti.end(); iter++) {
+       if (u.email == iter->email) return true;
+    }
+       
+    return false;
+}
+
+// Metodo che aggiunge un nuovo utente nella lista degli utenti
+void InTouch::aggiungi_utente(const Utente& u) {
+    lista_utenti.push_back(u);
+    
+    /*fstream utenti;
+    utenti.open("utenti.txt");
+    
+    if(utenti == NULL) {
+       perror("Errore in apertura del file");
+       exit(1);
+    }
+    
+    utenti << id_utente << endl;
+    utenti << nome << endl;
+    utenti << cognome << endl;
+    utenti << email << endl;
+    utenti << password << endl << endl;
+    
+    utenti.close();*/
+    
+    id_u++;
+}
+
+// Metodo che verifica la correttezza della password inserita in fase di login
+bool InTouch::check_login(const Utente& u) {
+    list<Utente>::iterator iter;
+    for (iter = lista_utenti.begin(); iter != lista_utenti.end(); iter++) {
+       if ((u.email == iter.email) && (u.password == iter.password)) return true;
+    }
+    return false;
 }
 
 //controllo input: http://www.dreamincode.net/forums/topic/137648-limiting-string-length/
