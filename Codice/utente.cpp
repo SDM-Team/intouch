@@ -165,6 +165,63 @@ void Utente::visualizza_profilo(){
          }
          switch(s){
                    case 0: schermata_iniziale(); break;
-//                   case 1: modifica_profilo(); break;          
+                   case 1: modifica_profilo(); break;          
          }                                    
+}
+
+void Utente::modifica_profilo(){
+         int s=0;
+         cout<< "1. Sesso: "<< profilo.get_sesso()<<endl;
+         cout<< "2. Professione: "<<profilo.get_professione()<<endl;
+         cout<< "3. Situazione Sentimentale: "<<profilo.get_situasent()<<endl;
+         cout<< "4. Data di nascita: "<<profilo.get_datanasc()<<endl;
+         cout<< "5. Luogo di nascita: "<< profilo.get_luogonasc()<<endl<<endl; 
+         cout<< "Per modificare i campi selezionare il numero corrispondente: "<<endl;
+         cout<< "Per tornare alla schermata iniziale premi 0 "<<endl<<endl;
+         
+		 //controllo input
+		 cin>> s;
+         
+         while((s<1)||(s>5)){
+                             if((s<1)||(s>5)){cout<< "Errore scelta non possibile"<<endl;}
+                             cout<< "Per modificare i campi selezionare il numero corrispondente: "<<endl;
+                             cout<< "Per tornare alla schermata iniziale premi 0 "<<endl<<endl;
+                             //controllo input
+							 cin >> s;                             
+         }
+         
+         string modificaStringa;
+         
+         switch(s){
+                   case 1:
+                      cout<<"Inserire Sesso: ";
+                      cin >> modificaStringa;
+                      profilo.set_sesso(modificaStringa);
+                      cout<<endl;
+                      break;
+                   case 2:
+                      cout<<"Inserire Professione: ";
+                      cin>>modificaStringa;
+                      profilo.set_professione(modificaStringa);
+                      cout<<endl;
+                      break;
+                   case 3:
+                      cout<<"Inserire situazione sentimentale: ";
+                      cin>>modificaStringa;
+                      profilo.set_situasent(modificaStringa);
+                      cout<<endl;
+                      break;
+                   case 4:
+                      cout<<"Inserire data di nascita: \n";
+                      profilo.set_datanasc();
+                      cout<<endl;
+                      break;
+                   case 5:
+                      cout<<"Inserire Luogo di nascita: ";
+                      cin>>modificaStringa;
+                      profilo.set_luogonasc(modificaStringa);
+                      cout<<endl;
+                      break;
+         }                                
+         visualizza_profilo();                                    
 }

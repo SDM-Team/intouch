@@ -30,6 +30,7 @@ class Utente {
        void schermata_iniziale();
        void logout();
        void visualizza_profilo();
+       void modifica_profilo();
 };
 
 #endif
