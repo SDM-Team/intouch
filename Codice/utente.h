@@ -29,6 +29,7 @@ class Utente {
        void stampa();
        void schermata_iniziale();
        void logout();
+       void visualizza_profilo();
 };
 
 #endif

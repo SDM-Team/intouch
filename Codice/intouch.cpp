@@ -81,7 +81,12 @@ void InTouch::login() {
     } else if (check_login(u)) {
        // Se l'utente esiste e la password inserita è corretta rimanda alla schermata principale
        cout << "Login riuscito!" << endl << endl;
-       u.schermata_iniziale();
+
+       // Carico i dati dell'utente una volta autenticato
+       map<string,Utente>::iterator iter;
+       iter = lista_utenti.find(email);
+       Utente u1(iter->second.get_nome(),iter->second.get_cognome(),iter->second.get_email(),iter->second.get_password());
+       u1.schermata_iniziale();
     } else {
        // Se l'utente esiste ma la password inserita non è corretta stampa un messaggio di errore
        // e rimanda alla schermata di autenticazione

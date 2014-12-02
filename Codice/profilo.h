@@ -12,7 +12,7 @@ typedef char stringa [MAXLUN+1];
 class Profilo{
       private:
                //Utente utente; losanga piena 1,1
-               stringa sesso;
+               string sesso;
                string professione;
                string situasent;
                data datanasc;
@@ -20,8 +20,13 @@ class Profilo{
       public:
               Profilo();
               Profilo(stringa _sex, string _prof, string _situa, string _luogo);              
-              void visualizza_profilo();
-              void modifica_profilo();                                
+              
+              void modifica_profilo();
+              string get_sesso();
+              string get_professione();
+              string get_situasent();
+              data get_datanasc();
+              string get_luogonasc();                              
 };
 
 

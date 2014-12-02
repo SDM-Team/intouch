@@ -105,7 +105,7 @@ void Utente::schermata_iniziale() {
           // Bacheca
           break;
        case 4:
-          profilo.visualizza_profilo();
+          visualizza_profilo();
           break;
        case 5:
           // Profilo e bacheca amico
@@ -138,4 +138,33 @@ void Utente::schermata_iniziale() {
 // Metodo di logout, rimanda alla schermata di autenticazione
 void Utente::logout() {
     applicazione.schermata_autenticazione();
+}
+
+void Utente::visualizza_profilo(){
+         int s=0;
+         
+         //Prendo il nome e cognome dell'utente e le informazioni sono di default se non modificate
+         cout << "[" << get_nome() << " " << get_cognome() << "]" << endl;
+         cout << "Sesso: "<< profilo.get_sesso() <<endl;
+         cout << "Professione: " << profilo.get_professione() <<endl;
+         cout << "Situazione Sentimentale: " << profilo.get_situasent() <<endl;
+         cout << "Data di nascita: " << profilo.get_datanasc() <<endl;
+         cout << "Luogo di nascita: " << profilo.get_luogonasc() <<endl<<endl; 
+                  
+         cout << "Per modificare il tuo profilo premi 1"<<endl;
+         cout << "Per tornare alla schermata iniziale premi 0"<<endl<<endl;
+         cin >> s;
+         cin.ignore();
+         
+         while((s<0)||(s>1)){
+                             if((s<0)||(s>1)){cout<< "Errore scelta non possibile"<<endl;}
+                             cout<< "Per modificare il tuo profilo premi 1"<<endl;
+                             cout<< "Per tornare alla schermata iniziale premi 0"<<endl<<endl;
+                             cin >> s;       
+							 cin.ignore();                      
+         }
+         switch(s){
+                   case 0: schermata_iniziale(); break;
+//                   case 1: modifica_profilo(); break;          
+         }                                    
 }
