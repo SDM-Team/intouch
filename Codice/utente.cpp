@@ -27,6 +27,14 @@ Utente::Utente(string n, string c, string e, string p) {
     password = p;
 }
 
+string Utente::get_email() const {
+    return email;
+}
+
+string Utente::get_password() const {
+    return password;
+}
+
 // Metodo che stampa i dati di un utente
 void Utente::stampa() {
     cout << id_utente << endl;

@@ -139,7 +139,7 @@ void InTouch::registrazione() {
 bool InTouch::utente_esiste(const Utente& u) {
     list<Utente>::iterator iter;
     for (iter = lista_utenti.begin(); iter != lista_utenti.end(); iter++) {
-       if (u.email == iter->email) return true;
+       if (u.get_email() == iter->get_email()) return true;
     }
        
     return false;
@@ -172,7 +172,7 @@ void InTouch::aggiungi_utente(const Utente& u) {
 bool InTouch::check_login(const Utente& u) {
     list<Utente>::iterator iter;
     for (iter = lista_utenti.begin(); iter != lista_utenti.end(); iter++) {
-       if ((u.email == iter.email) && (u.password == iter.password)) return true;
+       if ((u.get_email() == iter->get_email()) && (u.get_password() == iter->get_password())) return true;
     }
     return false;
 }

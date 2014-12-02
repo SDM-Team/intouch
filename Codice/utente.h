@@ -21,6 +21,8 @@ class Utente {
     public:
        Utente(string e, string p);
        Utente(string n, string c, string e, string p);
+       string get_email() const;
+       string get_password() const;
        void stampa();
        void schermata_iniziale();
        void logout();
