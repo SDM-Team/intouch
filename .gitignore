@@ -2,7 +2,7 @@
 # Compiled Object files
 Codice/*.slo
 Codice/*.lo
-Codice/*.o
+#Codice/*.o
 Codice/*.obj
 
 # Precompiled Headers
@@ -24,10 +24,10 @@ Codice/*.a
 Codice/*.lib
 
 # Executables
-Codice/*.exe
+#Codice/*.exe
 Codice/*.out
 Codice/*.app
-Codice/*.win
+#Codice/*.win
 
 # File .csv
 Codice/*.csv
