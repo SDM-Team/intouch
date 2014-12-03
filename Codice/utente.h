@@ -7,6 +7,7 @@
 #include <fstream>
 #include <list>
 #include "profilo.h"
+#include "bacheca.h"
 
 using namespace std;
 
@@ -31,6 +32,8 @@ class Utente {
        void logout();
        void visualizza_profilo();
        void modifica_profilo();
+       void visualizza_bacheca();
+       void modifica_bacheca();
 };
 
 #endif

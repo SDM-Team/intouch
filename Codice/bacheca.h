@@ -8,8 +8,8 @@
 class Bacheca{
               public:
                      Bacheca(){};
-                     void visualizza_bacheca();
-                     void modifica_bacheca();              
+                     
+                     //aggiungi_post();             
 };
 
 
