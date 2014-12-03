@@ -142,6 +142,8 @@ void Utente::logout() {
 
 void Utente::visualizza_profilo(){
          int s=0;
+         string input = "";
+         
          
          //Prendo il nome e cognome dell'utente e le informazioni sono di default se non modificate
          cout << "[" << get_nome() << " " << get_cognome() << "]" << endl;
@@ -153,24 +155,36 @@ void Utente::visualizza_profilo(){
                   
          cout << "Per modificare il tuo profilo premi 1"<<endl;
          cout << "Per tornare alla schermata iniziale premi 0"<<endl<<endl;
-         cin >> s;
-         cin.ignore();
+        
+         do{
+              if((s<0)||(s>1)){cout<< "Errore scelta non possibile"<<endl;
+                               cout<< "Per modificare il tuo profilo premi 1"<<endl;
+                               cout<< "Per tornare alla schermata iniziale premi 0"<<endl<<endl;
+                               }
+         //controllo input non-int
+ 	     while (true) {
+ 	   		cin.clear();
+  			getline(cin, input);
+  			
+   			//Questo codice converte da stringa a int in modo sicuro
+   			stringstream myStream(input);
+   			if (myStream >> s)
+     				break;
+   			cout << "Errore: numero non valido" << endl;
+   			
+ 	  }
          
-         while((s<0)||(s>1)){
-                             if((s<0)||(s>1)){cout<< "Errore scelta non possibile"<<endl;}
-                             cout<< "Per modificare il tuo profilo premi 1"<<endl;
-                             cout<< "Per tornare alla schermata iniziale premi 0"<<endl<<endl;
-                             cin >> s;       
-							 cin.ignore();                      
-         }
+         }while((s<0)||(s>1));
+                                                                                     
          switch(s){
                    case 0: schermata_iniziale(); break;
                    case 1: modifica_profilo(); break;          
-         }                                    
+         } 
+                                            
 }
 
 void Utente::modifica_profilo(){
-         int s=0;
+         int s=1;
          string input = "";
          cout<< "1. Sesso: "<< profilo.get_sesso()<<endl;
          cout<< "2. Professione: "<<profilo.get_professione()<<endl;
@@ -180,10 +194,13 @@ void Utente::modifica_profilo(){
          cout<< "Per modificare i campi selezionare il numero corrispondente: "<<endl;
          cout<< "Per tornare alla schermata iniziale premi 0 "<<endl<<endl;
          
-		 //controllo input GESTIRE L'INVIO
-		 cin>> s;
-		 //controllo input non-int
- 	   while (true) {
+		  do{
+              if((s<1)||(s>5)){cout<< "Errore scelta non possibile"<<endl;
+                               cout<< "Per modificare i campi selezionare il numero corrispondente: "<<endl;
+                               cout<< "Per tornare alla schermata iniziale premi 0"<<endl<<endl;
+                               }
+         //controllo input non-int
+ 	     while (true) {
  	   		cin.clear();
   			getline(cin, input);
   			
@@ -192,49 +209,30 @@ void Utente::modifica_profilo(){
    			if (myStream >> s)
      				break;
    			cout << "Errore: numero non valido" << endl;
- 		}
- 		
-       cout << endl;
-         
-         while((s<1)||(s>5)){
-                             if((s<1)||(s>5)){cout<< "Errore scelta non possibile"<<endl;}
-                             cout<< "Per modificare i campi selezionare il numero corrispondente: "<<endl;
-                             cout<< "Per tornare alla schermata iniziale premi 0 "<<endl<<endl;
-                             //controllo input
-							 cin >> s;   
-                             //controllo input non-int
- 	   while (true) {
- 	   		cin.clear();
-  			getline(cin, input);
-  			
-   			//Questo codice converte da stringa a int in modo sicuro
-   			stringstream myStream(input);
-   			if (myStream >> s)
-     				break;
-   			cout << "Errore: numero non valido" << endl;
- 		}
- 		
-       cout << endl;                          
-         }
+   			
+ 	    }
+        
+        }while((s<1)||(s>5));
+      
          
          string modificaStringa;
          
          switch(s){
                    case 1:
                       cout<<"Inserire Sesso: ";
-                      cin >> modificaStringa;
+                      cin >> modificaStringa; cin.ignore();
                       profilo.set_sesso(modificaStringa);
                       cout<<endl;
                       break;
                    case 2:
                       cout<<"Inserire Professione: ";
-                      cin>>modificaStringa;
+                      cin>>modificaStringa; cin.ignore();
                       profilo.set_professione(modificaStringa);
                       cout<<endl;
                       break;
                    case 3:
                       cout<<"Inserire situazione sentimentale: ";
-                      cin>>modificaStringa;
+                      cin>>modificaStringa; cin.ignore();
                       profilo.set_situasent(modificaStringa);
                       cout<<endl;
                       break;
@@ -245,7 +243,7 @@ void Utente::modifica_profilo(){
                       break;
                    case 5:
                       cout<<"Inserire Luogo di nascita: ";
-                      cin>>modificaStringa;
+                      cin>>modificaStringa; cin.ignore();
                       profilo.set_luogonasc(modificaStringa);
                       cout<<endl;
                       break;

@@ -33,20 +33,20 @@ ostream& operator<<(ostream& os,const data& d){
 }
 
 void data::imposta_data(){
-                          printf("Inserire giorno: "); scanf("%d",&giorno);                                                 
+                          printf("Inserire giorno: "); cin>>giorno; cin.ignore();  //FUNZIONE??                                              
                           while((giorno<1)||(giorno>31)){
                                                if((giorno<1)||(giorno>31)){printf("Errore scelta non possibile\n");}
-                                               printf("Inserire giorno: "); scanf("%d",&giorno);                     
+                                               printf("Inserire giorno: "); cin>>giorno; cin.ignore();                     
                           }                                                                           
-                          printf("Inserire mese: "); scanf("%d",&mese);                             
+                          printf("Inserire mese: "); cin>>mese; cin.ignore();                            
                           while((mese<1)||(mese>12)){
                                                if((mese<1)||(mese>12)){printf("Errore scelta non possibile\n");}
-                                               printf("Inserire mese: "); scanf("%d",&mese);                     
+                                               printf("Inserire mese: "); cin>>mese; cin.ignore();                    
                           }                                                     
-                          printf("Inserire anno: "); scanf("%d",&anno);                           
+                          printf("Inserire anno: "); cin>>anno; cin.ignore();                        
                           while((anno<0)||(anno>2014)){
                                                  if((anno<0)||(anno>2014)){printf("Errore scelta non possibile\n");}
-                                                 printf("Inserire anno: "); scanf("%d",&anno);                     
+                                                 printf("Inserire anno: "); cin>>anno; cin.ignore();                      
                           }                           
 }
 
