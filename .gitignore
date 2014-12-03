@@ -1,5 +1,9 @@
 #Dev-C++ file temporanei
 
+Codice/*.o
+Codice/*.exe
+Codice/*.win
+
 *.o
 *.exe
 *.win
