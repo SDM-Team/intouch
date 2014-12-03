@@ -28,7 +28,7 @@ void InTouch::schermata_autenticazione() {
        cout << "2. Autenticati" << endl;
        cout << "3. Chiudi applicazione" << endl;
        
-	   //controllo input non-int
+	   //controllo input non-int GESTIRE INVIO
  	   while (true) {
  	   		cin.clear();
   			getline(cin, input);
@@ -85,8 +85,7 @@ void InTouch::login() {
        // Carico i dati dell'utente una volta autenticato
        map<string,Utente>::iterator iter;
        iter = lista_utenti.find(email);
-       Utente u1(iter->second.get_nome(),iter->second.get_cognome(),iter->second.get_email(),iter->second.get_password());
-       u1.schermata_iniziale();
+       iter->second.schermata_iniziale();
     } else {
        // Se l'utente esiste ma la password inserita non è corretta stampa un messaggio di errore
        // e rimanda alla schermata di autenticazione
