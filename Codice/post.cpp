@@ -21,7 +21,7 @@ Post::Post(string _testo){
 	
 	/*
 	//scrivo su csv
-	ofstream outfile("Post.csv", ios::app);
+	ofstream outfile("post.csv", ios::app);
 	//controllare!
      outfile
 	 << id_post << ';'
@@ -94,7 +94,7 @@ void Post::commenta_post(){
 	
 	/*
 	//scrivo su csv id_post del commento
-	ofstream outfile("Commenti.csv", ios::app);
+	ofstream outfile("commenti.csv", ios::app);
 	//controllare!
      outfile << id_post << ';';	
      outfile.close();

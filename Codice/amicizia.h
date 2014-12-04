@@ -21,8 +21,8 @@ class Amicizia {
        Utente get_mittente() const;
        Utente get_destinatario() const;
        stato get_status() const;
-       void approva_amicizia();
-       void rifiuta_amicizia();
+       void set_statusA();
+       void set_statusR();
 };
 
 #endif

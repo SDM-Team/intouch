@@ -25,19 +25,7 @@ class Post{
 		Post(string _titolo, string _testo);
 		void visualizza_post();
 		void commenta_post();
-
 };
-
-
-
-
-
-
-
-
-
-
-
 
 #endif
 

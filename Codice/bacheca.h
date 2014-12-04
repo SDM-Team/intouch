@@ -3,16 +3,16 @@
 
 #include <cstdlib>
 #include <iostream>
+#include <map>
 #include <string>
 
-class Bacheca{
-              public:
-                     Bacheca(){};
-                     
-                     //aggiungi_post();             
+#include "post.h"
+
+class Bacheca {
+  private:
+    map<int,Post> lista_post;
+  public:
+  //aggiungi_post();
 };
-
-
-
 
 #endif

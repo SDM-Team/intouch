@@ -18,10 +18,11 @@ stato Amicizia::get_status() const {
     return status;
 }
 
-void Amicizia::approva_amicizia() {
+void Amicizia::set_statusA() {
     status = A;
 }
 
-void Amicizia::rifiuta_amicizia() {
+void Amicizia::set_statusR() {
     status = R;
 }
+
