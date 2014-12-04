@@ -18,6 +18,9 @@ class Amicizia {
        stato status;
     public:
        Amicizia(Utente* _m, Utente* _d);
+       Utente get_mittente() const;
+       Utente get_destinatario() const;
+       stato get_status() const;
        void approva_amicizia();
        void rifiuta_amicizia();
 };
