@@ -8,6 +8,7 @@
 #include <list>
 #include "profilo.h"
 #include "bacheca.h"
+#include "amicizia.h"
 
 using namespace std;
 
@@ -19,6 +20,7 @@ class Utente {
        string email;
        string password;
        Profilo profilo;
+       map<int,Amicizia> lista_amicizie;
     public:
        Utente(string e, string p);
        Utente(string n, string c, string e, string p);
@@ -34,6 +36,7 @@ class Utente {
        void modifica_profilo();
        void visualizza_bacheca();
        void modifica_bacheca();
+       void visualizza_amici();
 };
 
 #endif
