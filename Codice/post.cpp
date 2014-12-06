@@ -6,6 +6,10 @@ using namespace std;
 
 int id_p = 1;
 
+int Post::get_idpost()const{
+      return id_p; 
+}    
+
 //costruttore specifico per creazione post senza titolo con timestamp corrente
 Post::Post(string _testo){
 	id_post = id_p;
@@ -102,3 +106,12 @@ void Post::commenta_post(){
 	*/
 		
 }
+
+string Post::get_titolo()const{
+       return titolo;       
+}
+
+string Post::get_testo()const{
+       return testo;       
+}
+

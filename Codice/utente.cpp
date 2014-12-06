@@ -112,6 +112,7 @@ void Utente::schermata_iniziale() {
           break;
        case 6:
           // Crea post
+          void aggiungi_post(const Post& p);
           //prove post e commenti
           {
 		  string s = "ciao come va?";

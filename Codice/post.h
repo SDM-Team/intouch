@@ -25,6 +25,9 @@ class Post{
 		Post(string _titolo, string _testo);
 		void visualizza_post();
 		void commenta_post();
+		string get_titolo()const;
+		string get_testo()const;
+		int get_idpost()const;
 };
 
 #endif

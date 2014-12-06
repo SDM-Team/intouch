@@ -5,14 +5,15 @@
 #include <iostream>
 #include <map>
 #include <string>
-
+#include "data.h"
 #include "post.h"
 
 class Bacheca {
   private:
     map<int,Post> lista_post;
   public:
-  //aggiungi_post();
+    void aggiungi_post(const Post& p);
+    void importa_post();
 };
 
 #endif
