@@ -7,7 +7,8 @@
 
 using namespace std;
 
-typedef enum stato {A,X,R};
+typedef enum Stato {A,X,R};
+typedef enum Ruolo {RICHIEDENTE,RICEVENTE};
 
 // Forward declaration: evita inclusione circolare tra amicizia.h e utente.h
 class Utente;
@@ -15,14 +16,14 @@ class Utente;
 class Amicizia {
     private:
        int id_amicizia;
-       Utente* mittente;
-       Utente* destinatario;
-       stato status;
+       Utente* utente;
+       Stato status;
+       Ruolo ruolo;
     public:
-       Amicizia(Utente* _m, Utente* _d);
-       Utente* get_mittente();
-       Utente* get_destinatario();
-       stato get_status() const;
+       Amicizia(Utente* _u, Ruolo _r);
+       Utente* get_utente();
+       Stato get_status() const;
+       Ruolo get_ruolo() const;
        void set_statusA();
        void set_statusR();
 };

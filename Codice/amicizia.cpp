@@ -2,23 +2,23 @@
 
 int id_a = 1;
 
-Amicizia::Amicizia(Utente* _m, Utente* _d) {
+Amicizia::Amicizia(Utente* _u, Ruolo _r) {
     id_amicizia = id_a;
-    mittente = _m;
-    destinatario = _d;
+    utente = _u;
     status = X;
+    ruolo = _r;
 }
 
-Utente* Amicizia::get_mittente() {
-    return mittente;
+Utente* Amicizia::get_utente() {
+    return utente;
 }
 
-Utente* Amicizia::get_destinatario() {
-    return destinatario;
-}
-
-stato Amicizia::get_status() const {
+Stato Amicizia::get_status() const {
     return status;
+}
+
+Ruolo Amicizia::get_ruolo() const {
+    return ruolo;
 }
 
 void Amicizia::set_statusA() {

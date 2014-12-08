@@ -103,7 +103,7 @@ void Utente::schermata_iniziale() {
           // Amicizie
           break;
        case 2:
-          // Post amici
+          
           break;
        case 3:
           visualizza_bacheca();
@@ -299,18 +299,10 @@ void Utente::modifica_bacheca(){
 void Utente::visualizza_amici() {
     map<int,Amicizia>::iterator iter;
     for (iter = lista_amicizie.begin(); iter != lista_amicizie.end(); iter++) {
-       if ((iter->second.get_mittente()->get_email() != get_email()) && (iter->second.get_status() == A)) {
-          cout << iter->second.get_mittente()->get_nome() << " " << iter->second.get_mittente()->get_cognome() << endl;
-       } else if ((iter->second.get_destinatario()->get_email() != get_email()) && (iter->second.get_status() == A)) {
-          cout << iter->second.get_destinatario()->get_nome() << " " << iter->second.get_destinatario()->get_cognome() << endl;
+       if (iter->second.get_status() == A) {
+          cout << iter->second.get_utente()->get_nome() << " " << iter->second.get_utente()->get_cognome() << endl;
        } else {
           continue;
        }
     }
 }
-       
-
-
-
-
-
