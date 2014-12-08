@@ -47,6 +47,10 @@ string Utente::get_password() const {
     return password;
 }
 
+Bacheca* Utente::get_bacheca() {
+    return (&bacheca);
+}
+
 // Metodo che stampa i dati di un utente
 void Utente::stampa() {
     cout << id_utente << endl;
@@ -112,17 +116,7 @@ void Utente::schermata_iniziale() {
           break;
        case 6:
           // Crea post
-          void aggiungi_post(const Post& p);
-          //prove post e commenti
-          {
-		  string s = "ciao come va?";
-		  string t = "titolonzo";
-		  Post a(s);
-		  Post b(t,s);
-		  b.commenta_post();
-		  b.visualizza_post();
-		  system("PAUSE");
-		  }
+          bacheca.aggiungi_post(email);
           break;
        case 7:
           break;
@@ -254,46 +248,51 @@ void Utente::modifica_profilo(){
 
 
 //Bacheca
-void Utente::visualizza_bacheca(){
-                                   cout<< "Bacheca di " << get_nome() << " " << get_cognome()<<endl; 
-                                   //prendo la lista di post (da implementare)
+void Utente::visualizza_bacheca() {
+    cout<< "Bacheca di " << get_nome() << " " << get_cognome()<<endl;
+    map<int,Post>::reverse_iterator iter;
+    for (iter = get_bacheca()->get_listapost().rbegin(); iter != get_bacheca()->get_listapost().rend(); iter++) {
+       cout << "ID Post: " << iter->first << endl;
+       cout << "Titolo: " << iter->second.get_titolo() << endl;
+       cout << iter->second.get_testo() << endl << endl;
+    }
                                    
-                                   int s;
-                                   cout<< "Per modificare la tua bacheca premi 1"<<endl;
-                                   cout<< "Per tornare alla schermata iniziale premi 0"<<endl<<endl;
-                                   cin>> s;
-         
-                                   while((s<0)||(s>1)){
-                                   if((s<0)||(s>1)){cout<< "Errore scelta non possibile"<<endl;}
-                                   cout<< "Per modificare la tua bacheca premi 1"<<endl;
-                                   cout<< "Per tornare alla schermata iniziale premi 0"<<endl<<endl;
-                                   cin >> s;                             
-         }   
-                                   switch(s){
-                                   case 0: schermata_iniziale(); break;
-                                   case 1: modifica_bacheca(); break;          
-         }                                         
+       int s;
+       cout<< "Per modificare la tua bacheca premi 1"<<endl;
+       cout<< "Per tornare alla schermata iniziale premi 0"<<endl<<endl;
+       cin>> s;
+
+       while((s<0)||(s>1)){
+          if((s<0)||(s>1)){cout<< "Errore scelta non possibile"<<endl;}
+          cout<< "Per modificare la tua bacheca premi 1"<<endl;
+          cout<< "Per tornare alla schermata iniziale premi 0"<<endl<<endl;
+          cin >> s;                             
+         }
+         switch(s){
+         case 0: schermata_iniziale(); break;
+         case 1: modifica_bacheca(); break;          
+         }
 }
 
 void Utente::modifica_bacheca(){
-                                 cout<< "Bacheca di " << get_nome() << " " << get_cognome()<<endl; 
-                                 cout<< "Modifica bacheca"<<endl;
-                                 //opzioni da implementare 
-                                  
-                                 int s;
-                                   cout<< "Per modificare nuovamente la tua bacheca premi 1"<<endl;
-                                   cout<< "Per tornare alla schermata iniziale premi 0"<<endl<<endl;
-                                   cin>> s;
-         
-                                   while((s<0)||(s>1)){
-                                   if((s<0)||(s>1)){cout<< "Errore scelta non possibile"<<endl;}
-                                   cout<< "Per modificare nuovamente la tua bacheca premi 1"<<endl;
-                                   cout<< "Per tornare alla schermata iniziale premi 0"<<endl<<endl;
-                                   cin >> s;                             
-         }   
-                                   switch(s){
-                                   case 0: schermata_iniziale(); break;
-                                   case 1: modifica_bacheca(); break;          
+    cout<< "Bacheca di " << get_nome() << " " << get_cognome()<<endl; 
+    cout<< "Modifica bacheca"<<endl;
+    //opzioni da implementare 
+
+    int s;
+    cout<< "Per modificare nuovamente la tua bacheca premi 1"<<endl;
+    cout<< "Per tornare alla schermata iniziale premi 0"<<endl<<endl;
+    cin>> s;
+
+    while((s<0)||(s>1)){
+       if((s<0)||(s>1)){cout<< "Errore scelta non possibile"<<endl;}
+       cout<< "Per modificare nuovamente la tua bacheca premi 1"<<endl;
+       cout<< "Per tornare alla schermata iniziale premi 0"<<endl<<endl;
+       cin >> s;                             
+       }
+       switch(s){
+       case 0: schermata_iniziale(); break;
+       case 1: modifica_bacheca(); break;          
          }                                         
 }
                                     

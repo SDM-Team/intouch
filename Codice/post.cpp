@@ -42,7 +42,6 @@ Post::Post(string _testo){
 //costruttore specifico creazione post completo di titolo con timestamp corrente
 Post::Post(string _titolo, string _testo){
 	id_post = id_p;
-	id_p++;
 	
 	data temp;
 	temp.imposta_dataOra();
@@ -66,6 +65,29 @@ Post::Post(string _titolo, string _testo){
      <<'\n';
      outfile.close();
      */
+}
+
+Post::Post(int _id, string _autore, string _titolo, string _testo) {
+    id_post = _id;
+    autore = _autore;
+    titolo = _titolo;
+    testo = _testo;
+}
+
+int Post::get_post() const {
+    return id_post;
+}
+
+string Post::get_titolo() const {
+    return titolo;
+}
+
+string Post::get_testo() const {
+    return testo;
+}
+
+string Post::get_autore() const {
+    return autore;
 }
 
 //metodo che stampa a video il post e tutta la lista dei commenti relativi ad esso
@@ -106,12 +128,3 @@ void Post::commenta_post(){
 	*/
 		
 }
-
-string Post::get_titolo()const{
-       return titolo;       
-}
-
-string Post::get_testo()const{
-       return testo;       
-}
-

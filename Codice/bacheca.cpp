@@ -6,53 +6,38 @@
 #include <fstream>
 using namespace std;
 
-void Bacheca::aggiungi_post(const Post& p){
+extern int id_p;
+
+void Bacheca::aggiungi_post(const string _email){
    int s;
-   cout<<"Post %d "<<p.get_idpost()<<endl;
-   cout<<"Inserire Titolo Post: "<<endl << p.get_titolo()<<endl;
-   cout<<"Inserire Testo Post: "<<endl<< p.get_testo()<<endl;
+   string titolo;
+   string testo;
+   
+   cout<<"Inserire Titolo Post: "<<endl;
+   cin >> titolo;
+   cout<<"Inserire Testo Post: "<<endl;
+   cin >> testo;
    cout<<"Per confermare e aggiungere il post alla tua Bacheca premi 1: ";
-   cin>>s; 
-   lista_post.insert(pair<int,Post> (p.get_idpost(),p));   
+   cin>>s;
+
+   if (s == 1) {
+      Post p(id_p,_email,titolo,testo);
+      lista_post.insert(pair<int,Post> (p.get_idpost(),p));
              
-    ofstream post("post.csv", ios::app);
+      ofstream post("post.csv", ios::app);
     
-    post << p.get_idpost() << ";";
-    post << p.get_titolo() << ";";
-    post << p.get_testo();
+      post << id_p << ";";
+      post << _email << ";";
+      post << titolo << ";";
+      post << testo << endl;
     
-    post.close();
+      post.close();
+      
+      id_p++;
+    } else {return;}
                     
 }
 
-void Bacheca::importa_post() {
-    lista_post.clear();
-    ifstream post;
-    
-    char linea[150];
-    
-    post.open("post.csv", ios::in);
-    while (!post.getline(linea,150).eof()) {
-       char* pch;
-       
-       //token ID post
-       pch = strtok (linea,";");
-       int id_post = atoi(pch);
-       
-       // token titolo
-       string titolo = strtok (NULL,";");
-       
-       // token testo
-       string testo = strtok (NULL,";");
-       
-       
-       Post p(titolo, testo);
-       
-       lista_post.insert(pair<int,Post> (id_post,p));
-       
-       id_post = id_post + 1;
-    } 
-    
-    post.close();
+map<int,Post> Bacheca::get_listapost() const {
+    return lista_post;
 }
-

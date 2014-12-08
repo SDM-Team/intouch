@@ -19,6 +19,7 @@ class Utente {
        string cognome;
        string email;
        string password;
+       Bacheca bacheca;
        Profilo profilo;
        map<int,Amicizia> lista_amicizie;
     public:
@@ -29,6 +30,7 @@ class Utente {
        string get_cognome() const;
        string get_email() const;
        string get_password() const;
+       Bacheca* get_bacheca();
        void stampa();
        void schermata_iniziale();
        void logout();

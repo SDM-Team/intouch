@@ -3,10 +3,12 @@
 #include "intouch.h"
 
 extern int id_u;
+extern int id_p;
 
 // Costruttore di default, per importare i dati da file all'avvio
 InTouch::InTouch() {
     importa_utenti();
+    importa_post();
 }
 
 // Schermata iniziale per registrarsi o autenticarsi nell'applicazione
@@ -212,6 +214,42 @@ void InTouch::importa_utenti() {
     } 
     
     utenti.close();
+}
+
+void InTouch::importa_post() {
+    ifstream post;
+    
+    char linea[150];
+    
+    post.open("post.csv", ios::in);
+    while (!post.getline(linea,150).eof()) {
+       char* pch;
+       
+       //token ID post
+       pch = strtok (linea,";");
+       int id_post = atoi(pch);
+       
+       // token autore
+       string autore = strtok (NULL,";");
+       
+       // token titolo
+       string titolo = strtok (NULL,";");
+       
+       // token testo
+       string testo = strtok (NULL,";");
+       
+       Post p(id_post,autore,titolo,testo);
+       
+       map<string,Utente>::iterator iter;
+       
+       iter = lista_utenti.find(autore);
+       
+       iter->second.get_bacheca()->get_listapost().insert(pair<int,Post> (id_post,p));
+       
+       id_p = id_post + 1;
+    } 
+    
+    post.close();
 }
     
 
