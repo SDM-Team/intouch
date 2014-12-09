@@ -15,7 +15,7 @@ class Profilo{
                string sesso;
                string professione;
                string situasent;
-               data datanasc;
+               Data datanasc;
                string luogonasc;
       public:
               Profilo();
@@ -23,7 +23,7 @@ class Profilo{
               string get_sesso();
               string get_professione();
               string get_situasent();
-              data get_datanasc();
+              Data get_datanasc();
               string get_luogonasc();
               void set_sesso(const string& _sesso);
               void set_professione(const string& _professione);

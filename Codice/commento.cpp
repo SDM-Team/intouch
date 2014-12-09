@@ -12,7 +12,7 @@ Commento::Commento(string _t){
 	
 	testo = _t;
 	
-	data temp;
+	Data temp;
 	temp.imposta_dataOra();
 	tempo = temp;
 }

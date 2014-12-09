@@ -15,7 +15,15 @@ Data::Data(int _g, int _m, int _a) {
   mese =  _m;
   anno =  _a;  
 	ore = 88;
-	minuti = 88;             
+	minuti = 88;
+}
+
+Data::Data(int _g, int _m, int _a, int _o, int _min) {
+  giorno =  _g;
+  mese = _m;
+  anno = _a;  
+	ore = _o;
+	minuti = _min;
 }
 
 // L'operatore << aggiunge anche uno zero se il numero è valido e < 10
@@ -37,7 +45,7 @@ ostream& operator << (ostream& os,const Data& d) {
 
   // Se le ore sono tra 0 e 24 e i minuti tra 0 e 60 (fatto per non considerare l'ora di default 88:88
   if (((d.ore >= 0) && (d.ore <= 24)) && ((d.minuti >= 0) && (d.minuti < 60))) {
-    os << "Ora: ";
+    os << " ";
 		
     // Se l'ora è tra 0 e 9 aggiunge uno 0 prima
     if (d.ore < 10) {

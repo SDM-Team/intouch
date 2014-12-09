@@ -17,8 +17,11 @@ void Bacheca::aggiungi_post(const string _email){
   string titolo;
   string testo;
 
+  // Inserimento testo
   cout << "Inserire Testo Post: " << endl;
   getline(cin,testo);
+  
+  // Conferma
   cout << "Per confermare e aggiungere il post alla tua Bacheca premi 1: ";
   cin >> s;
 
@@ -35,6 +38,7 @@ void Bacheca::aggiungi_post(const string _email){
     // Scrivo dati su file
     post << id_p << ";";
     post << _email << ";";
+    post << p.get_tempo() << ";";
     post << testo << endl;
 
     // Chiudo il flusso su file

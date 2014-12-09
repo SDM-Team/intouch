@@ -11,96 +11,95 @@ int id_u = 1;
 
 // Costruttore specifico a due parametri per la procedura di login
 Utente::Utente(string e, string p) {
-    id_utente = 0;
-    nome = "";
-    cognome = "";
-    email = e;
-    password = p;
+  id_utente = 0;
+  nome = "";
+  cognome = "";
+  email = e;
+  password = p;
 }
 
 // Costruttore specifico a quattro parametri per la procedura di creazione utente
 Utente::Utente(string n, string c, string e, string p) {
-    id_utente = id_u;
-    nome = n;
-    cognome = c;
-    email = e;
-    password = p;
+  id_utente = id_u;
+  nome = n;
+  cognome = c;
+  email = e;
+  password = p;
 }
 
 int Utente::get_idutente() const {
-    return id_utente;
+  return id_utente;
 }
 
 string Utente::get_nome() const {
-    return nome;
+  return nome;
 }
 
 string Utente::get_cognome() const {
-    return cognome;
+  return cognome;
 }
 
 string Utente::get_email() const {
-    return email;
+  return email;
 }
 
 string Utente::get_password() const {
-    return password;
+  return password;
 }
 
 Bacheca* Utente::get_bacheca() {
-    return (&bacheca);
+  return (&bacheca);
 }
 
 // Metodo che stampa i dati di un utente
 void Utente::stampa() {
-    cout << id_utente << endl;
-    cout << nome << endl;
-    cout << cognome << endl;
-    cout << email << endl;
-    cout << password << endl << endl;
+  cout << id_utente << endl;
+  cout << nome << endl;
+  cout << cognome << endl;
+  cout << email << endl;
+  cout << password << endl << endl;
 }
 
 // Schermata iniziale che si visualizza una volte autenticato correttamente
 void Utente::schermata_iniziale() {
-    int s = 7;
-    string input = "";
-    do{ 
-	//che belo l menu tuto pulito ara
-	//system("CLS");
-	
-	if ((s < 1) || (s > 7)) {
+
+  int s = 7;
+  string input = "";
+  
+  while (true) {
+    do { 
+	    if ((s < 1) || (s > 7)) {
         cout << "Errore: Scelta non possibile" << endl << endl;
-    }
+      }
     
-	//schermata iniziale
-    cout << "Benvenuto!" << endl;
-    cout << "Seleziona la funzione desiderata:" << endl;
-    cout << "1. Gestisci amicizie" << endl;
-    cout << "2. Visualizza i post degli amici" << endl;
-    cout << "3. Visualizza la tua bacheca" << endl;
-    cout << "4. Visualizza e modifica il tuo profilo" << endl;
-    cout << "5. Visualizza il profilo e la bacheca di un amico" << endl;
-    cout << "6. Crea post" << endl;
-    cout << "7. Logout" << endl;
+	    //schermata iniziale
+      cout << "Benvenuto!" << endl;
+      cout << "Seleziona la funzione desiderata:" << endl;
+      cout << "1. Gestisci amicizie" << endl;
+      cout << "2. Visualizza i post degli amici" << endl;
+      cout << "3. Visualizza la tua bacheca" << endl;
+      cout << "4. Visualizza e modifica il tuo profilo" << endl;
+      cout << "5. Visualizza il profilo e la bacheca di un amico" << endl;
+      cout << "6. Crea post" << endl;
+      cout << "7. Logout" << endl;
 	
-	//controllo input non-int
- 	while (true) {
+	    //controllo input non-int
+ 	    while (true) {
  	   		cin.clear();
   			getline(cin, input);
   			
    			//Questo codice converte da stringa a int in modo sicuro
    			stringstream myStream(input);
    			if (myStream >> s)
-     				break;
+     		  break;
    			cout << "Errore: numero non valido" << endl;
- 	}
+ 	    }
  	
-    cout << endl;
+      cout << endl;
     
-    
-    switch (s) {
+      switch (s) {
        case 1:
-          // Amicizie
+          gestisci_amicizie();
           break;
        case 2:
           
@@ -127,12 +126,12 @@ void Utente::schermata_iniziale() {
     cout << "Logout effettuato!" << endl << endl;
     logout();	
     //}
-    
+    }
 }
 
 // Metodo di logout, rimanda alla schermata di autenticazione
 void Utente::logout() {
-    applicazione.schermata_autenticazione();
+    return;
 }
 
 void Utente::visualizza_profilo(){
@@ -253,7 +252,8 @@ void Utente::visualizza_bacheca() {
     map<int,Post>::reverse_iterator iter;
     for (iter = get_bacheca()->get_listapost()->rbegin(); iter != get_bacheca()->get_listapost()->rend(); iter++) {
        cout << "ID Post: " << iter->first << endl;
-       cout << iter->second.get_testo() << endl << endl;
+       cout << iter->second.get_testo() << endl;
+       cout << iter->second.get_tempo() << endl << endl;
     }
                                    
        int s;
@@ -304,4 +304,34 @@ void Utente::visualizza_amici() {
           continue;
        }
     }
+}
+
+void Utente::aggiungi_amico() {
+    cout << "Seleziona l'utente di cui vuoi diventare amico:" << endl;
+}
+
+void Utente::gestisci_amicizie() {
+    int s=4;
+    cout << "Seleziona la funzione desiderata:" << endl;
+    cout << "1. Richiedi amicizia" << endl;
+    cout << "2. Accetta/rifiuta amicizia" << endl;
+    cout << "3. Cancella amicizia" << endl;
+    cout << "Premi 0 per tornare alla schermata iniziale" << endl;
+    cin >> s;
+    
+    
+    switch (s) {
+        case 0:
+          return;
+        case 1:
+          cout << "Richiedi amicizia" << endl;
+          break;
+        case 2:
+          cout << "A/R amicizia" << endl;
+          break;
+        case 3:
+          cout << "Canc amicizia" << endl;
+          break;
+             
+}
 }

@@ -11,26 +11,44 @@ Post::Post(string _testo){
 	id_post = id_p;
 	id_p++;
 	
-	data temp;
+	Data temp;
 	temp.imposta_dataOra();
 	tempo = temp;
-	
+
 	testo = _testo;
 }
 
 Post::Post(int _id, string _autore, string _testo) {
-    id_post = _id;
-    autore = _autore;
-    testo = _testo;
+  id_post = _id;
+  autore = _autore;
+    
+  Data temp;
+	temp.imposta_dataOra();
+	tempo = temp;
+	
+  testo = _testo;
+}
+
+Post::Post(int _id, string _autore, string _testo, Data _tempo) {
+  id_post = _id;
+  autore = _autore;
+    
+  tempo = _tempo;
+	
+  testo = _testo;
 }
 
 int Post::get_post() const {
     return id_post;
 }
 
-int Post::get_idpost()const{
+int Post::get_idpost () const {
       return id_p; 
-}    
+}
+
+Data Post::get_tempo() const {
+  return tempo;
+}
 
 string Post::get_testo() const {
     return testo;

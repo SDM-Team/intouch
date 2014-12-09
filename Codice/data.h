@@ -16,6 +16,7 @@ class Data{
       public:
              Data();
              Data(int _g, int _m, int _a);
+             Data(int _g, int _m, int _a, int _o, int _min);
              friend ostream& operator<<(ostream& os,const Data& d); 
              void imposta_data();
              void imposta_dataOra();

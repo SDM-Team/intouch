@@ -12,7 +12,7 @@ using namespace std;
 class Commento{
 	private:
 		int id_commento;
-		data tempo;
+		Data tempo;
 		string testo;
 	public:
 		Commento(string _t);

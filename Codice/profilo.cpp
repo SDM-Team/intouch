@@ -31,7 +31,7 @@ string Profilo::get_situasent() {
     return situasent;
 }
 
-data Profilo::get_datanasc() {
+Data Profilo::get_datanasc() {
     return datanasc;
 }
 
@@ -52,7 +52,7 @@ void Profilo::set_situasent(const string& _situasent) {
 }
 
 void Profilo::set_datanasc() {
-    data d;
+    Data d;
     d.imposta_data();
     datanasc = d;
 }

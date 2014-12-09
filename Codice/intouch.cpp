@@ -15,12 +15,14 @@ InTouch::InTouch() {
 void InTouch::schermata_autenticazione() {
     int s = 3;
     string input = "";
-     do{
-     	//system("CLS");
+     while(true) {
+     do {
      	
      	//controllo range int input
      	if ((s < 1) || (s > 3)) {
+          system("CLS");
           cout << "Errore: Scelta non possibile" << endl << endl;
+          schermata_autenticazione();
        }
        
        //voci menu
@@ -39,7 +41,9 @@ void InTouch::schermata_autenticazione() {
    			stringstream myStream(input);
    			if (myStream >> s)
      				break;
-   			cout << "Errore: numero non valido" << endl;
+   			system("CLS");
+         cout << "Errore: numero non valido" << endl << endl;
+         schermata_autenticazione();
  		}
  		
        cout << endl;
@@ -48,15 +52,18 @@ void InTouch::schermata_autenticazione() {
     
     switch (s) {
        case 1:
+          system("CLS");
           registrazione();
           break;
        case 2:
+          system("CLS");
           login();
           break;
        case 3:
           exit(1);
           break;
     }
+}
 }
 
 // Metodo di login
@@ -78,9 +85,11 @@ void InTouch::login() {
     
     if (!(utente_esiste(u))) {
        // Se l'utente non esiste stampa un messaggio di errore e rimanda alla schermata di autenticazione
+       system("CLS");
        cout << "Errore: Indirizzo email non registrato" << endl << endl;
        schermata_autenticazione();
     } else if (check_login(u)) {
+       system("CLS");
        // Se l'utente esiste e la password inserita è corretta rimanda alla schermata principale
        cout << "Login riuscito!" << endl << endl;
 
@@ -91,6 +100,7 @@ void InTouch::login() {
     } else {
        // Se l'utente esiste ma la password inserita non è corretta stampa un messaggio di errore
        // e rimanda alla schermata di autenticazione
+       system("CLS");
        cout << "Errore: Mancata corrispondenza tra indirizzo email e password" << endl << endl;
        schermata_autenticazione();
     }
@@ -128,15 +138,16 @@ void InTouch::registrazione() {
     
     switch (s) {
        case 0:
-          schermata_autenticazione();
           break;
        case 1:
           Utente u(nome,cognome,email,password);
           
           if (utente_esiste(u)) {
              // Se l'utente esiste già stampa un messaggio di errore e rimanda alla schermata di autenticazione
+             system("CLS");
              cout << "Errore: Indirizzo email gia' registrato" << endl << endl;
           } else {
+                 system("CLS");
              // Se l'utente non esiste ancora richama la funzione di creazione utente
              aggiungi_utente(u);
           }
@@ -232,10 +243,27 @@ void InTouch::importa_post() {
        // token autore
        string autore = strtok (NULL,";");
        
+       // token giorno
+       int giorno = atoi(strtok(NULL,"/"));
+       
+       // token mese
+       int mese = atoi(strtok(NULL,"/"));
+       
+       // token anno
+       int anno = atoi(strtok(NULL," "));
+       
+       // token ora
+       int ora = atoi(strtok(NULL,":"));
+       
+       // token minuti
+       int minuti = atoi(strtok(NULL,";"));
+       
        // token testo
        string testo = strtok (NULL,";");
        
-       Post p(id_post,autore,testo);
+       Data temp(giorno,mese,anno,ora,minuti);
+       
+       Post p(id_post,autore,testo,temp);
        
        map<string,Utente>::iterator iter;
        
