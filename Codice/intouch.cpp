@@ -232,19 +232,16 @@ void InTouch::importa_post() {
        // token autore
        string autore = strtok (NULL,";");
        
-       // token titolo
-       string titolo = strtok (NULL,";");
-       
        // token testo
        string testo = strtok (NULL,";");
        
-       Post p(id_post,autore,titolo,testo);
+       Post p(id_post,autore,testo);
        
        map<string,Utente>::iterator iter;
        
        iter = lista_utenti.find(autore);
        
-       iter->second.get_bacheca()->get_listapost().insert(pair<int,Post> (id_post,p));
+       iter->second.get_bacheca()->get_listapost()->insert(pair<int,Post> (id_post,p));
        
        id_p = id_post + 1;
     } 

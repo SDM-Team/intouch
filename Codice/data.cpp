@@ -1,42 +1,74 @@
 #include "data.h"
 
-data::data(){
-             giorno=1;
-             mese=1;
-             anno=0;
-			 ore=88;
-			 minuti=88;             
+// Costruttore di default
+Data::Data() {
+  giorno = 1;
+  mese = 1;
+  anno = 0;
+	ore = 88;
+	minuti = 88;             
 }
 
-data::data(int _g, int _m, int _a){
-               giorno= _g;
-               mese= _m;
-               anno= _a;  
-			   ore=88;
-			   minuti=88;             
+// Costruttore specifico
+Data::Data(int _g, int _m, int _a) {
+  giorno =  _g;
+  mese =  _m;
+  anno =  _a;  
+	ore = 88;
+	minuti = 88;             
 }
 
-//l'operatore<< aggiunge anche uno zero se il numero è valido e <10
-ostream& operator<<(ostream& os,const data& d){
-			
-               if(d.giorno>0 && d.giorno<10){os << "0"; } os<<d.giorno<<"/";
-			   if(d.mese>0 && d.mese<10){os << "0"; } os<<d.mese<<"/"
-			   <<d.anno;
+// L'operatore << aggiunge anche uno zero se il numero è valido e < 10
+ostream& operator << (ostream& os,const Data& d) {
+  
+  // Se il giorno è tra 0 e 9 aggiunge uno 0 prima
+  if((d.giorno > 0) && (d.giorno < 10)) {
+    os << "0";
+  }
+
+  os<<d.giorno<<"/";
+
+  // Se il mese è tra 0 e 9 aggiunge uno 0 prima
+  if((d.mese > 0) && (d.mese < 10)) {
+    os << "0";
+  }
+
+  os << d.mese << "/" << d.anno;
+
+  // Se le ore sono tra 0 e 24 e i minuti tra 0 e 60 (fatto per non considerare l'ora di default 88:88
+  if (((d.ore >= 0) && (d.ore <= 24)) && ((d.minuti >= 0) && (d.minuti < 60))) {
+    os << "Ora: ";
+		
+    // Se l'ora è tra 0 e 9 aggiunge uno 0 prima
+    if (d.ore < 10) {
+      os << "0";
+    }
+    
+    os<<d.ore<<":";
+    
+    // Se i minuti sono tra 0 e 9 aggiunge uno 0 prima
+    if (d.minuti < 10) {
+      os << "0";
+    }
+    
+    os<<d.minuti;	   
+  }
 			   
-			   if((d.ore>=0 && d.ore <=24) && (d.minuti>=0 && d.minuti<60)){
-			   					os<<" Ora: ";
-								if(d.ore<10){os << "0"; } os<<d.ore<<":";
-								if(d.minuti<10){os << "0"; } os<<d.minuti;	   
-			   }
-			   
-               return os;               
+  return os;               
 }
 
-void data::imposta_data(){
-                          printf("Inserire giorno: "); cin>>giorno; cin.ignore();  //FUNZIONE??                                              
-                          while((giorno<1)||(giorno>31)){
-                                               if((giorno<1)||(giorno>31)){printf("Errore scelta non possibile\n");}
-                                               printf("Inserire giorno: "); cin>>giorno; cin.ignore();                     
+// Funzione per impostare la data
+void Data::imposta_data(){  
+  cout << "Inserire giorno: ";
+  cin >> giorno;
+  cin.ignore();
+  cout << endl;
+
+  while ((giorno < 1) || (giorno > 31)) {
+    if ((giorno < 1) || (giorno > 31)) {
+      cout << "Errore: giorno non esistente" << endl;
+    }
+    printf("Inserire giorno: "); cin>>giorno; cin.ignore();                     
                           }                                                                           
                           printf("Inserire mese: "); cin>>mese; cin.ignore();                            
                           while((mese<1)||(mese>12)){
@@ -50,7 +82,7 @@ void data::imposta_data(){
                           }                           
 }
 
-void data::imposta_dataOra(){
+void Data::imposta_dataOra(){
     time_t t = time(0);   //tempo corrente
     struct tm * now = localtime( & t );
 		 

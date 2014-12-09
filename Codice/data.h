@@ -6,7 +6,7 @@
 
 using namespace std;
 
-class data{
+class Data{
       private:
               int giorno;
               int mese;
@@ -14,9 +14,9 @@ class data{
               int ore;
               int minuti;
       public:
-             data();
-             data(int _g, int _m, int _a);
-             friend ostream& operator<<(ostream& os,const data& d); 
+             Data();
+             Data(int _g, int _m, int _a);
+             friend ostream& operator<<(ostream& os,const Data& d); 
              void imposta_data();
              void imposta_dataOra();
        

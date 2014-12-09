@@ -1,43 +1,54 @@
 #include <cstdlib>
 #include <iostream>
 #include <string>
-#include "bacheca.h"
 #include <sstream>
 #include <fstream>
+
+#include "bacheca.h"
+
 using namespace std;
 
+// Richiamo la variabile globale id_p per il tracciamento degli ID univoci dei post
 extern int id_p;
 
+// Funzione che permette l'aggiunta di un post alla bacheca dell'utente
 void Bacheca::aggiungi_post(const string _email){
-   int s;
-   string titolo;
-   string testo;
-   
-   cout<<"Inserire Titolo Post: "<<endl;
-   cin >> titolo;
-   cout<<"Inserire Testo Post: "<<endl;
-   cin >> testo;
-   cout<<"Per confermare e aggiungere il post alla tua Bacheca premi 1: ";
-   cin>>s;
+  int s;
+  string titolo;
+  string testo;
 
-   if (s == 1) {
-      Post p(id_p,_email,titolo,testo);
-      lista_post.insert(pair<int,Post> (p.get_idpost(),p));
-             
-      ofstream post("post.csv", ios::app);
+  cout << "Inserire Testo Post: " << endl;
+  getline(cin,testo);
+  cout << "Per confermare e aggiungere il post alla tua Bacheca premi 1: ";
+  cin >> s;
+
+  if (s == 1) {
+    // Creo un post con le informazioni date
+    Post p(id_p,_email,testo);
     
-      post << id_p << ";";
-      post << _email << ";";
-      post << titolo << ";";
-      post << testo << endl;
-    
-      post.close();
+    // Inserisco il post nel map dei post (id,post)
+    lista_post.insert(pair<int,Post> (p.get_idpost(),p));
+
+    // Apro un flusso su file in scrittura
+    ofstream post("post.csv", ios::app);
+
+    // Scrivo dati su file
+    post << id_p << ";";
+    post << _email << ";";
+    post << testo << endl;
+
+    // Chiudo il flusso su file
+    post.close();
       
-      id_p++;
-    } else {return;}
-                    
+    // Una volta aggiunto un post, incremento l'ID successivo
+    id_p++;
+    
+  } else {
+    return;
+  }
 }
 
-map<int,Post> Bacheca::get_listapost() const {
-    return lista_post;
+// Restituisce un puntatore alla lista dei post
+map<int,Post>* Bacheca::get_listapost() {
+    return &lista_post;
 }

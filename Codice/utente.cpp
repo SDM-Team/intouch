@@ -251,9 +251,8 @@ void Utente::modifica_profilo(){
 void Utente::visualizza_bacheca() {
     cout<< "Bacheca di " << get_nome() << " " << get_cognome()<<endl;
     map<int,Post>::reverse_iterator iter;
-    for (iter = get_bacheca()->get_listapost().rbegin(); iter != get_bacheca()->get_listapost().rend(); iter++) {
+    for (iter = get_bacheca()->get_listapost()->rbegin(); iter != get_bacheca()->get_listapost()->rend(); iter++) {
        cout << "ID Post: " << iter->first << endl;
-       cout << "Titolo: " << iter->second.get_titolo() << endl;
        cout << iter->second.get_testo() << endl << endl;
     }
                                    

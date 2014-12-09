@@ -8,6 +8,7 @@
 
 using namespace std;
 
+// Dichiarazione classe Commento
 class Commento{
 	private:
 		int id_commento;
@@ -18,6 +19,4 @@ class Commento{
 		void visualizza_commento();
 };
 
-
 #endif
-
