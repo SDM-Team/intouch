@@ -11,6 +11,10 @@ InTouch::InTouch() {
     importa_post();
 }
 
+map<string,Utente> InTouch::get_listautenti() {
+    return lista_utenti;
+}
+
 // Schermata iniziale per registrarsi o autenticarsi nell'applicazione
 void InTouch::schermata_autenticazione() {
     int s = 3;

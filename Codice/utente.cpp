@@ -98,63 +98,63 @@ void Utente::schermata_iniziale() {
       cout << endl;
     
       switch (s) {
-       case 1:
+        case 1:
           gestisci_amicizie();
           break;
-       case 2:
+        case 2:
           
           break;
-       case 3:
+        case 3:
           visualizza_bacheca();
           break;
-       case 4:
+        case 4:
           visualizza_profilo();
           break;
-       case 5:
+        case 5:
           // Profilo e bacheca amico
           break;
-       case 6:
+        case 6:
           // Crea post
           bacheca.aggiungi_post(email);
           break;
-       case 7:
+        case 7:
           break;
     	}
-	}while(s != 7);
+	  } while(s != 7);
     
     //if (s == 7){
     cout << "Logout effettuato!" << endl << endl;
     logout();	
     //}
-    }
+  }
 }
 
 // Metodo di logout, rimanda alla schermata di autenticazione
 void Utente::logout() {
-    return;
+  return;
 }
 
 void Utente::visualizza_profilo(){
-         int s=0;
-         string input = "";
+  int s=0;
+  string input = "";
          
-         
-         //Prendo il nome e cognome dell'utente e le informazioni sono di default se non modificate
-         cout << "[" << get_nome() << " " << get_cognome() << "]" << endl;
-         cout << "Sesso: "<< profilo.get_sesso() <<endl;
-         cout << "Professione: " << profilo.get_professione() <<endl;
-         cout << "Situazione Sentimentale: " << profilo.get_situasent() <<endl;
-         cout << "Data di nascita: " << profilo.get_datanasc() <<endl;
-         cout << "Luogo di nascita: " << profilo.get_luogonasc() <<endl<<endl; 
-                  
-         cout << "Per modificare il tuo profilo premi 1"<<endl;
-         cout << "Per tornare alla schermata iniziale premi 0"<<endl<<endl;
-        
-         do{
-              if((s<0)||(s>1)){cout<< "Errore scelta non possibile"<<endl;
-                               cout<< "Per modificare il tuo profilo premi 1"<<endl;
-                               cout<< "Per tornare alla schermata iniziale premi 0"<<endl<<endl;
-                               }
+  //Prendo il nome e cognome dell'utente e le informazioni sono di default se non modificate
+  cout << "[" << get_nome() << " " << get_cognome() << "]" << endl;
+  cout << "Sesso: "<< profilo.get_sesso() <<endl;
+  cout << "Professione: " << profilo.get_professione() <<endl;
+  cout << "Situazione Sentimentale: " << profilo.get_situasent() <<endl;
+  cout << "Data di nascita: " << profilo.get_datanasc() <<endl;
+  cout << "Luogo di nascita: " << profilo.get_luogonasc() <<endl<<endl; 
+  
+  cout << "Per modificare il tuo profilo premi 1"<<endl;
+  cout << "Per tornare alla schermata iniziale premi 0"<<endl<<endl;
+  
+  do {
+    if((s < 0)||(s > 1)) {
+      cout << "Errore scelta non possibile" << endl;
+      cout << "Per modificare il tuo profilo premi 1" << endl;
+      cout << "Per tornare alla schermata iniziale premi 0" << endl<<endl;
+    }
          //controllo input non-int
  	     while (true) {
  	   		cin.clear();
@@ -306,10 +306,6 @@ void Utente::visualizza_amici() {
     }
 }
 
-void Utente::aggiungi_amico() {
-    cout << "Seleziona l'utente di cui vuoi diventare amico:" << endl;
-}
-
 void Utente::gestisci_amicizie() {
     int s=4;
     cout << "Seleziona la funzione desiderata:" << endl;
@@ -324,7 +320,7 @@ void Utente::gestisci_amicizie() {
         case 0:
           return;
         case 1:
-          cout << "Richiedi amicizia" << endl;
+//        richiedi_amicizia();
           break;
         case 2:
           cout << "A/R amicizia" << endl;

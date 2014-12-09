@@ -39,7 +39,6 @@ class Utente {
        void visualizza_bacheca();
        void modifica_bacheca();
        void visualizza_amici();
-       void aggiungi_amico();
        void gestisci_amicizie();
 };
 
