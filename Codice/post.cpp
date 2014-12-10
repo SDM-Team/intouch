@@ -7,16 +7,18 @@ using namespace std;
 int id_p = 1;
 
 //costruttore specifico per creazione post senza titolo con timestamp corrente
-Post::Post(string _testo){
+/*Post::Post(string _autore, string _testo){
 	id_post = id_p;
 	id_p++;
 	
 	Data temp;
 	temp.imposta_dataOra();
 	tempo = temp;
+	
+	autore = _autore;
 
 	testo = _testo;
-}
+}*/
 
 Post::Post(int _id, string _autore, string _testo) {
   id_post = _id;

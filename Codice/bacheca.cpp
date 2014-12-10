@@ -1,10 +1,10 @@
 #include <cstdlib>
 #include <iostream>
 #include <string>
-#include <sstream>
 #include <fstream>
 
 #include "bacheca.h"
+#include "input.h"
 
 using namespace std;
 
@@ -14,7 +14,6 @@ extern int id_p;
 // Funzione che permette l'aggiunta di un post alla bacheca dell'utente
 void Bacheca::aggiungi_post(const string _email){
   int s;
-  string titolo;
   string testo;
 
   // Inserimento testo
@@ -22,8 +21,9 @@ void Bacheca::aggiungi_post(const string _email){
   getline(cin,testo);
   
   // Conferma
-  cout << "Per confermare e aggiungere il post alla tua Bacheca premi 1: ";
-  cin >> s;
+  cout << "Per confermare e aggiungere il post alla tua Bacheca premi 1: "<<endl;
+  cout << "Per tornare alla schermata iniziale premi 0"<<endl<<endl;
+  s = inputInt(0,1);
 
   if (s == 1) {
     // Creo un post con le informazioni date

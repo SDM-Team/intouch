@@ -21,7 +21,7 @@ class Post{
 		string autore;
 		list<Commento> lista_commenti;
 	public:
-		Post(string _testo);
+		//Post(string _autore, string _testo);
 		Post(int _id, string _autore, string _testo);
 		Post(int _id, string _autore, string _testo, Data _tempo);
 		int get_post() const;

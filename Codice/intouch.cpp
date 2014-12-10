@@ -1,6 +1,8 @@
 #include <sstream>
 #include <fstream>
+#include <cstring>
 #include "intouch.h"
+#include "input.h"
 
 extern int id_u;
 extern int id_p;
@@ -17,57 +19,32 @@ map<string,Utente> InTouch::get_listautenti() {
 
 // Schermata iniziale per registrarsi o autenticarsi nell'applicazione
 void InTouch::schermata_autenticazione() {
-    int s = 3;
-    string input = "";
-     while(true) {
-     do {
-     	
-     	//controllo range int input
-     	if ((s < 1) || (s > 3)) {
-          system("CLS");
-          cout << "Errore: Scelta non possibile" << endl << endl;
-          schermata_autenticazione();
-       }
+  int s = 3;
+  while(true) {
        
-       //voci menu
-       cout << "Benvenuto!" << endl;
-       cout << "Seleziona cosa vuoi fare:" << endl;
-       cout << "1. Registrati" << endl;
-       cout << "2. Autenticati" << endl;
-       cout << "3. Chiudi applicazione" << endl;
+    //voci menu
+    cout << "Benvenuto!" << endl;
+    cout << "Seleziona cosa vuoi fare:" << endl;
+    cout << "1. Registrati" << endl;
+    cout << "2. Autenticati" << endl;
+    cout << "3. Chiudi applicazione" << endl;
        
-	   //controllo input non-int GESTIRE INVIO
- 	   while (true) {
- 	   		cin.clear();
-  			getline(cin, input);
-  			
-   			//Questo codice converte da stringa a int in modo sicuro
-   			stringstream myStream(input);
-   			if (myStream >> s)
-     				break;
-   			system("CLS");
-         cout << "Errore: numero non valido" << endl << endl;
-         schermata_autenticazione();
- 		}
- 		
-       cout << endl;
-       
-    }while ((s < 1) || (s > 3));
-    
+ 	s = inputInt(1,3);
+
     switch (s) {
-       case 1:
-          system("CLS");
-          registrazione();
-          break;
-       case 2:
-          system("CLS");
-          login();
-          break;
-       case 3:
-          exit(1);
-          break;
+      case 1:
+        system("CLS");
+        registrazione();
+    	break;
+      case 2:
+        system("CLS");
+        login();
+        break;
+      case 3:
+        exit(1);
+        break;
     }
-}
+  }
 }
 
 // Metodo di login
@@ -77,23 +54,20 @@ void InTouch::login() {
     
     // Inserimento email
     cout << "Inserisci il tuo indirizzo email: ";
-    cin >> email;
+    email = inputString(MAXLUN);
     
     // Inserimento password
     cout << "Inserisci la tua password: ";
-    cin >> password;
-    cin.ignore();
-    cout << endl;
+    //password = inputString(MAXLUN);
+    password = inputPassword(MAXLUN);
     
     Utente u(email,password);
     
+    system("CLS");
     if (!(utente_esiste(u))) {
        // Se l'utente non esiste stampa un messaggio di errore e rimanda alla schermata di autenticazione
-       system("CLS");
        cout << "Errore: Indirizzo email non registrato" << endl << endl;
-       schermata_autenticazione();
     } else if (check_login(u)) {
-       system("CLS");
        // Se l'utente esiste e la password inserita è corretta rimanda alla schermata principale
        cout << "Login riuscito!" << endl << endl;
 
@@ -104,9 +78,7 @@ void InTouch::login() {
     } else {
        // Se l'utente esiste ma la password inserita non è corretta stampa un messaggio di errore
        // e rimanda alla schermata di autenticazione
-       system("CLS");
        cout << "Errore: Mancata corrispondenza tra indirizzo email e password" << endl << endl;
-       schermata_autenticazione();
     }
 }
 
@@ -119,26 +91,27 @@ void InTouch::registrazione() {
     string password;
     
     // Inserimento nome
-    cout << "Inserisci il tuo nome: ";
-    cin >> nome;
+    cout << "Inserisci il tuo nome (max " << MAXLUN << " caratteri): ";
+    nome = inputString(MAXLUN);
     
     // Inserimento cognome
-    cout << "Inserisci il tuo cognome: ";
-    cin >> cognome;
+    cout << "Inserisci il tuo cognome (max " << MAXLUN << " caratteri): ";
+    cognome = inputString(MAXLUN);
     
     // Inserimento email
-    cout << "Inserisci il tuo indirizzo email: ";
-    cin >> email;
+    cout << "Inserisci il tuo indirizzo email (max " << MAXLUN << " caratteri): ";
+    email = inputString(MAXLUN);
     
     // Inserimento password
-    cout << "Inserisci una password: ";
-    cin >> password;
+    cout << "Inserisci una password (max " << MAXLUN << " caratteri): ";
+    password = inputString(MAXLUN);
+    
     
     cout << "Premi 1 per confermare la registrazione," << endl;
     cout << "Premi 0 per annullare e tornare alla schermata di accesso" << endl;
-    cin >> s;
+    
+    s = inputInt(0,1);
     cout << endl;
-    cin.ignore();
     
     switch (s) {
        case 0:
@@ -159,7 +132,7 @@ void InTouch::registrazione() {
     }
 
     // In ogni caso rimanda alla schermata di autenticazione per registrarsi o effettuare il login
-    schermata_autenticazione();
+    
 }
 
 // Metodo che controlla se un utente esiste già o meno

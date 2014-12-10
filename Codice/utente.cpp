@@ -1,9 +1,9 @@
 #include "utente.h"
 #include "intouch.h"
-#include <sstream>
 
 //per le prove
 #include "post.h"
+#include "input.h"
 
 extern InTouch applicazione;
 
@@ -64,14 +64,9 @@ void Utente::stampa() {
 void Utente::schermata_iniziale() {
 
   int s = 7;
-  string input = "";
-  
-  while (true) {
+  string t;
     do { 
-	    if ((s < 1) || (s > 7)) {
-        cout << "Errore: Scelta non possibile" << endl << endl;
-      }
-    
+	   
 	    //schermata iniziale
       cout << "Benvenuto!" << endl;
       cout << "Seleziona la funzione desiderata:" << endl;
@@ -83,26 +78,15 @@ void Utente::schermata_iniziale() {
       cout << "6. Crea post" << endl;
       cout << "7. Logout" << endl;
 	
-	    //controllo input non-int
- 	    while (true) {
- 	   		cin.clear();
-  			getline(cin, input);
-  			
-   			//Questo codice converte da stringa a int in modo sicuro
-   			stringstream myStream(input);
-   			if (myStream >> s)
-     		  break;
-   			cout << "Errore: numero non valido" << endl;
- 	    }
- 	
-      cout << endl;
-    
+	  s = inputInt(1,7);
+      
+      system("CLS");
       switch (s) {
         case 1:
           gestisci_amicizie();
           break;
         case 2:
-          
+    	  
           break;
         case 3:
           visualizza_bacheca();
@@ -126,7 +110,7 @@ void Utente::schermata_iniziale() {
     cout << "Logout effettuato!" << endl << endl;
     logout();	
     //}
-  }
+  
 }
 
 // Metodo di logout, rimanda alla schermata di autenticazione
@@ -136,163 +120,140 @@ void Utente::logout() {
 
 void Utente::visualizza_profilo(){
   int s=0;
-  string input = "";
-         
-  //Prendo il nome e cognome dell'utente e le informazioni sono di default se non modificate
-  cout << "[" << get_nome() << " " << get_cognome() << "]" << endl;
-  cout << "Sesso: "<< profilo.get_sesso() <<endl;
-  cout << "Professione: " << profilo.get_professione() <<endl;
-  cout << "Situazione Sentimentale: " << profilo.get_situasent() <<endl;
-  cout << "Data di nascita: " << profilo.get_datanasc() <<endl;
-  cout << "Luogo di nascita: " << profilo.get_luogonasc() <<endl<<endl; 
   
-  cout << "Per modificare il tuo profilo premi 1"<<endl;
-  cout << "Per tornare alla schermata iniziale premi 0"<<endl<<endl;
+  do{       
+      //Prendo il nome e cognome dell'utente e le informazioni sono di default se non modificate
+    cout << "[" << get_nome() << " " << get_cognome() << "]" << endl;
+    cout << "Sesso: "<< profilo.get_sesso() <<endl;
+    cout << "Professione: " << profilo.get_professione() <<endl;
+    cout << "Situazione Sentimentale: " << profilo.get_situasent() <<endl;
+    cout << "Data di nascita: " << profilo.get_datanasc() <<endl;
+    cout << "Luogo di nascita: " << profilo.get_luogonasc() <<endl<<endl; 
   
-  do {
-    if((s < 0)||(s > 1)) {
-      cout << "Errore scelta non possibile" << endl;
-      cout << "Per modificare il tuo profilo premi 1" << endl;
-      cout << "Per tornare alla schermata iniziale premi 0" << endl<<endl;
-    }
-         //controllo input non-int
- 	     while (true) {
- 	   		cin.clear();
-  			getline(cin, input);
-  			
-   			//Questo codice converte da stringa a int in modo sicuro
-   			stringstream myStream(input);
-   			if (myStream >> s)
-     				break;
-   			cout << "Errore: numero non valido" << endl;
-   			
- 	  }
-         
-         }while((s<0)||(s>1));
-                                                                                     
-         switch(s){
-                   case 0: schermata_iniziale(); break;
-                   case 1: modifica_profilo(); break;          
-         } 
-                                            
+    cout << "Per modificare il tuo profilo premi 1"<<endl;
+    cout << "Per tornare alla schermata iniziale premi 0"<<endl;
+  
+    s = inputInt(0,1);
+    
+    system("CLS");                                                                            
+    switch(s){
+      case 0: 
+		return; //ritorna alla schermata iniziale
+      case 1: 
+		modifica_profilo();
+		break;          
+    } 
+  }while(s!=0);
 }
 
 void Utente::modifica_profilo(){
-         int s=1;
-         string input = "";
-         cout<< "1. Sesso: "<< profilo.get_sesso()<<endl;
-         cout<< "2. Professione: "<<profilo.get_professione()<<endl;
-         cout<< "3. Situazione Sentimentale: "<<profilo.get_situasent()<<endl;
-         cout<< "4. Data di nascita: "<<profilo.get_datanasc()<<endl;
-         cout<< "5. Luogo di nascita: "<< profilo.get_luogonasc()<<endl<<endl; 
-         cout<< "Per modificare i campi selezionare il numero corrispondente: "<<endl;
-         cout<< "Per tornare alla schermata iniziale premi 0 "<<endl<<endl;
+  int s=1;
+  cout << "[" << get_nome() << " " << get_cognome() << "]" << endl;
+  cout<< "1. Sesso: "<< profilo.get_sesso()<<endl;
+  cout<< "2. Professione: "<<profilo.get_professione()<<endl;
+  cout<< "3. Situazione Sentimentale: "<<profilo.get_situasent()<<endl;
+  cout<< "4. Data di nascita: "<<profilo.get_datanasc()<<endl;
+  cout<< "5. Luogo di nascita: "<< profilo.get_luogonasc()<<endl<<endl; 
+  cout<< "Per modificare i campi selezionare il numero corrispondente: "<<endl;
+  cout<< "Per tornare alla schermata iniziale premi 0 "<<endl;
          
-		  do{
-              if((s<1)||(s>5)){cout<< "Errore scelta non possibile"<<endl;
-                               cout<< "Per modificare i campi selezionare il numero corrispondente: "<<endl;
-                               cout<< "Per tornare alla schermata iniziale premi 0"<<endl<<endl;
-                               }
-         //controllo input non-int
- 	     while (true) {
- 	   		cin.clear();
-  			getline(cin, input);
-  			
-   			//Questo codice converte da stringa a int in modo sicuro
-   			stringstream myStream(input);
-   			if (myStream >> s)
-     				break;
-   			cout << "Errore: numero non valido" << endl;
-   			
- 	    }
-        
-        }while((s<1)||(s>5));
-      
+  s = inputInt(0,5);
          
-         string modificaStringa;
+  string modificaStringa;
          
-         switch(s){
-                   case 1:
-                      cout<<"Inserire Sesso: ";
-                      cin >> modificaStringa; cin.ignore();
-                      profilo.set_sesso(modificaStringa);
-                      cout<<endl;
-                      break;
-                   case 2:
-                      cout<<"Inserire Professione: ";
-                      cin>>modificaStringa; cin.ignore();
-                      profilo.set_professione(modificaStringa);
-                      cout<<endl;
-                      break;
-                   case 3:
-                      cout<<"Inserire situazione sentimentale: ";
-                      cin>>modificaStringa; cin.ignore();
-                      profilo.set_situasent(modificaStringa);
-                      cout<<endl;
-                      break;
-                   case 4:
-                      cout<<"Inserire data di nascita: \n";
-                      profilo.set_datanasc();
-                      cout<<endl;
-                      break;
-                   case 5:
-                      cout<<"Inserire Luogo di nascita: ";
-                      cin>>modificaStringa; cin.ignore();
-                      profilo.set_luogonasc(modificaStringa);
-                      cout<<endl;
-                      break;
-         }                                
-         visualizza_profilo();                                    
+  switch(s){
+    case 0:
+	  system("CLS");
+	  return; //rimanda al profilo 
+    case 1:
+      cout<<"Inserire Sesso (max " << MAXLUN << " caratteri): ";
+      modificaStringa = inputString(MAXLUN);
+      profilo.set_sesso(modificaStringa);
+      cout<<endl;
+      break;
+    case 2:
+      cout<<"Inserire Professione (max " << MAXLUN << " caratteri): ";
+      modificaStringa = inputString(MAXLUN);
+      profilo.set_professione(modificaStringa);
+      cout<<endl;
+      break;
+    case 3:
+      cout<<"Inserire situazione sentimentale (max " << MAXLUN << " caratteri): ";
+      modificaStringa = inputString(MAXLUN);
+      profilo.set_situasent(modificaStringa);
+      cout<<endl;
+      break;
+    case 4:
+      cout<<"Inserire data di nascita: \n";
+      profilo.set_datanasc();
+      cout<<endl;
+      break;
+    case 5:
+      cout<<"Inserire Luogo di nascita (max " << MAXLUN << " caratteri): ";
+      modificaStringa = inputString(MAXLUN);
+      profilo.set_luogonasc(modificaStringa);
+      cout<<endl;
+      break;
+  }                                
+  system("CLS");        
+		                            
 }
 
 
 //Bacheca
 void Utente::visualizza_bacheca() {
-    cout<< "Bacheca di " << get_nome() << " " << get_cognome()<<endl;
-    map<int,Post>::reverse_iterator iter;
+  map<int,Post>::reverse_iterator iter;
+  int s=0;
+  
+  do{
+    
+	cout<< "Bacheca di " << get_nome() << " " << get_cognome()<<endl;
     for (iter = get_bacheca()->get_listapost()->rbegin(); iter != get_bacheca()->get_listapost()->rend(); iter++) {
-       cout << "ID Post: " << iter->first << endl;
-       cout << iter->second.get_testo() << endl;
-       cout << iter->second.get_tempo() << endl << endl;
+      cout << "ID Post: " << iter->first << endl;
+      cout << iter->second.get_testo() << endl;
+      cout << iter->second.get_tempo() << endl << endl;
     }
                                    
-       int s;
-       cout<< "Per modificare la tua bacheca premi 1"<<endl;
-       cout<< "Per tornare alla schermata iniziale premi 0"<<endl<<endl;
-       cin>> s;
-
-       while((s<0)||(s>1)){
-          if((s<0)||(s>1)){cout<< "Errore scelta non possibile"<<endl;}
-          cout<< "Per modificare la tua bacheca premi 1"<<endl;
-          cout<< "Per tornare alla schermata iniziale premi 0"<<endl<<endl;
-          cin >> s;                             
-         }
-         switch(s){
-         case 0: schermata_iniziale(); break;
-         case 1: modifica_bacheca(); break;          
-         }
+    
+    cout<< "Per modificare la tua bacheca premi 1"<<endl;
+    cout<< "Per tornare alla schermata iniziale premi 0"<<endl;
+    s = inputInt(0,1);
+    
+    system("CLS");
+    switch(s){
+      case 0: 
+	    return;
+		//ritorna alla schermata iniziale 
+      case 1: 
+	    modifica_bacheca();
+	    break;          
+    }
+    
+  }while(s!=0);
+   
 }
 
 void Utente::modifica_bacheca(){
+  int s=0;
+  do{
     cout<< "Bacheca di " << get_nome() << " " << get_cognome()<<endl; 
     cout<< "Modifica bacheca"<<endl;
     //opzioni da implementare 
 
-    int s;
     cout<< "Per modificare nuovamente la tua bacheca premi 1"<<endl;
-    cout<< "Per tornare alla schermata iniziale premi 0"<<endl<<endl;
-    cin>> s;
-
-    while((s<0)||(s>1)){
-       if((s<0)||(s>1)){cout<< "Errore scelta non possibile"<<endl;}
-       cout<< "Per modificare nuovamente la tua bacheca premi 1"<<endl;
-       cout<< "Per tornare alla schermata iniziale premi 0"<<endl<<endl;
-       cin >> s;                             
-       }
-       switch(s){
-       case 0: schermata_iniziale(); break;
-       case 1: modifica_bacheca(); break;          
-         }                                         
+    cout<< "Per tornare alla bacheca premi 0"<<endl;
+    s = inputInt(0,1);
+  
+    system("CLS");
+    switch(s){
+      case 0: 
+	    return;
+		//ritorna alla bacheca 
+      case 1: 
+	    break;          
+    }
+  
+  }while(s == 1);                                      
 }
                                     
 void Utente::visualizza_amici() {
@@ -307,27 +268,29 @@ void Utente::visualizza_amici() {
 }
 
 void Utente::gestisci_amicizie() {
-    int s=4;
+  int s=0;
+  do{
     cout << "Seleziona la funzione desiderata:" << endl;
     cout << "1. Richiedi amicizia" << endl;
     cout << "2. Accetta/rifiuta amicizia" << endl;
     cout << "3. Cancella amicizia" << endl;
     cout << "Premi 0 per tornare alla schermata iniziale" << endl;
-    cin >> s;
+    s = inputInt(0,3);
     
-    
+    system("CLS");
     switch (s) {
-        case 0:
-          return;
-        case 1:
-//        richiedi_amicizia();
-          break;
-        case 2:
-          cout << "A/R amicizia" << endl;
-          break;
-        case 3:
-          cout << "Canc amicizia" << endl;
-          break;
-             
-}
+      case 0:
+        return; //riporta alla schermata iniziale
+      case 1:
+//      richiedi_amicizia();
+        break;
+      case 2:
+        cout << "A/R amicizia" << endl;
+        break;
+      case 3:
+        cout << "Canc amicizia" << endl;
+        break;      
+	}
+  }while(s != 0);
+  
 }
