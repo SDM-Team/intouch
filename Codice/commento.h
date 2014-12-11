@@ -14,6 +14,7 @@ class Commento{
 		int id_commento;
 		Data tempo;
 		string testo;
+		string autore;
 	public:
 		Commento(string _t);
 		void visualizza_commento();

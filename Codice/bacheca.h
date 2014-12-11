@@ -14,7 +14,6 @@ class Bacheca {
     map<int,Post> lista_post;
   public:
     void aggiungi_post(const string _email);
-    void importa_post();
     map<int,Post>* get_listapost();
 };
 

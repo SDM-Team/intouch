@@ -11,7 +11,7 @@ using namespace std;
 typedef enum Stato {A,X,R};
 
 // Definizione del tipo di dato Ruolo
-typedef enum Ruolo {RICHIEDENTE,RICEVENTE};
+typedef enum Ruolo {MITTENTE,DESTINATARIO};
 
 // Forward declaration: evita inclusione circolare tra amicizia.h e utente.h
 class Utente;

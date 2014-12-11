@@ -51,15 +51,6 @@ Bacheca* Utente::get_bacheca() {
   return (&bacheca);
 }
 
-// Metodo che stampa i dati di un utente
-void Utente::stampa() {
-  cout << id_utente << endl;
-  cout << nome << endl;
-  cout << cognome << endl;
-  cout << email << endl;
-  cout << password << endl << endl;
-}
-
 // Schermata iniziale che si visualizza una volte autenticato correttamente
 void Utente::schermata_iniziale() {
 
@@ -225,35 +216,11 @@ void Utente::visualizza_bacheca() {
 	    return;
 		//ritorna alla schermata iniziale 
       case 1: 
-	    modifica_bacheca();
 	    break;          
     }
     
   }while(s!=0);
    
-}
-
-void Utente::modifica_bacheca(){
-  int s=0;
-  do{
-    cout<< "Bacheca di " << get_nome() << " " << get_cognome()<<endl; 
-    cout<< "Modifica bacheca"<<endl;
-    //opzioni da implementare 
-
-    cout<< "Per modificare nuovamente la tua bacheca premi 1"<<endl;
-    cout<< "Per tornare alla bacheca premi 0"<<endl;
-    s = inputInt(0,1);
-  
-    system("CLS");
-    switch(s){
-      case 0: 
-	    return;
-		//ritorna alla bacheca 
-      case 1: 
-	    break;          
-    }
-  
-  }while(s == 1);                                      
 }
                                     
 void Utente::visualizza_amici() {

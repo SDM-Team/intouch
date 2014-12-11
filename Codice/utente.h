@@ -31,13 +31,11 @@ class Utente {
        string get_email() const;
        string get_password() const;
        Bacheca* get_bacheca();
-       void stampa();
        void schermata_iniziale();
        void logout();
        void visualizza_profilo();
        void modifica_profilo();
        void visualizza_bacheca();
-       void modifica_bacheca();
        void visualizza_amici();
        void gestisci_amicizie();
 };

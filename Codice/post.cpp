@@ -40,12 +40,8 @@ Post::Post(int _id, string _autore, string _testo, Data _tempo) {
   testo = _testo;
 }
 
-int Post::get_post() const {
-    return id_post;
-}
-
 int Post::get_idpost () const {
-      return id_p; 
+      return id_post; 
 }
 
 Data Post::get_tempo() const {
