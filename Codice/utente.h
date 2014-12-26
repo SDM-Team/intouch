@@ -31,6 +31,7 @@ class Utente {
        string get_email() const;
        string get_password() const;
        Bacheca* get_bacheca();
+       Profilo* get_profilo();
        void schermata_iniziale();
        void logout();
        void visualizza_profilo();

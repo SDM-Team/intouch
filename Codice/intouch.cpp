@@ -25,6 +25,7 @@ extern int id_p;
 InTouch::InTouch() {
     importa_utenti();
     importa_post();
+    importa_profilo();
 }
 
 map<string,Utente> InTouch::get_listautenti() {
@@ -183,7 +184,7 @@ void InTouch::aggiungi_utente(const Utente& u) {
     // Creo file di default
     string path1 = path + "/" + nome_file_profilo;
     ofstream profilo(path1.c_str(), ios::out);
-    profilo << ";;;;" << endl;
+    profilo << "ND;ND;ND;01/01/0;ND" << endl;
     profilo.close();
     
     path1 = path + "/" + nome_file_amicizie;
@@ -336,6 +337,39 @@ void InTouch::importa_post() {
     
     post.close();
 }
+
+void InTouch::importa_profilo() {
+    char linea[150];
+    
+    map<string,Utente>::iterator iter;
+    for (iter = lista_utenti.begin(); iter != lista_utenti.end(); iter++) {
+      ifstream file;
+      string path = path_files_u + iter->first + "/" + nome_file_profilo;
+      file.open(path.c_str(), ios::in);
+      
+      while (!file.getline(linea,150).eof()) {
+      
+      // Token
+      string t_sesso = strtok(linea,";");
+      string t_professione = strtok(NULL,";");
+      string t_situazione_sent = strtok(NULL,";");
+      int t_giorno_nascita = atoi(strtok(NULL,"/"));
+      int t_mese_nascita = atoi(strtok(NULL,"/"));
+      int t_anno_nascita = atoi(strtok(NULL,";"));
+      string t_luogo_nascita = strtok(NULL,";");
+      
+      iter->second.get_profilo()->set_sesso(t_sesso);
+      iter->second.get_profilo()->set_professione(t_professione);
+      iter->second.get_profilo()->set_situasent(t_situazione_sent);
+      iter->second.get_profilo()->set_luogonasc(t_luogo_nascita);
+      
+      Data d(t_giorno_nascita, t_mese_nascita, t_anno_nascita);
+      iter->second.get_profilo()->set_datanasc_par(d);
+    }
+  }
+}
+      
+
     
 
 //controllo input: http://www.dreamincode.net/forums/topic/137648-limiting-string-length/

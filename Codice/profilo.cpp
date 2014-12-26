@@ -6,10 +6,10 @@
 using namespace std;
 
 Profilo::Profilo(){
-         sesso="non dichiarato";
-         professione= "non dichiarata";
-         situasent= "non dichiarata"; 
-         luogonasc= "non dichiarato";                                        
+         sesso = "ND";
+         professione = "ND";
+         situasent = "ND"; 
+         luogonasc = "ND";                                        
 }
 
 Profilo::Profilo(stringa _sex, string _prof, string _situa, string _luogo){
@@ -54,6 +54,10 @@ void Profilo::set_situasent(const string& _situasent) {
 void Profilo::set_datanasc() {
     Data d;
     d.imposta_data();
+    datanasc = d;
+}
+
+void Profilo::set_datanasc_par(const Data& d) {
     datanasc = d;
 }
 

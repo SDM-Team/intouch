@@ -5,6 +5,10 @@
 #include "post.h"
 #include "input.h"
 
+// Variabili di configurazione
+extern string path_files_u;
+extern string nome_file_profilo;
+
 extern InTouch applicazione;
 
 int id_u = 1;
@@ -49,6 +53,10 @@ string Utente::get_password() const {
 
 Bacheca* Utente::get_bacheca() {
   return (&bacheca);
+}
+
+Profilo* Utente::get_profilo() {
+  return (&profilo);
 }
 
 // Schermata iniziale che si visualizza una volte autenticato correttamente
@@ -138,15 +146,15 @@ void Utente::visualizza_profilo(){
 }
 
 void Utente::modifica_profilo(){
-  int s=1;
+  int s = 1;
   cout << "[" << get_nome() << " " << get_cognome() << "]" << endl;
-  cout<< "1. Sesso: "<< profilo.get_sesso()<<endl;
-  cout<< "2. Professione: "<<profilo.get_professione()<<endl;
-  cout<< "3. Situazione Sentimentale: "<<profilo.get_situasent()<<endl;
-  cout<< "4. Data di nascita: "<<profilo.get_datanasc()<<endl;
-  cout<< "5. Luogo di nascita: "<< profilo.get_luogonasc()<<endl<<endl; 
+  cout<< "1. Sesso: " << profilo.get_sesso() << endl;
+  cout<< "2. Professione: " << profilo.get_professione() << endl;
+  cout<< "3. Situazione Sentimentale: " << profilo.get_situasent() << endl;
+  cout<< "4. Data di nascita: " << profilo.get_datanasc() << endl;
+  cout<< "5. Luogo di nascita: " << profilo.get_luogonasc() << endl << endl; 
   cout<< "Per modificare i campi selezionare il numero corrispondente: "<<endl;
-  cout<< "Per tornare alla schermata iniziale premi 0 "<<endl;
+  cout<< "Per tornare alla schermata iniziale premi 0" << endl;
          
   s = inputInt(0,5);
          
@@ -185,7 +193,23 @@ void Utente::modifica_profilo(){
       profilo.set_luogonasc(modificaStringa);
       cout<<endl;
       break;
-  }                                
+  }
+  
+  // Aggiorno il .csv se è stato modificato qualcosa
+  if (s != 0) {
+     string path = path_files_u + get_email() + "/" + nome_file_profilo;
+     ofstream file;
+     file.open(path.c_str(), ios::out);
+     
+     file << profilo.get_sesso() << ";"
+          << profilo.get_professione() << ";"
+          << profilo.get_situasent() << ";"
+          << profilo.get_datanasc() << ";"
+          << profilo.get_luogonasc() << endl;
+          
+     file.close();
+  }
+  
   system("CLS");        
 		                            
 }

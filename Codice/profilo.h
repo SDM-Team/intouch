@@ -29,6 +29,7 @@ class Profilo{
               void set_professione(const string& _professione);
               void set_situasent(const string& _situasent);
               void set_datanasc();
+              void set_datanasc_par(const Data& d);
               void set_luogonasc(const string& _luogonasc);
 };
 
