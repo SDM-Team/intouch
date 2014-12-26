@@ -14,6 +14,8 @@ extern string path_files;
 extern string path_files_u;
 extern string path_files_p;
 extern string nome_file_post;
+extern string nome_file_commenti;
+extern string nome_file_likes;
 
 // Richiamo la variabile globale id_p per il tracciamento degli ID univoci dei post
 extern int id_p;
@@ -57,6 +59,17 @@ void Bacheca::aggiungi_post(const string _email){
     convert << id_p;
     path = path_files_p + convert.str();
     mkdir(path.c_str());
+    
+    // Creo file di default
+    string path1 = path + "/" + nome_file_commenti;
+    ofstream commenti(path1.c_str(), ios::out);
+    commenti << "" << endl;
+    commenti.close();
+    
+    path1 = path + "/" + nome_file_likes;
+    ofstream likes(path1.c_str(), ios::out);
+    likes << "";
+    likes.close();
       
     // Una volta aggiunto un post, incremento l'ID successivo
     id_p++;

@@ -189,7 +189,7 @@ void InTouch::aggiungi_utente(const Utente& u) {
     path1 = path + "/" + nome_file_amicizie;
     ofstream amicizie(path1.c_str(), ios::out);
     amicizie << "";
-    amicizie.close();    
+    amicizie.close();
 }
 
 // Metodo che verifica la correttezza della password inserita in fase di login
@@ -202,10 +202,6 @@ bool InTouch::check_login(const Utente& u) {
 
 // Metodo che resetta il sistema eliminando utenti e post creati finora, con opportuni file e cartelle
 void InTouch::reset() { 
-     cout << id_p;
-     int o;
-     cin >> o; 
-     
     // Svuoto database utenti
     string path = path_files + nome_file_utenti;
     ofstream file;
@@ -233,8 +229,8 @@ void InTouch::reset() {
        stringstream convert;
        convert << i;
        path = path_files_p + convert.str();
-//       remove((path + "/" + nome_file_likes).c_str());
-//       remove((path + "/" + nome_file_commenti).c_str());
+       remove((path + "/" + nome_file_likes).c_str());
+       remove((path + "/" + nome_file_commenti).c_str());
        rmdir(path.c_str());
     }
     
