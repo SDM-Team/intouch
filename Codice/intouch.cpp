@@ -1,8 +1,21 @@
 #include <sstream>
 #include <fstream>
 #include <cstring>
+#include <direct.h>
+
 #include "intouch.h"
 #include "input.h"
+
+// Variabili globali relative a nomi e path dei file di testo
+string path_files = "File/";
+string path_files_u = "File/Dati utente/";
+string path_files_p = "File/Dati post/";
+
+string nome_file_utenti = "utenti.csv";
+string nome_file_post = "post.csv";
+string nome_file_commenti = "commenti.csv";
+string nome_file_likes = "likes.csv";
+string nome_file_amicizie = "amicizie.csv";
 
 extern int id_u;
 extern int id_p;
@@ -146,7 +159,8 @@ bool InTouch::utente_esiste(const Utente& u) {
 void InTouch::aggiungi_utente(const Utente& u) {
     lista_utenti.insert(pair<string,Utente> (u.get_email(), u));
     
-    ofstream utenti("utenti.csv", ios::app);
+    string file_utenti = path_files + nome_file_utenti;
+    ofstream utenti(file_utenti.c_str(), ios::app);
     
     utenti << u.get_idutente() << ";";
     utenti << u.get_nome() << ";";
@@ -157,6 +171,9 @@ void InTouch::aggiungi_utente(const Utente& u) {
     utenti.close();
     
     id_u++;
+    
+    string path = path_files_u + u.get_email();
+    mkdir(path.c_str());
 }
 
 // Metodo che verifica la correttezza della password inserita in fase di login
@@ -174,7 +191,8 @@ void InTouch::importa_utenti() {
     
     char linea[100];
     
-    utenti.open("utenti.csv", ios::in);
+    string path = path_files + nome_file_utenti;
+    utenti.open(path.c_str(), ios::in);
     while (!utenti.getline(linea,100).eof()) {
        char* pch;
        
@@ -209,7 +227,9 @@ void InTouch::importa_post() {
     
     char linea[150];
     
-    post.open("post.csv", ios::in);
+    string path = path_files + nome_file_post;
+    
+    post.open(path.c_str(), ios::in);
     while (!post.getline(linea,150).eof()) {
        char* pch;
        

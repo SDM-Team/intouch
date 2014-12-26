@@ -8,6 +8,12 @@
 
 using namespace std;
 
+// Richiamo variabili file
+extern string path_files;
+extern string path_files_u;
+extern string path_files_p;
+extern string nome_file_post;
+
 // Richiamo la variabile globale id_p per il tracciamento degli ID univoci dei post
 extern int id_p;
 
@@ -33,7 +39,8 @@ void Bacheca::aggiungi_post(const string _email){
     lista_post.insert(pair<int,Post> (p.get_idpost(),p));
 
     // Apro un flusso su file in scrittura
-    ofstream post("post.csv", ios::app);
+    string path = path_files + nome_file_post;
+    ofstream post(path.c_str(), ios::app);
 
     // Scrivo dati su file
     post << id_p << ";";
