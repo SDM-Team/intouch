@@ -54,7 +54,7 @@ void Bacheca::aggiungi_post(const string _email){
     
     // Creo opportuna cartella
     stringstream convert;
-    convert << id_p;//add the value of Number to the characters in the stream
+    convert << id_p;
     path = path_files_p + convert.str();
     mkdir(path.c_str());
       

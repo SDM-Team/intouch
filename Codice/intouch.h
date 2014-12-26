@@ -23,6 +23,7 @@ class InTouch {
        bool check_login(const Utente& u);
        bool utente_esiste(const Utente& u);
        void aggiungi_utente(const Utente& u);
+       void reset();
        void importa_utenti();
        void importa_post();
 };

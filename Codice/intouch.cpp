@@ -16,6 +16,7 @@ string nome_file_post = "post.csv";
 string nome_file_commenti = "commenti.csv";
 string nome_file_likes = "likes.csv";
 string nome_file_amicizie = "amicizie.csv";
+string nome_file_profilo = "profilo.csv";
 
 extern int id_u;
 extern int id_p;
@@ -41,8 +42,9 @@ void InTouch::schermata_autenticazione() {
     cout << "1. Registrati" << endl;
     cout << "2. Autenticati" << endl;
     cout << "3. Chiudi applicazione" << endl;
+    cout << "4. Reset programma" << endl;
        
- 	s = inputInt(1,3);
+ 	s = inputInt(1,4);
 
     switch (s) {
       case 1:
@@ -55,6 +57,9 @@ void InTouch::schermata_autenticazione() {
         break;
       case 3:
         exit(1);
+        break;
+      case 4:
+        reset();
         break;
     }
   }
@@ -159,8 +164,8 @@ bool InTouch::utente_esiste(const Utente& u) {
 void InTouch::aggiungi_utente(const Utente& u) {
     lista_utenti.insert(pair<string,Utente> (u.get_email(), u));
     
-    string file_utenti = path_files + nome_file_utenti;
-    ofstream utenti(file_utenti.c_str(), ios::app);
+    string path = path_files + nome_file_utenti;
+    ofstream utenti(path.c_str(), ios::app);
     
     utenti << u.get_idutente() << ";";
     utenti << u.get_nome() << ";";
@@ -172,8 +177,19 @@ void InTouch::aggiungi_utente(const Utente& u) {
     
     id_u++;
     
-    string path = path_files_u + u.get_email();
+    path = path_files_u + u.get_email();
     mkdir(path.c_str());
+    
+    // Creo file di default
+    string path1 = path + "/" + nome_file_profilo;
+    ofstream profilo(path1.c_str(), ios::out);
+    profilo << ";;;;" << endl;
+    profilo.close();
+    
+    path1 = path + "/" + nome_file_amicizie;
+    ofstream amicizie(path1.c_str(), ios::out);
+    amicizie << "";
+    amicizie.close();    
 }
 
 // Metodo che verifica la correttezza della password inserita in fase di login
@@ -183,6 +199,47 @@ bool InTouch::check_login(const Utente& u) {
     if ((u.get_email() == iter->second.get_email()) && (u.get_password() == iter->second.get_password())) return true;
     return false;
 }
+
+// Metodo che resetta il sistema eliminando utenti e post creati finora, con opportuni file e cartelle
+void InTouch::reset() { 
+     cout << id_p;
+     int o;
+     cin >> o; 
+     
+    // Svuoto database utenti
+    string path = path_files + nome_file_utenti;
+    ofstream file;
+    file.open(path.c_str(), ios::out);
+    file << "";
+    file.close();
+    
+    // Svuoto database post
+    path = path_files + nome_file_post;
+    file.open(path.c_str(), ios::out);
+    file << "";
+    file.close();
+    
+    // Elimino cartelle e dati utenti
+    map<string,Utente>::iterator iter;
+    for (iter = lista_utenti.begin(); iter != lista_utenti.end(); iter++) {
+       path = path_files_u + iter->first;
+       remove((path + "/" + nome_file_amicizie).c_str());
+       remove((path + "/" + nome_file_profilo).c_str());
+       rmdir(path.c_str());
+    }
+    
+    // Elimino cartelle e dati post
+    for (int i = 1; i < id_p; i++) {
+       stringstream convert;
+       convert << i;
+       path = path_files_p + convert.str();
+//       remove((path + "/" + nome_file_likes).c_str());
+//       remove((path + "/" + nome_file_commenti).c_str());
+       rmdir(path.c_str());
+    }
+    
+    exit(1);
+}    
 
 // Metodo che carica gli utenti presenti sul file di testo
 void InTouch::importa_utenti() {
