@@ -216,6 +216,10 @@ void InTouch::importa_utenti() {
        
        lista_utenti.insert(pair<string,Utente> (email,u));
        
+       // Crea la cartella nel caso fosse stata cancellata
+       string path = path_files_u + email;
+       mkdir(path.c_str());
+       
        id_u = id_utente + 1;
     } 
     
@@ -267,6 +271,12 @@ void InTouch::importa_post() {
        iter = lista_utenti.find(autore);
        
        iter->second.get_bacheca()->get_listapost()->insert(pair<int,Post> (id_post,p));
+       
+       // Crea la cartella nel caso fosse stata cancellata
+       stringstream convert;
+       convert << id_post;
+       string path = path_files_p + convert.str();
+       mkdir(path.c_str());
        
        id_p = id_post + 1;
     } 

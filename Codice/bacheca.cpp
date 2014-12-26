@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <direct.h>
 
 #include "bacheca.h"
 #include "input.h"
@@ -50,6 +51,12 @@ void Bacheca::aggiungi_post(const string _email){
 
     // Chiudo il flusso su file
     post.close();
+    
+    // Creo opportuna cartella
+    stringstream convert;
+    convert << id_p;//add the value of Number to the characters in the stream
+    path = path_files_p + convert.str();
+    mkdir(path.c_str());
       
     // Una volta aggiunto un post, incremento l'ID successivo
     id_p++;
