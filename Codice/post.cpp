@@ -1,8 +1,13 @@
 #include "post.h"
 
 #include <fstream>
+#include <sstream>
 
 using namespace std;
+
+// File di configurazione
+extern string path_files_p;
+extern string nome_file_commenti;
 
 int id_p = 1;
 
@@ -83,13 +88,19 @@ void Post::commenta_post(){
 	cin >> temp;
 	lista_commenti.push_back( Commento(temp) );
 	
-	/*
-	//scrivo su csv id_post del commento
-	ofstream outfile("commenti.csv", ios::app);
-	//controllare!
-     outfile << id_post << ';';	
-     outfile.close();
-	lista_commenti.push_back( Commento(temp) );
-	*/
+	// Scrittura su file
+	stringstream convert;
+	convert << id_post;
+	
+  string path = path_files_p + convert.str() + "/" + nome_file_commenti;
+	ofstream file;
+	file.open(path.c_str(), ios::out);
+	
+	file << id_post << ";"
+	     << autore << ";"
+	     << tempo << ";"
+	     << testo << endl;
+	     
+  file.close();
 		
 }
