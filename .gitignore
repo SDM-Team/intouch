@@ -34,3 +34,5 @@ Codice/*.layout
 
 # File csv
 Codice/File/
+Codice/File/utenti.csv
+Codice/File/post.csv
