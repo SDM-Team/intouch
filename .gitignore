@@ -33,4 +33,4 @@ Codice/*.win
 Codice/*.layout
 
 # File csv
-Codice/*.csv
+Codice/File/
