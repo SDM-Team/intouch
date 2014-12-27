@@ -66,6 +66,15 @@ list<Commento>* Post::get_listacommenti() {
     return (&lista_commenti);
 }
 
+void Post::visualizza_post_light() {
+  cout << "POST #" << id_post << endl;
+	cout << "Autore: " << "Cognome" << " " << "Nome" <<endl;			//TO DO ##############################
+	cout << "Data: " << tempo <<endl;
+	cout << endl << '"' << testo << '"' << endl << endl;
+  
+  cout << lista_commenti.size() << " commenti" << endl;
+}
+
 //metodo che stampa a video il post e tutta la lista dei commenti relativi ad esso
 void Post::visualizza_post(){
 	cout << "POST #" << id_post << " ####################" << endl;

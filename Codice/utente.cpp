@@ -224,9 +224,11 @@ void Utente::visualizza_bacheca() {
     
 	cout<< "Bacheca di " << get_nome() << " " << get_cognome()<<endl;
     for (iter = get_bacheca()->get_listapost()->rbegin(); iter != get_bacheca()->get_listapost()->rend(); iter++) {
-      cout << "ID Post: " << iter->first << endl;
+      /*cout << "ID Post: " << iter->first << endl;
       cout << iter->second.get_testo() << endl;
-      cout << iter->second.get_tempo() << endl << endl;
+      cout << iter->second.get_tempo() << endl << endl;*/
+      
+      iter->second.visualizza_post_light();
     }
                                    
     
