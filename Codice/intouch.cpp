@@ -329,13 +329,13 @@ void InTouch::importa_post() {
        
        iter->second.get_bacheca()->get_listapost()->insert(pair<int,Post> (id_post,p));
        
+       importa_commenti(autore,id_post);
+       
        // Crea la cartella nel caso fosse stata cancellata
        stringstream convert;
        convert << id_post;
        string path = path_files_p + convert.str();
        mkdir(path.c_str());
-       
-       importa_commenti(autore,id_post);
        
        id_p = id_post + 1;
     } 
@@ -348,32 +348,52 @@ void InTouch::importa_commenti(string _autore, int id_post) {
     convert << id_post;
 
     string path = path_files_p + convert.str() + "/" + nome_file_commenti;
-    ifstream file;
-    file.open(path.c_str(), ios::in);
+    ifstream file_c;
+    file_c.open(path.c_str(), ios::in);
     
     map<string,Utente>::iterator iter_utente;
     iter_utente = lista_utenti.find(_autore);
     
     char linea[150];
     
-    while (!file.getline(linea,150).eof()) {
-       //autore, tempo, testo
-       int id = atoi(strtok(linea,";"));
-       string autore = strtok(NULL,";");
-       int giorno = atoi(strtok(NULL,"/"));
-       int mese = atoi(strtok(NULL,"/"));
-       int anno = atoi(strtok(NULL," "));
-       int ore = atoi(strtok(NULL,":"));
-       int minuti = atoi(strtok(NULL,";"));
-       string testo = strtok(NULL,";");
+    while (!file_c.getline(linea,150).eof()) {
+       char* pch;
        
-       Data temp(giorno,mese,anno,ore,minuti);
+       //token ID post
+       pch = strtok (linea,";");
+       int id = atoi(pch);
+       
+       // token autore
+       string autore = strtok (NULL,";");
+       
+       // token giorno
+       int giorno = atoi(strtok(NULL,"/"));
+       
+       // token mese
+       int mese = atoi(strtok(NULL,"/"));
+       
+       // token anno
+       int anno = atoi(strtok(NULL," "));
+       
+       // token ora
+       int ora = atoi(strtok(NULL,":"));
+       
+       // token minuti
+       int minuti = atoi(strtok(NULL,";"));
+       
+       // token testo
+       string testo = strtok (NULL,";");
+       
+       Data temp(giorno,mese,anno,ora,minuti);
+       
        Commento c(id,autore,temp,testo);
        
        map<int,Post>::iterator iter_post;
        iter_post = iter_utente->second.get_bacheca()->get_listapost()->find(id_post);
        iter_post->second.get_listacommenti()->push_back(c);
    }
+   
+   file_c.close();
 }
 
 void InTouch::importa_profilo() {
@@ -408,7 +428,47 @@ void InTouch::importa_profilo() {
 }
       
 void InTouch::importa_amicizie() {
-
+    char linea[150];
+    
+    map<string,Utente>::iterator iter_utenti;
+    map<string,Utente>::iterator iter_utenti2;
+    
+    for (iter_utenti = lista_utenti.begin(); iter_utenti != lista_utenti.end(); iter_utenti++) {
+      string path = path_files_u + iter_utenti->first + "/" + nome_file_amicizie;
+      ifstream file;
+      file.open(path.c_str(), ios::in);
+      
+      while (!file.getline(linea,150).eof()) {
+        int id = atoi(strtok(linea,";"));
+        string utente = strtok(NULL,";");
+        string s = strtok(NULL,";");
+        string r = strtok(NULL,";");
+        
+        Stato stato;
+        if (s == "A") {
+          stato = A;
+        } else if (s == "X") {
+          stato = X;
+        } else if (s == "R") {
+          stato = R;
+        } else {stato = X;}
+        
+        Ruolo ruolo;
+        if (r == "MITTENTE") {
+          ruolo = MITTENTE;
+        } else if (r == "DESTINATARIO") {
+          ruolo = DESTINATARIO;
+        } else {ruolo = MITTENTE;}
+        
+        file.close();
+        
+        iter_utenti2 = lista_utenti.find(utente);    
+        
+        Amicizia a(id,&iter_utenti2->second,stato,ruolo);
+        
+        iter_utenti->second.get_listaamicizie()->insert(pair<int,Amicizia> (id,a));
+      }
+    }
 }
 
 //controllo input: http://www.dreamincode.net/forums/topic/137648-limiting-string-length/

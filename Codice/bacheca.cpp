@@ -63,7 +63,7 @@ void Bacheca::aggiungi_post(const string _email){
     // Creo file di default
     string path1 = path + "/" + nome_file_commenti;
     ofstream commenti(path1.c_str(), ios::out);
-    commenti << "" << endl;
+    commenti << "";
     commenti.close();
     
     path1 = path + "/" + nome_file_likes;
