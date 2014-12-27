@@ -72,7 +72,13 @@ void Post::visualizza_post_light() {
 	cout << "Data: " << tempo <<endl;
 	cout << endl << '"' << testo << '"' << endl << endl;
   
-  cout << lista_commenti.size() << " commenti" << endl;
+  if (lista_commenti.size() == 0) {
+    cout << "Ancora nessun commento" << endl;
+  } else if (lista_commenti.size() == 1) {
+    cout << "1 commento" << endl;
+  } else {
+    cout << lista_commenti.size() << " commenti" << endl;
+  }
 }
 
 //metodo che stampa a video il post e tutta la lista dei commenti relativi ad esso

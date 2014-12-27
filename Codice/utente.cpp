@@ -85,7 +85,7 @@ void Utente::schermata_iniziale() {
           gestisci_amicizie();
           break;
         case 2:
-    	  
+    	    visualizza_bacheca_generale();
           break;
         case 3:
           visualizza_bacheca();
@@ -247,6 +247,31 @@ void Utente::visualizza_bacheca() {
     
   }while(s!=0);
    
+}
+
+void Utente::visualizza_bacheca_generale() {
+    map<int,Post*> lista_post_amici;
+    map<int,Amicizia>::iterator iter_amicizie;
+    map<int,Post>::iterator iter_post;
+    for (iter_amicizie = lista_amicizie.begin(); iter_amicizie != lista_amicizie.end(); iter_amicizie++) {
+      if (iter_amicizie->second.get_status() == A) {
+        for (iter_post = iter_amicizie->second.get_utente()->get_bacheca()->get_listapost()->begin();
+             iter_post != iter_amicizie->second.get_utente()->get_bacheca()->get_listapost()->end();
+             iter_post++) {
+               lista_post_amici.insert(pair<int,Post*> (iter_post->first, &iter_post->second));
+        }
+      }
+    }
+    
+    if (lista_post_amici.size() == 0) {
+      cout << "Ancora nessun post!" << endl << endl;
+      return;
+    }
+    
+    map<int,Post*>::iterator iter_post_amici;
+    for (iter_post_amici = lista_post_amici.begin(); iter_post_amici != lista_post_amici.end(); iter_post_amici++) {
+      iter_post_amici->second->visualizza_post_light();
+    }
 }
                                     
 void Utente::visualizza_amici() {

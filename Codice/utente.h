@@ -37,6 +37,7 @@ class Utente {
        void visualizza_profilo();
        void modifica_profilo();
        void visualizza_bacheca();
+       void visualizza_bacheca_generale();
        void visualizza_amici();
        void gestisci_amicizie();
 };
