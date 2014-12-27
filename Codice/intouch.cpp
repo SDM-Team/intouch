@@ -2,6 +2,8 @@
 #include <fstream>
 #include <cstring>
 #include <direct.h>
+#include <map>
+#include <list>
 
 #include "intouch.h"
 #include "input.h"
@@ -332,10 +334,45 @@ void InTouch::importa_post() {
        string path = path_files_p + convert.str();
        mkdir(path.c_str());
        
+       importa_commenti(autore,id_post);
+       
        id_p = id_post + 1;
     } 
     
     post.close();
+}
+
+void InTouch::importa_commenti(string _autore, int id_post) {
+    stringstream convert;
+    convert << id_post;
+
+    string path = path_files_p + convert.str() + "/" + nome_file_commenti;
+    ifstream file;
+    file.open(path.c_str(), ios::in);
+    
+    map<string,Utente>::iterator iter_utente;
+    iter_utente = lista_utenti.find(_autore);
+    
+    char linea[150];
+    
+    while (!file.getline(linea,150).eof()) {
+       //autore, tempo, testo
+       int id = atoi(strtok(linea,";"));
+       string autore = strtok(NULL,";");
+       int giorno = atoi(strtok(NULL,"/"));
+       int mese = atoi(strtok(NULL,"/"));
+       int anno = atoi(strtok(NULL," "));
+       int ore = atoi(strtok(NULL,":"));
+       int minuti = atoi(strtok(NULL,";"));
+       string testo = strtok(NULL,";");
+       
+       Data temp(giorno,mese,anno,ore,minuti);
+       Commento c(id,autore,temp,testo);
+       
+       map<int,Post>::iterator iter_post;
+       iter_post = iter_utente->second.get_bacheca()->get_listapost()->find(id_post);
+       iter_post->second.get_listacommenti()->push_back(c);
+   }
 }
 
 void InTouch::importa_profilo() {

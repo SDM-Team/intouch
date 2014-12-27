@@ -10,6 +10,7 @@ extern string path_files_p;
 extern string nome_file_commenti;
 
 int id_p = 1;
+extern int id_c;
 
 //costruttore specifico per creazione post senza titolo con timestamp corrente
 /*Post::Post(string _autore, string _testo){
@@ -61,6 +62,10 @@ string Post::get_autore() const {
     return autore;
 }
 
+list<Commento>* Post::get_listacommenti() {
+    return (&lista_commenti);
+}
+
 //metodo che stampa a video il post e tutta la lista dei commenti relativi ad esso
 void Post::visualizza_post(){
 	cout << "POST #" << id_post << " ####################" << endl;
@@ -86,7 +91,7 @@ void Post::commenta_post(){
 	fflush(stdin); //?
 	//controllo input MAXPOST
 	cin >> temp;
-	lista_commenti.push_back( Commento(temp) );
+	lista_commenti.push_back( Commento(id_c,temp) );
 	
 	// Scrittura su file
 	stringstream convert;
@@ -96,11 +101,13 @@ void Post::commenta_post(){
 	ofstream file;
 	file.open(path.c_str(), ios::out);
 	
-	file << id_post << ";"
-	     << autore << ";"
+	file << id_c << ";"
+       << autore << ";"
 	     << tempo << ";"
 	     << testo << endl;
 	     
   file.close();
+  
+  id_c++;
 		
 }

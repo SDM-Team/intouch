@@ -16,7 +16,8 @@ class Commento{
 		string testo;
 		string autore;
 	public:
-		Commento(string _t);
+		Commento(int _id, string _t);
+		Commento(int _id, string _autore, Data _tempo, string _testo);
 		void visualizza_commento();
 };
 

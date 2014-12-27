@@ -28,6 +28,7 @@ class Post{
 		Data get_tempo() const;
 		string get_testo() const;
 		string get_autore() const;
+		list<Commento>* get_listacommenti();
 		void visualizza_post();
 		void commenta_post();
 };
