@@ -28,6 +28,7 @@ InTouch::InTouch() {
     importa_utenti();
     importa_post();
     importa_profilo();
+    importa_amicizie();
 }
 
 map<string,Utente> InTouch::get_listautenti() {
@@ -406,8 +407,9 @@ void InTouch::importa_profilo() {
   }
 }
       
+void InTouch::importa_amicizie() {
 
-    
+}
 
 //controllo input: http://www.dreamincode.net/forums/topic/137648-limiting-string-length/
 

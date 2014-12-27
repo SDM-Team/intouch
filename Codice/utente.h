@@ -32,6 +32,7 @@ class Utente {
        string get_password() const;
        Bacheca* get_bacheca();
        Profilo* get_profilo();
+       map<int,Amicizia>* get_listaamicizie();
        void schermata_iniziale();
        void logout();
        void visualizza_profilo();

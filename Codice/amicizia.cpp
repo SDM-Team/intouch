@@ -11,6 +11,13 @@ Amicizia::Amicizia(Utente* _u, Ruolo _r) {
   ruolo = _r;
 }
 
+Amicizia::Amicizia(int _id, Utente* _u, Stato _s, Ruolo _r) {
+  id_amicizia = _id;
+  utente = _u;
+  status = _s;
+  ruolo = _r;
+}
+
 // Restituisce il puntatore all'utente coinvolto
 Utente* Amicizia::get_utente() {
   return utente;

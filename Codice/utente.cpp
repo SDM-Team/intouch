@@ -59,6 +59,10 @@ Profilo* Utente::get_profilo() {
   return (&profilo);
 }
 
+map<int,Amicizia>* Utente::get_listaamicizie() {
+  return (&lista_amicizie);
+}
+
 // Schermata iniziale che si visualizza una volte autenticato correttamente
 void Utente::schermata_iniziale() {
 
