@@ -451,16 +451,14 @@ void InTouch::importa_amicizie() {
           stato = X;
         } else if (s == "R") {
           stato = R;
-        } else {stato = X;}
+        }
         
         Ruolo ruolo;
         if (r == "MITTENTE") {
           ruolo = MITTENTE;
         } else if (r == "DESTINATARIO") {
           ruolo = DESTINATARIO;
-        } else {ruolo = MITTENTE;}
-        
-        file.close();
+        }
         
         iter_utenti2 = lista_utenti.find(utente);    
         
@@ -468,6 +466,8 @@ void InTouch::importa_amicizie() {
         
         iter_utenti->second.get_listaamicizie()->insert(pair<int,Amicizia> (id,a));
       }
+      
+      file.close();
     }
 }
 
