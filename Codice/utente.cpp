@@ -250,7 +250,7 @@ void Utente::visualizza_bacheca() {
       	  
       	  switch(p){
 		    case 0: system("CLS"); return;	
-			case 1: get_bacheca()->get_listapost()->find(s)->second.commenta_post(email); break;
+			case 1: get_bacheca()->get_listapost()->find(s)->second.commenta_post(this); break;
 			case 2: system("CLS"); cout<<"Liked!" << endl << endl; return;
 			
 		  }
@@ -307,7 +307,7 @@ void Utente::visualizza_bacheca_generale() {
       	  switch(p){
 		    case 0: system("CLS");
 					return;	
-			case 1: lista_post_amici.find(s)->second->commenta_post(email);
+			case 1: lista_post_amici.find(s)->second->commenta_post(this);
 					break;
 			case 2: cout<<"Like!";
 					break;

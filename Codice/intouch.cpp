@@ -389,9 +389,9 @@ void InTouch::importa_commenti(string _autore, int id_post) {
     if(file_c){ //controllo file esistente e aperto correttamente
 
     
-      map<string,Utente>::iterator iter_utente;
-      iter_utente = lista_utenti.find(_autore);
-    
+      map<string,Utente>::iterator iter_autore_post;
+      iter_autore_post = lista_utenti.find(_autore);
+      map<string,Utente>::iterator iter_autore_commento;
       char linea[150];
     
       while (!file_c.getline(linea,150).eof()) {
@@ -424,10 +424,13 @@ void InTouch::importa_commenti(string _autore, int id_post) {
        
         Data temp(giorno,mese,anno,ora,minuti);
        
-        Commento c(id,autore,temp,testo);
+       	
+       	iter_autore_commento = lista_utenti.find(autore);
+        Commento c(id,&(iter_autore_commento->second),temp,testo);
        
         map<int,Post>::iterator iter_post;
-        iter_post = iter_utente->second.get_bacheca()->get_listapost()->find(id_post);
+        
+        iter_post = iter_autore_post->second.get_bacheca()->get_listapost()->find(id_post);
         iter_post->second.get_listacommenti()->push_back(c);
       }
     }else{

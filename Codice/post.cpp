@@ -97,7 +97,8 @@ void Post::visualizza_post_light() {
 //metodo che stampa a video il post e tutta la lista dei commenti relativi ad esso
 void Post::visualizza_post(){
 	cout << "POST #" << id_post << " ####################" << endl;
-	cout << "Autore: " << "Cognome" << " " << "Nome" <<endl;			//TO DO ##############################
+	cout << "Autore: ";
+	if(author != NULL) { cout << author->get_cognome() << " " << author->get_cognome() << " (" << author->get_email() << ")" << endl; }
 	cout << "Data: " << tempo <<endl;
 	cout << endl << '"' << testo << '"' << endl << endl;
 	
@@ -113,7 +114,7 @@ void Post::visualizza_post(){
 }
 
 //aggiunge un commento al post
-void Post::commenta_post(string _email){
+void Post::commenta_post(Utente* autore){
 	int s = 0;
 	string testo_commento;
 	do{
@@ -133,7 +134,7 @@ void Post::commenta_post(string _email){
 	case 2:	break;
 	}
 	
-	Commento c(id_c,testo_commento);
+	Commento c(autore,testo_commento);
 	lista_commenti.push_back( c );
 	
 	// Scrittura su file
@@ -147,7 +148,7 @@ void Post::commenta_post(string _email){
 	//controllo apertura corretta file
 	if(!file){ cerr<< "Errore apertura file!"; return;}
 	file << id_c << ";";
-    file << _email << ";"; 
+    file << autore->get_email() << ";"; 
 	file << c.get_tempo() << ";";
 	file << testo_commento << endl;
 	     

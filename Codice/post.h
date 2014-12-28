@@ -39,7 +39,7 @@ class Post{
 		list<Commento>* get_listacommenti();
 		void visualizza_post_light();
 		void visualizza_post();
-		void commenta_post(string _email);
+		void commenta_post(Utente* autore);
 };
 
 #endif

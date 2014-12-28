@@ -1,20 +1,22 @@
 #include "commento.h"
-
+#include "utente.h"
 #include <fstream>
 
 // Variabile globale per ID univoco commento
 int id_c = 1;
 
-// Costruttore specifico per creare commento con timestamp corrente
-Commento::Commento(int _id, string _t){
-	testo = _t;
-	
-	Data temp;
-	temp.imposta_dataOra();
-	tempo = temp;
+//costruttore usato per creare commento passando utente e testo, autotimestamp corrente
+Commento::Commento(Utente* _autore, string _testo){
+  id_commento = id_c;
+  autore = _autore;
+  Data temp;
+  temp.imposta_dataOra();
+  tempo = temp;
+  testo = _testo;
 }
 
-Commento::Commento(int _id, string _autore, Data _tempo, string _testo) {
+//costruttore specifico per creazione commenti fittizi
+Commento::Commento(int _id, Utente* _autore, Data _tempo, string _testo){
   id_commento = _id;
   autore = _autore;
   tempo = _tempo;
@@ -26,7 +28,8 @@ Data Commento::get_tempo() const{
 }
 
 void Commento::visualizza_commento(){
-	cout << "Autore: " << "Cognome" << " " << "Nome" <<endl; //TO DO ############################## InTouch applicazione.lista_utenti.find?
+	cout << "Autore: ";
+	if(autore != NULL) { cout << autore->get_cognome() << " " << autore->get_nome() << " (" << autore->get_email() << ")" << endl; }
 	cout << "Data: " << tempo <<endl;
 	cout << '"' << testo << '"' << endl << endl;
 }
