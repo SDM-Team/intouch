@@ -92,6 +92,16 @@ void Post::visualizza_post_light() {
   } else {
     cout << lista_commenti.size() << " commenti" << endl;
   }
+  cout << endl;
+  
+  if (lista_likes.size() == 0) {
+    cout << "Ancora nessun \"mi piace\"" << endl;
+  } else if (lista_likes.size() == 1) {
+    cout << "1 \"mi piace\"" << endl;
+  } else {
+    cout << lista_commenti.size() << " \"mi piace\"" << endl;
+  }
+  cout << endl;  
 }
 
 //metodo che stampa a video il post e tutta la lista dei commenti relativi ad esso
@@ -102,15 +112,31 @@ void Post::visualizza_post(){
 	cout << "Data: " << tempo <<endl;
 	cout << endl << '"' << testo << '"' << endl << endl;
 	
-	//stampa commenti
-	int i=0;
-	list<Commento>::iterator iter; 
-	for(iter = lista_commenti.begin(); iter != lista_commenti.end(); iter++){
-	cout << "Commento #" << ++i << endl;
-	iter->visualizza_commento();
-	}
-	cout << endl;
+	if (lista_commenti.size() == 0) {
+    cout << "Ancora nessun commento" << endl;
+  } else {
+  
+    //stampa commenti
+	  int i=0;
+	  list<Commento>::iterator iter; 
+	  for(iter = lista_commenti.begin(); iter != lista_commenti.end(); iter++){
+	  cout << "Commento #" << ++i << endl;
+	  iter->visualizza_commento();
+	  }
+	  cout << endl;
+  }
 	
+	//stampa likes
+	if (lista_likes.size() == 0) {
+    cout << "Ancora nessun \"mi piace\"" << endl;
+  } else {
+    map<string,Utente*>::iterator iter_listalike;
+    cout << "Utenti a cui piace questo post:" << endl;
+	  for (iter_listalike = lista_likes.begin(); iter_listalike != lista_likes.end(); iter_listalike++) {
+      cout << "\t" << iter_listalike->second->get_cognome() << " " << iter_listalike->second->get_nome() << endl;
+    }
+  }
+	cout << endl;
 }
 
 //aggiunge un commento al post
