@@ -81,7 +81,7 @@ list<Commento>* Post::get_listacommenti() {
 void Post::visualizza_post_light() {
   cout << "POST #" << id_post << endl;
 	cout << "Autore: "; 
-	if(author != NULL) { cout << author->get_cognome() << " " << author->get_cognome() << " (" << author->get_email() << ")" << endl; }
+	if(author != NULL) { cout << author->get_cognome() << " " << author->get_nome() << " (" << author->get_email() << ")" << endl; }
 	cout << "Data: " << tempo <<endl;
 	cout << endl << '"' << testo << '"' << endl << endl;
   
@@ -98,7 +98,7 @@ void Post::visualizza_post_light() {
 void Post::visualizza_post(){
 	cout << "POST #" << id_post << " ####################" << endl;
 	cout << "Autore: ";
-	if(author != NULL) { cout << author->get_cognome() << " " << author->get_cognome() << " (" << author->get_email() << ")" << endl; }
+	if(author != NULL) { cout << author->get_cognome() << " " << author->get_nome() << " (" << author->get_email() << ")" << endl; }
 	cout << "Data: " << tempo <<endl;
 	cout << endl << '"' << testo << '"' << endl << endl;
 	
