@@ -27,6 +27,7 @@ class InTouch {
        void importa_utenti();
        void importa_post();
        void importa_commenti(string _autore, int id_post);
+       void importa_likes();
        void importa_profilo();
        void importa_amicizie();
 };

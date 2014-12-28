@@ -5,13 +5,17 @@
 #include <iostream>
 #include <string>
 #include <list>
+#include <map>
 #include "data.h"
 #include "commento.h"
+//#include "utente.h"
 
 #define MAXPOST 250
 #define MAXTITLE 30
 
 using namespace std;
+
+class Utente;
 
 class Post{
 	private:
@@ -20,6 +24,7 @@ class Post{
 		string testo;
 		string autore;
 		list<Commento> lista_commenti;
+		map<string,Utente*> lista_likes;
 	public:
 		//Post(string _autore, string _testo);
 		Post(int _id, string _autore, string _testo);

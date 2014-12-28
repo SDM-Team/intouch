@@ -358,6 +358,7 @@ void InTouch::importa_post() {
         iter->second.get_bacheca()->get_listapost()->insert(pair<int,Post> (id_post,p));
        
         importa_commenti(autore,id_post);
+        importa_likes();
        
         // Crea la cartella nel caso fosse stata cancellata
         stringstream convert;
@@ -435,6 +436,10 @@ void InTouch::importa_commenti(string _autore, int id_post) {
 	  cerr << "Errore import commenti!" << endl;	
 	}
     file_c.close();
+}
+
+void InTouch::importa_likes(){
+		
 }
 
 void InTouch::importa_profilo() {

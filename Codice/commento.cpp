@@ -21,6 +21,10 @@ Commento::Commento(int _id, string _autore, Data _tempo, string _testo) {
   testo = _testo;
 }
 
+Data Commento::get_tempo() const{
+	return tempo;	
+}
+
 void Commento::visualizza_commento(){
 	cout << "Autore: " << "Cognome" << " " << "Nome" <<endl; //TO DO ############################## InTouch applicazione.lista_utenti.find?
 	cout << "Data: " << tempo <<endl;

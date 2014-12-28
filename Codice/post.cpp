@@ -100,16 +100,29 @@ void Post::visualizza_post(){
 
 //aggiunge un commento al post
 void Post::commenta_post(string _email){
+	int s = 0;
+	string testo_commento;
+	do{
+	  cout << "Inserisci testo:" << endl;
+	  //controllo input MAXPOST
+	  testo_commento = inputString(MAXPOST);
+	  
+	  cout << "Per confermare ed aggiungere il commento al post premi 2" << endl;
+	  cout << "Per modificare il testo del commento premi 1" << endl;
+	  cout << "Per tornare alla schermata iniziale premi 0" << endl;
+	  
+      s = inputInt(0,2);
+	}while(s == 1);
 	
-	cout << "Inserisci testo:" << endl;
-	//controllo input MAXPOST
-	string testo_commento = inputString(MAXPOST);
+	switch(s){
+	case 0: system("CLS"); return;
+	case 2:	break;
+	}
 	
-	lista_commenti.push_back( Commento(id_c,testo_commento) );
+	Commento c(id_c,testo_commento);
+	lista_commenti.push_back( c );
 	
 	// Scrittura su file
-	Data temp;
-	temp.imposta_dataOra();
 	stringstream convert;
 	convert << id_post;
 	
@@ -121,7 +134,7 @@ void Post::commenta_post(string _email){
 	if(!file){ cerr<< "Errore apertura file!"; return;}
 	file << id_c << ";";
     file << _email << ";"; 
-	file << temp << ";";
+	file << c.get_tempo() << ";";
 	file << testo_commento << endl;
 	     
   file.close();
