@@ -101,7 +101,7 @@ void Utente::schermata_iniziale() {
           break;
         case 6:
           // Crea post
-          bacheca.aggiungi_post(email);
+          bacheca.aggiungi_post(this);
           break;
         case 7:
           break;

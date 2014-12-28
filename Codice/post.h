@@ -8,7 +8,7 @@
 #include <map>
 #include "data.h"
 #include "commento.h"
-//#include "utente.h"
+
 
 #define MAXPOST 250
 #define MAXTITLE 30
@@ -16,23 +16,26 @@
 using namespace std;
 
 class Utente;
+class Bacheca;
 
 class Post{
 	private:
 		int id_post;
 		Data tempo;
 		string testo;
-		string autore;
+		//string autore;
+		Utente* author;
 		list<Commento> lista_commenti;
 		map<string,Utente*> lista_likes;
 	public:
 		//Post(string _autore, string _testo);
-		Post(int _id, string _autore, string _testo);
-		Post(int _id, string _autore, string _testo, Data _tempo);
+		//Post(int _id, string _autore, string _testo);
+		Post(int _id, Utente* _autore, string _testo, Data _tempo);
+		Post(Utente* _u, string _testo);
 		int get_idpost() const;
 		Data get_tempo() const;
 		string get_testo() const;
-		string get_autore() const;
+		Utente* get_autore();
 		list<Commento>* get_listacommenti();
 		void visualizza_post_light();
 		void visualizza_post();

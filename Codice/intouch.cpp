@@ -349,12 +349,10 @@ void InTouch::importa_post() {
        
         Data temp(giorno,mese,anno,ora,minuti);
        
-        Post p(id_post,autore,testo,temp);
-       
         map<string,Utente>::iterator iter;
        
         iter = lista_utenti.find(autore);
-       
+        Post p(id_post, &(iter->second) ,testo,temp);
         iter->second.get_bacheca()->get_listapost()->insert(pair<int,Post> (id_post,p));
        
         importa_commenti(autore,id_post);

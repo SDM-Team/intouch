@@ -7,6 +7,7 @@
 #include "bacheca.h"
 #include "input.h"
 #include "config.h"
+#include "utente.h"
 
 using namespace std;
 
@@ -14,8 +15,8 @@ using namespace std;
 extern int id_p;
 
 // Funzione che permette l'aggiunta di un post alla bacheca dell'utente
-void Bacheca::aggiungi_post(const string _email){
-  int s;
+void Bacheca::aggiungi_post(Utente* _u){
+	int s;
   string testo;
 
   // Inserimento testo
@@ -29,7 +30,7 @@ void Bacheca::aggiungi_post(const string _email){
   system("CLS");
   if (s == 1) {
     // Creo un post con le informazioni date
-    Post p(id_p,_email,testo);
+    Post p(_u,testo);
     
     // Inserisco il post nel map dei post (id,post)
     lista_post.insert(pair<int,Post> (p.get_idpost(),p));
@@ -40,7 +41,7 @@ void Bacheca::aggiungi_post(const string _email){
 
     // Scrivo dati su file
     post << id_p << ";";
-    post << _email << ";";
+    post << _u->get_email() << ";";
     post << p.get_tempo() << ";";
     post << testo << endl;
 
@@ -71,7 +72,7 @@ void Bacheca::aggiungi_post(const string _email){
     
   } else {
     return;
-  }
+  }	
 }
 
 // Restituisce un puntatore alla lista dei post

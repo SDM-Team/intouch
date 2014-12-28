@@ -10,6 +10,7 @@
 #include "bacheca.h"
 #include "amicizia.h"
 
+
 using namespace std;
 
 class Utente {

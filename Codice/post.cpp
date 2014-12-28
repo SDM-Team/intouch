@@ -1,6 +1,7 @@
 #include "post.h"
 #include "input.h"
 #include "config.h"
+#include "utente.h"
 
 #include <fstream>
 #include <sstream>
@@ -24,7 +25,7 @@ extern int id_c;
 
 	testo = _testo;
 }*/
-
+/*
 Post::Post(int _id, string _autore, string _testo) {
   id_post = _id;
   autore = _autore;
@@ -35,14 +36,26 @@ Post::Post(int _id, string _autore, string _testo) {
 	
   testo = _testo;
 }
-
-Post::Post(int _id, string _autore, string _testo, Data _tempo) {
+*/
+Post::Post(int _id, Utente* _autore, string _testo, Data _tempo) {
   id_post = _id;
-  autore = _autore;
+  author = _autore;
     
   tempo = _tempo;
 	
   testo = _testo;
+}
+
+Post::Post(Utente* _u, string _testo){
+	id_post = id_p;
+	
+	Data temp;
+	temp.imposta_dataOra();
+	tempo = temp;
+	
+	author = _u;
+	
+	testo = _testo;
 }
 
 int Post::get_idpost () const {
@@ -57,8 +70,8 @@ string Post::get_testo() const {
     return testo;
 }
 
-string Post::get_autore() const {
-    return autore;
+Utente* Post::get_autore(){
+    return author;
 }
 
 list<Commento>* Post::get_listacommenti() {
@@ -67,7 +80,8 @@ list<Commento>* Post::get_listacommenti() {
 
 void Post::visualizza_post_light() {
   cout << "POST #" << id_post << endl;
-	cout << "Autore: " << "Cognome" << " " << "Nome" <<endl;			//TO DO ##############################
+	cout << "Autore: "; 
+	if(author != NULL) { cout << author->get_cognome() << " " << author->get_cognome() << " (" << author->get_email() << ")" << endl; }
 	cout << "Data: " << tempo <<endl;
 	cout << endl << '"' << testo << '"' << endl << endl;
   
