@@ -67,11 +67,14 @@ string inputPassword(int max){
       s="";
     }
     
-    else if( c == '\b' //c != 8 && c != 127 && //tasti backspace e delete
+    else if( c == '\b' || c == char(8) //c != 8 && c != 127 && //tasti backspace e delete
 	){ 
 	
 	  if(i > 0){
-	    cout << string(1,'\b'); //cancella 1 carattere
+	    //cout << string(1,'\b' ); //cancella 1 carattere
+	    cout << char(8);
+	    cout<<" ";
+	    cout << char(8);
         i--;
 	    s = s.substr( 0, i ); //tronca la stringa al carattere precedente
 	  }

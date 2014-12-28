@@ -1,13 +1,12 @@
 #include "post.h"
+#include "input.h"
+#include "config.h"
 
 #include <fstream>
 #include <sstream>
 
 using namespace std;
 
-// File di configurazione
-extern string path_files_p;
-extern string nome_file_commenti;
 
 int id_p = 1;
 extern int id_c;
@@ -100,29 +99,32 @@ void Post::visualizza_post(){
 }
 
 //aggiunge un commento al post
-void Post::commenta_post(){
+void Post::commenta_post(string _email){
+	
 	cout << "Inserisci testo:" << endl;
-	string temp;
-	fflush(stdin); //?
 	//controllo input MAXPOST
-	cin >> temp;
-	lista_commenti.push_back( Commento(id_c,temp) );
+	string testo_commento = inputString(MAXPOST);
+	
+	lista_commenti.push_back( Commento(id_c,testo_commento) );
 	
 	// Scrittura su file
+	Data temp;
+	temp.imposta_dataOra();
 	stringstream convert;
 	convert << id_post;
 	
-  string path = path_files_p + convert.str() + "/" + nome_file_commenti;
+    string path = path_files_p + convert.str() + "/" + nome_file_commenti;
+    
 	ofstream file;
-	file.open(path.c_str(), ios::out);
-	
-	file << id_c << ";"
-       << autore << ";"
-	     << tempo << ";"
-	     << testo << endl;
+	file.open(path.c_str(), ios::app);
+	//controllo apertura corretta file
+	if(!file){ cerr<< "Errore apertura file!"; return;}
+	file << id_c << ";";
+    file << _email << ";"; 
+	file << temp << ";";
+	file << testo_commento << endl;
 	     
   file.close();
   
   id_c++;
-		
 }

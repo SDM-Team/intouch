@@ -7,18 +7,9 @@
 
 #include "intouch.h"
 #include "input.h"
+#include "config.h"
 
-// Variabili globali relative a nomi e path dei file di testo
-string path_files = "File/";
-string path_files_u = "File/Dati utente/";
-string path_files_p = "File/Dati post/";
 
-string nome_file_utenti = "utenti.csv";
-string nome_file_post = "post.csv";
-string nome_file_commenti = "commenti.csv";
-string nome_file_likes = "likes.csv";
-string nome_file_amicizie = "amicizie.csv";
-string nome_file_profilo = "profilo.csv";
 
 extern int id_u;
 extern int id_p;
@@ -148,6 +139,7 @@ void InTouch::registrazione() {
           } else {
                  system("CLS");
              // Se l'utente non esiste ancora richama la funzione di creazione utente
+             cout << "Utente registrato correttamente!" << endl << endl;
              aggiungi_utente(u);
           }
           break;
@@ -171,6 +163,9 @@ void InTouch::aggiungi_utente(const Utente& u) {
     string path = path_files + nome_file_utenti;
     ofstream utenti(path.c_str(), ios::app);
     
+    //controllo corretta creazione o apertura file
+    if(!utenti){cerr<<"Errore apertura file!"<<endl; return;}
+    
     utenti << u.get_idutente() << ";";
     utenti << u.get_nome() << ";";
     utenti << u.get_cognome() << ";";
@@ -181,17 +176,20 @@ void InTouch::aggiungi_utente(const Utente& u) {
     
     id_u++;
     
+    //Creo cartelle per l'utente
     path = path_files_u + u.get_email();
     mkdir(path.c_str());
     
     // Creo file di default
     string path1 = path + "/" + nome_file_profilo;
     ofstream profilo(path1.c_str(), ios::out);
+    if(!profilo){cerr<<"Errore apertura file!"<<endl;}
     profilo << "ND;ND;ND;01/01/0;ND" << endl;
     profilo.close();
     
     path1 = path + "/" + nome_file_amicizie;
     ofstream amicizie(path1.c_str(), ios::out);
+    if(!amicizie){cerr<<"Errore apertura file!"<<endl;}
     amicizie << "";
     amicizie.close();
 }
@@ -210,12 +208,14 @@ void InTouch::reset() {
     string path = path_files + nome_file_utenti;
     ofstream file;
     file.open(path.c_str(), ios::out);
+    if(!file){cerr<<"Errore apertura file!"; exit(-1);}
     file << "";
     file.close();
     
     // Svuoto database post
     path = path_files + nome_file_post;
     file.open(path.c_str(), ios::out);
+    if(!file){cerr<<"Errore apertura file!"; exit(-1);}
     file << "";
     file.close();
     
@@ -238,6 +238,12 @@ void InTouch::reset() {
        rmdir(path.c_str());
     }
     
+    // Elimino directory principale
+    remove((path_files + nome_file_utenti).c_str());
+    remove((path_files + nome_file_post).c_str());
+    rmdir(path_files_p.c_str());
+    rmdir(path_files_u.c_str());
+    rmdir(path_files.c_str());
     exit(1);
 }    
 
@@ -248,39 +254,58 @@ void InTouch::importa_utenti() {
     
     char linea[100];
     
+    //creazione files se non esistenti
+    mkdir(path_files.c_str());
+    mkdir(path_files_u.c_str());
+    mkdir(path_files_p.c_str());
+    
     string path = path_files + nome_file_utenti;
     utenti.open(path.c_str(), ios::in);
-    while (!utenti.getline(linea,100).eof()) {
-       char* pch;
-       
-       // Primo token: ID utente
-       pch = strtok (linea,";");
-       int id_utente = atoi(pch);
-       
-       // Secondo token: Nome
-       string nome = strtok (NULL,";");
-       
-       // Terzo token: Cognome
-       string cognome = strtok (NULL,";");
-       
-       // Quarto token: Email
-       string email = strtok (NULL,";");
-       
-       // Quinto token: Password
-       string password = strtok (NULL,";");
-       
-       Utente u(nome,cognome,email,password);
-       
-       lista_utenti.insert(pair<string,Utente> (email,u));
-       
-       // Crea la cartella nel caso fosse stata cancellata
-       string path = path_files_u + email;
-       mkdir(path.c_str());
-       
-       id_u = id_utente + 1;
-    } 
     
-    utenti.close();
+	if(utenti){ //controllo file esistente e aperto correttamente
+		
+      while (!utenti.getline(linea,100).eof()) {
+        char* pch;
+	
+        // Primo token: ID utente
+        pch = strtok (linea,";");
+        int id_utente = atoi(pch);
+
+        // Secondo token: Nome
+        string nome = strtok (NULL,";");
+       
+        // Terzo token: Cognome
+        string cognome = strtok (NULL,";");
+       
+        // Quarto token: Email
+        string email = strtok (NULL,";");
+       
+        // Quinto token: Password
+        string password = strtok (NULL,";");
+
+        Utente u(nome,cognome,email,password);
+       
+        lista_utenti.insert(pair<string,Utente> (email,u));
+       
+        // Crea la cartella nel caso fosse stata cancellata
+        path = path_files_u + email;
+        mkdir(path.c_str());
+       
+        id_u = id_utente + 1;
+    
+	  }
+    
+	}else{
+	  //reset utenti.csv
+	  //cerr << "Lista utenti vuota!" << endl;
+	  string path = path_files + nome_file_utenti;
+      ofstream file(path.c_str(), ios::out);
+      if(!file){cerr<<"Errore apertura file!"<<endl;}
+      file << "";
+      file.close();
+	}
+	
+	utenti.close();
 }
 
 void InTouch::importa_post() {
@@ -291,55 +316,66 @@ void InTouch::importa_post() {
     string path = path_files + nome_file_post;
     
     post.open(path.c_str(), ios::in);
-    while (!post.getline(linea,150).eof()) {
-       char* pch;
-       
-       //token ID post
-       pch = strtok (linea,";");
-       int id_post = atoi(pch);
-       
-       // token autore
-       string autore = strtok (NULL,";");
-       
-       // token giorno
-       int giorno = atoi(strtok(NULL,"/"));
-       
-       // token mese
-       int mese = atoi(strtok(NULL,"/"));
-       
-       // token anno
-       int anno = atoi(strtok(NULL," "));
-       
-       // token ora
-       int ora = atoi(strtok(NULL,":"));
-       
-       // token minuti
-       int minuti = atoi(strtok(NULL,";"));
-       
-       // token testo
-       string testo = strtok (NULL,";");
-       
-       Data temp(giorno,mese,anno,ora,minuti);
-       
-       Post p(id_post,autore,testo,temp);
-       
-       map<string,Utente>::iterator iter;
-       
-       iter = lista_utenti.find(autore);
-       
-       iter->second.get_bacheca()->get_listapost()->insert(pair<int,Post> (id_post,p));
-       
-       importa_commenti(autore,id_post);
-       
-       // Crea la cartella nel caso fosse stata cancellata
-       stringstream convert;
-       convert << id_post;
-       string path = path_files_p + convert.str();
-       mkdir(path.c_str());
-       
-       id_p = id_post + 1;
-    } 
     
+    if(post){ //controllo file esistente e aperto correttamente
+    
+      while (!post.getline(linea,150).eof()) {
+        char* pch;
+       
+        //token ID post
+        pch = strtok (linea,";");
+        int id_post = atoi(pch);
+       
+        // token autore
+        string autore = strtok (NULL,";");
+    
+        // token giorno
+        int giorno = atoi(strtok(NULL,"/"));
+       
+        // token mese
+        int mese = atoi(strtok(NULL,"/"));
+       
+        // token anno
+        int anno = atoi(strtok(NULL," "));
+       
+        // token ora
+        int ora = atoi(strtok(NULL,":"));
+       
+        // token minuti
+        int minuti = atoi(strtok(NULL,";"));
+       
+        // token testo
+        string testo = strtok (NULL,";");
+       
+        Data temp(giorno,mese,anno,ora,minuti);
+       
+        Post p(id_post,autore,testo,temp);
+       
+        map<string,Utente>::iterator iter;
+       
+        iter = lista_utenti.find(autore);
+       
+        iter->second.get_bacheca()->get_listapost()->insert(pair<int,Post> (id_post,p));
+       
+        importa_commenti(autore,id_post);
+       
+        // Crea la cartella nel caso fosse stata cancellata
+        stringstream convert;
+        convert << id_post;
+        string path = path_files_p + convert.str();
+        mkdir(path.c_str());
+       
+        id_p = id_post + 1;
+      } 
+	}else{
+	  //reset post.csv
+	  //cerr << "Lista post vuota!" << endl;
+	  string path = path_files + nome_file_post;
+      ofstream file(path.c_str(), ios::out);
+      if(!file){cerr<<"Errore apertura file!"<<endl;}
+      file << "";
+      file.close();	
+	}
     post.close();
 }
 
@@ -351,79 +387,89 @@ void InTouch::importa_commenti(string _autore, int id_post) {
     ifstream file_c;
     file_c.open(path.c_str(), ios::in);
     
-    map<string,Utente>::iterator iter_utente;
-    iter_utente = lista_utenti.find(_autore);
+    if(file_c){ //controllo file esistente e aperto correttamente
+
     
-    char linea[150];
+      map<string,Utente>::iterator iter_utente;
+      iter_utente = lista_utenti.find(_autore);
     
-    while (!file_c.getline(linea,150).eof()) {
-       char* pch;
+      char linea[150];
+    
+      while (!file_c.getline(linea,150).eof()) {
+        char* pch;
        
-       //token ID post
-       pch = strtok (linea,";");
-       int id = atoi(pch);
+        //token ID post
+        pch = strtok (linea,";");
+        int id = atoi(pch);
+
+        // token autore
+        string autore = strtok (NULL,";");
        
-       // token autore
-       string autore = strtok (NULL,";");
+        // token giorno
+        int giorno = atoi(strtok(NULL,"/"));
        
-       // token giorno
-       int giorno = atoi(strtok(NULL,"/"));
+        // token mese
+        int mese = atoi(strtok(NULL,"/"));
        
-       // token mese
-       int mese = atoi(strtok(NULL,"/"));
+        // token anno
+        int anno = atoi(strtok(NULL," "));
        
-       // token anno
-       int anno = atoi(strtok(NULL," "));
+        // token ora
+        int ora = atoi(strtok(NULL,":"));
        
-       // token ora
-       int ora = atoi(strtok(NULL,":"));
+        // token minuti
+        int minuti = atoi(strtok(NULL,";"));
        
-       // token minuti
-       int minuti = atoi(strtok(NULL,";"));
+        // token testo
+        string testo = strtok (NULL,";");
        
-       // token testo
-       string testo = strtok (NULL,";");
+        Data temp(giorno,mese,anno,ora,minuti);
        
-       Data temp(giorno,mese,anno,ora,minuti);
+        Commento c(id,autore,temp,testo);
        
-       Commento c(id,autore,temp,testo);
-       
-       map<int,Post>::iterator iter_post;
-       iter_post = iter_utente->second.get_bacheca()->get_listapost()->find(id_post);
-       iter_post->second.get_listacommenti()->push_back(c);
-   }
-   
-   file_c.close();
+        map<int,Post>::iterator iter_post;
+        iter_post = iter_utente->second.get_bacheca()->get_listapost()->find(id_post);
+        iter_post->second.get_listacommenti()->push_back(c);
+      }
+    }else{
+	  cerr << "Errore import commenti!" << endl;	
+	}
+    file_c.close();
 }
 
 void InTouch::importa_profilo() {
-    char linea[150];
+  char linea[150];
     
-    map<string,Utente>::iterator iter;
-    for (iter = lista_utenti.begin(); iter != lista_utenti.end(); iter++) {
-      ifstream file;
-      string path = path_files_u + iter->first + "/" + nome_file_profilo;
-      file.open(path.c_str(), ios::in);
+  map<string,Utente>::iterator iter;
+  for (iter = lista_utenti.begin(); iter != lista_utenti.end(); iter++) {
+    ifstream file;
+    string path = path_files_u + iter->first + "/" + nome_file_profilo;
+    file.open(path.c_str(), ios::in);
       
+    if(file){ //controllo file esistente e aperto correttamente
+
       while (!file.getline(linea,150).eof()) {
       
-      // Token
-      string t_sesso = strtok(linea,";");
-      string t_professione = strtok(NULL,";");
-      string t_situazione_sent = strtok(NULL,";");
-      int t_giorno_nascita = atoi(strtok(NULL,"/"));
-      int t_mese_nascita = atoi(strtok(NULL,"/"));
-      int t_anno_nascita = atoi(strtok(NULL,";"));
-      string t_luogo_nascita = strtok(NULL,";");
+        // Token
+    	string t_sesso = strtok(linea,";");
+      	string t_professione = strtok(NULL,";");
+        string t_situazione_sent = strtok(NULL,";");
+   	    int t_giorno_nascita = atoi(strtok(NULL,"/"));
+    	int t_mese_nascita = atoi(strtok(NULL,"/"));
+      	int t_anno_nascita = atoi(strtok(NULL,";"));
+      	string t_luogo_nascita = strtok(NULL,";");
       
-      iter->second.get_profilo()->set_sesso(t_sesso);
-      iter->second.get_profilo()->set_professione(t_professione);
-      iter->second.get_profilo()->set_situasent(t_situazione_sent);
-      iter->second.get_profilo()->set_luogonasc(t_luogo_nascita);
+      	iter->second.get_profilo()->set_sesso(t_sesso);
+      	iter->second.get_profilo()->set_professione(t_professione);
+      	iter->second.get_profilo()->set_situasent(t_situazione_sent);
+      	iter->second.get_profilo()->set_luogonasc(t_luogo_nascita);
       
-      Data d(t_giorno_nascita, t_mese_nascita, t_anno_nascita);
-      iter->second.get_profilo()->set_datanasc_par(d);
-    }
+      	Data d(t_giorno_nascita, t_mese_nascita, t_anno_nascita);
+    	iter->second.get_profilo()->set_datanasc_par(d);
+      }
+	}else{
+	  cerr << "Errore import profilo!" << endl;	
+	}
   }
 }
       
@@ -438,35 +484,40 @@ void InTouch::importa_amicizie() {
       ifstream file;
       file.open(path.c_str(), ios::in);
       
-      while (!file.getline(linea,150).eof()) {
-        int id = atoi(strtok(linea,";"));
-        string utente = strtok(NULL,";");
-        string s = strtok(NULL,";");
-        string r = strtok(NULL,";");
-        
-        Stato stato;
-        if (s == "A") {
-          stato = A;
-        } else if (s == "X") {
-          stato = X;
-        } else if (s == "R") {
-          stato = R;
-        }
-        
-        Ruolo ruolo;
-        if (r == "MITTENTE") {
-          ruolo = MITTENTE;
-        } else if (r == "DESTINATARIO") {
-          ruolo = DESTINATARIO;
-        }
-        
-        iter_utenti2 = lista_utenti.find(utente);    
-        
-        Amicizia a(id,&iter_utenti2->second,stato,ruolo);
-        
-        iter_utenti->second.get_listaamicizie()->insert(pair<int,Amicizia> (id,a));
-      }
+      if(file){ //controllo file esistente e aperto correttamente
       
+        while (!file.getline(linea,150).eof()) {
+        	
+          int id = atoi(strtok(linea,";"));
+          string utente = strtok(NULL,";");
+          string s = strtok(NULL,";");
+          string r = strtok(NULL,";");
+         
+          Stato stato;
+           if(s == "A") {
+            stato = A;
+          } else if (s == "X") {
+            stato = X;
+          } else if (s == "R") {
+            stato = R;
+          }
+          
+          Ruolo ruolo;
+          if (r == "MITTENTE") {
+            ruolo = MITTENTE;
+          } else if (r == "DESTINATARIO") {
+            ruolo = DESTINATARIO;
+          }
+        
+          iter_utenti2 = lista_utenti.find(utente);    
+        
+          Amicizia a(id,&iter_utenti2->second,stato,ruolo);
+          
+          iter_utenti->second.get_listaamicizie()->insert(pair<int,Amicizia> (id,a));
+        }
+      }else{
+	    cerr << "Errore import amicizia!" << endl;	
+	  }
       file.close();
     }
 }

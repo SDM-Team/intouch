@@ -1,13 +1,12 @@
 #include "utente.h"
 #include "intouch.h"
-
+#include "config.h"
 //per le prove
 #include "post.h"
 #include "input.h"
 
 // Variabili di configurazione
-extern string path_files_u;
-extern string nome_file_profilo;
+extern int id_p;
 
 extern InTouch applicazione;
 
@@ -222,10 +221,9 @@ void Utente::modifica_profilo(){
 //Bacheca
 void Utente::visualizza_bacheca() {
   map<int,Post>::reverse_iterator iter;
-  int s=0;
+  int s = 0;
   
   do{
-    
 	cout<< "Bacheca di " << get_nome() << " " << get_cognome()<<endl;
     for (iter = get_bacheca()->get_listapost()->rbegin(); iter != get_bacheca()->get_listapost()->rend(); iter++) {
       /*cout << "ID Post: " << iter->first << endl;
@@ -236,20 +234,32 @@ void Utente::visualizza_bacheca() {
     }
                                    
     
-    cout<< "Per modificare la tua bacheca premi 1"<<endl;
+    cout<< "Per visualizzare i dettagli di un post e interagire con esso digitarne il numero"<<endl;
     cout<< "Per tornare alla schermata iniziale premi 0"<<endl;
-    s = inputInt(0,1);
-    
+    s = inputInt(0,id_p);
     system("CLS");
-    switch(s){
-      case 0: 
-	    return;
-		//ritorna alla schermata iniziale 
-      case 1: 
-	    break;          
-    }
+    
+    if( s == 0){ return; }
+    if ( get_bacheca()->get_listapost()->find(s) != get_bacheca()->get_listapost()->end() ){
+      	  
+			get_bacheca()->get_listapost()->find(s)->second.visualizza_post();
+			cout<< "Per commentare il post selezionato premi 1" << endl;
+			cout<< "Per mettere[/togliere] \"mi piace\" premi 2" << endl;
+			cout<< "Per tornare alla schermata iniziale premi 0" << endl;
+      	  int p = inputInt(0,2);
+      	  
+      	  switch(p){
+		    case 0: system("CLS"); return;	
+			case 1: get_bacheca()->get_listapost()->find(s)->second.commenta_post(email); break;
+			case 2: cout<<"Like!"; break;
+			
+		  }
+    system("CLS");  	  
+      	  
+    }else{ system("CLS"); cerr << "Post non trovato!" << endl << endl;}
     
   }while(s!=0);
+  
    
 }
 
@@ -257,6 +267,8 @@ void Utente::visualizza_bacheca_generale() {
     map<int,Post*> lista_post_amici;
     map<int,Amicizia>::iterator iter_amicizie;
     map<int,Post>::iterator iter_post;
+    int s = 0;
+    
     for (iter_amicizie = lista_amicizie.begin(); iter_amicizie != lista_amicizie.end(); iter_amicizie++) {
       if (iter_amicizie->second.get_status() == A) {
         for (iter_post = iter_amicizie->second.get_utente()->get_bacheca()->get_listapost()->begin();
@@ -276,6 +288,32 @@ void Utente::visualizza_bacheca_generale() {
     for (iter_post_amici = lista_post_amici.begin(); iter_post_amici != lista_post_amici.end(); iter_post_amici++) {
       iter_post_amici->second->visualizza_post_light();
     }
+    
+    cout<< "Per visualizzare i dettagli di un post e interagire con esso digitarne il numero"<<endl;
+    cout<< "Per tornare alla schermata iniziale premi 0"<<endl;
+    
+    s = inputInt(0,id_p);
+    system("CLS");
+    
+    if( s == 0){ return; }
+    if ( lista_post_amici.find(s) != lista_post_amici.end() ){
+      	  
+			lista_post_amici.find(s)->second->visualizza_post();
+			cout<< "Per commentare il post selezionato premi 1" << endl;
+			cout<< "Per mettere[/togliere] \"mi piace\" premi 2" << endl;
+			cout<< "Per tornare alla schermata iniziale premi 0" << endl;
+      	  int p = inputInt(0,2);
+      	  
+      	  switch(p){
+		    case 0: system("CLS"); return;	
+			case 1: get_bacheca()->get_listapost()->find(s)->second.commenta_post(email); break;
+			case 2: cout<<"Like!"; break;
+			
+		  }
+    system("CLS");  	  
+      	  
+    }else{ system("CLS"); cerr << "Post non trovato!" << endl << endl;}
+    
 }
                                     
 void Utente::visualizza_amici() {

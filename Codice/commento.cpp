@@ -22,7 +22,7 @@ Commento::Commento(int _id, string _autore, Data _tempo, string _testo) {
 }
 
 void Commento::visualizza_commento(){
-	cout << "Autore: " << "Cognome" << " " << "Nome" <<endl; //TO DO ##############################
+	cout << "Autore: " << "Cognome" << " " << "Nome" <<endl; //TO DO ############################## InTouch applicazione.lista_utenti.find?
 	cout << "Data: " << tempo <<endl;
 	cout << '"' << testo << '"' << endl << endl;
 }

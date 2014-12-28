@@ -6,16 +6,9 @@
 
 #include "bacheca.h"
 #include "input.h"
+#include "config.h"
 
 using namespace std;
-
-// Richiamo variabili file
-extern string path_files;
-extern string path_files_u;
-extern string path_files_p;
-extern string nome_file_post;
-extern string nome_file_commenti;
-extern string nome_file_likes;
 
 // Richiamo la variabile globale id_p per il tracciamento degli ID univoci dei post
 extern int id_p;
@@ -31,9 +24,9 @@ void Bacheca::aggiungi_post(const string _email){
   
   // Conferma
   cout << "Per confermare e aggiungere il post alla tua Bacheca premi 1: "<<endl;
-  cout << "Per tornare alla schermata iniziale premi 0"<<endl<<endl;
+  cout << "Per tornare alla schermata iniziale premi 0"<<endl;
   s = inputInt(0,1);
-
+  system("CLS");
   if (s == 1) {
     // Creo un post con le informazioni date
     Post p(id_p,_email,testo);
@@ -63,11 +56,13 @@ void Bacheca::aggiungi_post(const string _email){
     // Creo file di default
     string path1 = path + "/" + nome_file_commenti;
     ofstream commenti(path1.c_str(), ios::out);
+    if(!commenti){ cerr << "Errore apertura file!"; return;}
     commenti << "";
     commenti.close();
     
     path1 = path + "/" + nome_file_likes;
     ofstream likes(path1.c_str(), ios::out);
+    if(!likes){ cerr << "Errore apertura file!"; return;}
     likes << "";
     likes.close();
       
