@@ -5,6 +5,7 @@
 
 #include <fstream>
 #include <sstream>
+#include <cstring> /* strtok */
 
 using namespace std;
 
@@ -12,31 +13,6 @@ using namespace std;
 int id_p = 1;
 extern int id_c;
 
-//costruttore specifico per creazione post senza titolo con timestamp corrente
-/*Post::Post(string _autore, string _testo){
-	id_post = id_p;
-	id_p++;
-	
-	Data temp;
-	temp.imposta_dataOra();
-	tempo = temp;
-	
-	autore = _autore;
-
-	testo = _testo;
-}*/
-/*
-Post::Post(int _id, string _autore, string _testo) {
-  id_post = _id;
-  autore = _autore;
-    
-  Data temp;
-	temp.imposta_dataOra();
-	tempo = temp;
-	
-  testo = _testo;
-}
-*/
 Post::Post(int _id, Utente* _autore, string _testo, Data _tempo) {
   id_post = _id;
   author = _autore;
@@ -86,20 +62,20 @@ void Post::visualizza_post_light() {
 	cout << endl << '"' << testo << '"' << endl << endl;
   
   if (lista_commenti.size() == 0) {
-    cout << "Ancora nessun commento" << endl;
+    cout << "Nessun commento" << endl;
   } else if (lista_commenti.size() == 1) {
     cout << "1 commento" << endl;
   } else {
     cout << lista_commenti.size() << " commenti" << endl;
   }
-  cout << endl;
+  
   
   if (lista_likes.size() == 0) {
-    cout << "Ancora nessun \"mi piace\"" << endl;
+    cout << "Nessun \"mi piace\"" << endl;
   } else if (lista_likes.size() == 1) {
     cout << "1 \"mi piace\"" << endl;
   } else {
-    cout << lista_commenti.size() << " \"mi piace\"" << endl;
+    cout << lista_likes.size() << " \"mi piace\"" << endl;
   }
   cout << endl;  
 }
@@ -113,7 +89,7 @@ void Post::visualizza_post(){
 	cout << endl << '"' << testo << '"' << endl << endl;
 	
 	if (lista_commenti.size() == 0) {
-    cout << "Ancora nessun commento" << endl;
+    cout << "Nessun commento" << endl;
   } else {
   
     //stampa commenti
@@ -181,4 +157,81 @@ void Post::commenta_post(Utente* autore){
   file.close();
   
   id_c++;
+}
+
+void Post::aggiungi_like(Utente* autore){
+	
+	//controllo se piace già
+	map<string,Utente*>::iterator iter;
+	iter = lista_likes.find( autore->get_email() );
+	
+	if( iter == lista_likes.end() ){ //aggiungo like perché non trovato
+	lista_likes.insert( pair<string,Utente*> (autore->get_email(), autore) );
+	
+	// Scrittura su file
+	stringstream convert;
+	convert << id_post;
+	
+    string path = path_files_p + convert.str() + "/" + nome_file_likes;
+    
+	ofstream file;
+	file.open(path.c_str(), ios::app);
+	//controllo apertura corretta file
+	if(!file){ cerr<< "Errore apertura file!"; return;}
+	file << autore->get_email() << endl;  
+    file.close();
+    
+    system("CLS"); 
+	cout<<"Liked!" << endl << endl; 
+	}else{
+	  rimuovi_like(autore);	
+	}
+	
+}
+
+void Post::rimuovi_like(Utente* autore){
+
+	//controllo eseguito in aggiungi_like
+	lista_likes.erase( autore->get_email() );
+	
+	//riscrittura su nuovo file
+	stringstream convert;
+	convert << id_post;
+	
+    string path = path_files_p + convert.str() + "/" + nome_file_likes;	
+    string path_copia = path_files_p + convert.str() + "/" + nome_file_likes + "_copia";
+    
+	ofstream file_copia;
+	file_copia.open(path_copia.c_str(), ios::out);
+	//controllo apertura corretta file
+	if(!file_copia){ cerr<< "Errore apertura file!"; return;}
+	
+	ifstream file;
+	file.open(path.c_str(), ios::in);
+	//controllo apertura file
+	if(!file){ cerr << "Errore apertura file!"; return;}
+	
+	char linea[150];
+	while (!file.getline(linea,150).eof()) {
+        //token mail
+        string _email = strtok (linea,";");
+        if(_email != autore->get_email() ){
+          file_copia << _email << endl;
+      	}
+	  }	
+ 
+    file.close();
+    file_copia.close();
+    
+    //elimino il precedente file
+    if(remove(path.c_str()) != 0){ cerr << "Errore eliminazione file!"; return; }
+    //rinomino
+    if( rename( path_copia.c_str(),path.c_str() ) != 0){ cerr << "Errore rinomino file!"; return; }
+    
+	system("CLS"); 
+	cout<<"Non ti piace piu'!" << endl << endl; 
+}
+
+void Post::popola_lista_likes( pair<string, Utente* > pair ){
+	lista_likes.insert( pair );	
 }

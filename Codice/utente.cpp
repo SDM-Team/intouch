@@ -234,7 +234,7 @@ void Utente::visualizza_bacheca() {
     }
                                    
     
-    cout<< "Per visualizzare i dettagli di un post e interagire con esso digitarne il numero"<<endl;
+    cout<< "Per visualizzare i dettagli di un post e interagire con esso digitarne il numero";
     cout<< "Per tornare alla schermata iniziale premi 0"<<endl;
     s = inputInt(0,id_p);
     system("CLS");
@@ -249,9 +249,12 @@ void Utente::visualizza_bacheca() {
       	  int p = inputInt(0,2);
       	  
       	  switch(p){
-		    case 0: system("CLS"); return;	
-			case 1: get_bacheca()->get_listapost()->find(s)->second.commenta_post(this); break;
-			case 2: system("CLS"); cout<<"Liked!" << endl << endl; return;
+		    case 0: system("CLS"); 
+					return;	
+			case 1: get_bacheca()->get_listapost()->find(s)->second.commenta_post(this);
+					break;
+			case 2: get_bacheca()->get_listapost()->find(s)->second.aggiungi_like(this);
+					return;
 			
 		  }
     system("CLS");  	  
@@ -289,7 +292,7 @@ void Utente::visualizza_bacheca_generale() {
       iter_post_amici->second->visualizza_post_light();
     }
     
-    cout<< "Per visualizzare i dettagli di un post e interagire con esso digitarne il numero"<<endl;
+    cout<< "Per visualizzare i dettagli di un post e interagire con esso digitarne il numero";
     cout<< "Per tornare alla schermata iniziale premi 0"<<endl;
     
     s = inputInt(0,id_p);
@@ -309,8 +312,8 @@ void Utente::visualizza_bacheca_generale() {
 					return;	
 			case 1: lista_post_amici.find(s)->second->commenta_post(this);
 					break;
-			case 2: cout<<"Like!";
-					break;
+			case 2: lista_post_amici.find(s)->second->aggiungi_like(this);
+					return;
 			
 		  }
     system("CLS");  	  

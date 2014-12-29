@@ -124,7 +124,7 @@ void InTouch::registrazione() {
     cout << "Premi 0 per annullare e tornare alla schermata di accesso" << endl;
     
     s = inputInt(0,1);
-    cout << endl;
+    system("CLS");
     
     switch (s) {
        case 0:
@@ -134,12 +134,11 @@ void InTouch::registrazione() {
           
           if (utente_esiste(u)) {
              // Se l'utente esiste già stampa un messaggio di errore e rimanda alla schermata di autenticazione
-             system("CLS");
-             cout << "Errore: Indirizzo email gia' registrato" << endl << endl;
+             cerr << "Errore: Indirizzo email gia' registrato" << endl << endl;
           } else {
-                 system("CLS");
+                 
              // Se l'utente non esiste ancora richama la funzione di creazione utente
-             cout << "Utente registrato correttamente!" << endl << endl;
+             cerr << "Utente registrato correttamente!" << endl << endl;
              aggiungi_utente(u);
           }
           break;
@@ -356,7 +355,7 @@ void InTouch::importa_post() {
         iter->second.get_bacheca()->get_listapost()->insert(pair<int,Post> (id_post,p));
        
         importa_commenti(autore,id_post);
-        importa_likes();
+        importa_likes(autore,id_post);
        
         // Crea la cartella nel caso fosse stata cancellata
         stringstream convert;
@@ -388,7 +387,6 @@ void InTouch::importa_commenti(string _autore, int id_post) {
     
     if(file_c){ //controllo file esistente e aperto correttamente
 
-    
       map<string,Utente>::iterator iter_autore_post;
       iter_autore_post = lista_utenti.find(_autore);
       map<string,Utente>::iterator iter_autore_commento;
@@ -439,8 +437,35 @@ void InTouch::importa_commenti(string _autore, int id_post) {
     file_c.close();
 }
 
-void InTouch::importa_likes(){
-		
+void InTouch::importa_likes(string _autore, int id_post){
+	stringstream convert;
+    convert << id_post;
+
+    string path = path_files_p + convert.str() + "/" + nome_file_likes;
+    ifstream file;
+    file.open(path.c_str(), ios::in);
+    
+    if(file){  //controllo file esistente e aperto correttamente
+      
+	  map<string,Utente>::iterator iter_autore_post;
+      iter_autore_post = lista_utenti.find(_autore);
+	  map<int,Post>::iterator iter_post;
+	  iter_post = iter_autore_post->second.get_bacheca()->get_listapost()->find(id_post);
+	  map<string,Utente>::iterator iter_autore_like;
+	  
+	  char linea[150];
+      
+      while (!file.getline(linea,150).eof()) {
+        //token mail
+        string _email = strtok (linea,";");
+        
+        iter_autore_like = lista_utenti.find(_email);
+	    iter_post->second.popola_lista_likes( pair<string,Utente*> (_email, &(iter_autore_like->second )) );
+	  }	
+    }else{
+      cerr << "Errore import likes!" << endl;	
+    }
+    file.close();
 }
 
 void InTouch::importa_profilo() {
