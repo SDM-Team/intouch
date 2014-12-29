@@ -203,27 +203,17 @@ bool InTouch::check_login(const Utente& u) {
 
 // Metodo che resetta il sistema eliminando utenti e post creati finora, con opportuni file e cartelle
 void InTouch::reset() { 
-    // Svuoto database utenti
-    string path = path_files + nome_file_utenti;
-    ofstream file;
-    file.open(path.c_str(), ios::out);
-    if(!file){cerr<<"Errore apertura file!"; exit(-1);}
-    file << "";
-    file.close();
-    
-    // Svuoto database post
-    path = path_files + nome_file_post;
-    file.open(path.c_str(), ios::out);
-    if(!file){cerr<<"Errore apertura file!"; exit(-1);}
-    file << "";
-    file.close();
+	system("CLS");
+    string path;
     
     // Elimino cartelle e dati utenti
     map<string,Utente>::iterator iter;
     for (iter = lista_utenti.begin(); iter != lista_utenti.end(); iter++) {
        path = path_files_u + iter->first;
-       remove((path + "/" + nome_file_amicizie).c_str());
-       remove((path + "/" + nome_file_profilo).c_str());
+       cout<<"Cancello "<<(path + "/" + nome_file_amicizie).c_str()<<endl;
+       if( remove((path + "/" + nome_file_amicizie).c_str()) != 0){ cerr << " Errore eliminazione file"; }
+       cout<<"Cancello "<<(path + "/" + nome_file_profilo).c_str()<<endl;
+       if( remove((path + "/" + nome_file_profilo).c_str()) != 0){ cerr << " Errore eliminazione file"; }
        rmdir(path.c_str());
     }
     
@@ -232,17 +222,25 @@ void InTouch::reset() {
        stringstream convert;
        convert << i;
        path = path_files_p + convert.str();
-       remove((path + "/" + nome_file_likes).c_str());
-       remove((path + "/" + nome_file_commenti).c_str());
+       cout<<"Cancello "<<(path + "/" + nome_file_likes).c_str()<<endl;
+       if( remove((path + "/" + nome_file_likes).c_str()) != 0){ cerr << " Errore eliminazione file"; }
+       cout<<"Cancello "<<(path + "/" + nome_file_commenti).c_str()<<endl;
+       if( remove((path + "/" + nome_file_commenti).c_str()) != 0){ cerr << " Errore eliminazione file"; }
        rmdir(path.c_str());
     }
     
     // Elimino directory principale
-    remove((path_files + nome_file_utenti).c_str());
-    remove((path_files + nome_file_post).c_str());
-    rmdir(path_files_p.c_str());
+    cout<<"Cancello "<<(path_files + nome_file_utenti).c_str()<<endl;
+    if( remove((path_files + nome_file_utenti).c_str()) != 0){ cerr << " Errore eliminazione file"; }
+    cout<<"Cancello "<<(path_files + nome_file_post).c_str()<<endl;
+    if( remove((path_files + nome_file_post).c_str()) != 0){ cerr << " Errore eliminazione file"; }
+    cout<<"Cancello "<<(path_files_p).c_str()<<endl;
+	rmdir(path_files_p.c_str());
+	cout<<"Cancello "<<(path_files_u).c_str()<<endl;
     rmdir(path_files_u.c_str());
+    cout<<"Cancello "<<(path_files).c_str()<<endl;
     rmdir(path_files.c_str());
+    system("PAUSE");
     exit(1);
 }    
 
