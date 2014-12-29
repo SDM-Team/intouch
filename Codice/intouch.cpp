@@ -235,11 +235,11 @@ void InTouch::reset() {
     cout<<"Cancello "<<(path_files + nome_file_post).c_str()<<endl;
     if( remove((path_files + nome_file_post).c_str()) != 0){ cerr << " Errore eliminazione file"; }
     cout<<"Cancello "<<(path_files_p).c_str()<<endl;
-	rmdir(path_files_p.c_str());
+	if( rmdir(path_files_p.c_str()) != 0){ cerr << " Errore eliminazione cartella"; }
 	cout<<"Cancello "<<(path_files_u).c_str()<<endl;
-    rmdir(path_files_u.c_str());
+    if( rmdir(path_files_u.c_str()) != 0){ cerr << " Errore eliminazione cartella"; }
     cout<<"Cancello "<<(path_files).c_str()<<endl;
-    rmdir(path_files.c_str());
+    if( rmdir(path_files.c_str()) != 0){ cerr << " Errore eliminazione cartella"; }
     system("PAUSE");
     exit(1);
 }    
