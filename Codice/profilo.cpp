@@ -1,7 +1,9 @@
-#include <cstdlib>
-#include <iostream>
-#include <string.h>
-#include "profilo.h"
+#include <string>		/* string								*/
+
+// Libreria personalizzata
+#include "profilo.h"	/* Libreria di riferimento 				*/
+#include "config.h"		/* Definizione variabili globali 		*/
+#include "data.h"		/* classe Data e metodi relativi 		*/
 
 using namespace std;
 

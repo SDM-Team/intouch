@@ -1,8 +1,12 @@
+#include <conio.h>		/* getch								*/
+#include <iostream>		/* cout, endl, cin						*/
+#include <sstream>		/* stringstream							*/
+#include <string>		/* string, getline						*/
+
+// Libreria personalizzata
 #include "input.h"
 
-
-
-
+using namespace std;
 
 int inputInt(int min, int max){
   int t = 0;
@@ -35,11 +39,11 @@ int inputInt(int min, int max){
 
 string inputString(int max){
   string s;
-  string::size_type MAX_CHARS = max;
+  string::size_type max_chars = max;
   while(true){
     getline( cin, s );
     
-    if( s.size() > MAX_CHARS ) {
+    if( s.size() > max_chars ) {
       cerr<<"Errore: inseriti piu' di "<<max<<" caratteri; reinserire:"<<endl;
       //s = s.substr( 0, MAX_CHARS ) ; //per troncare
     }else{
@@ -53,7 +57,7 @@ string inputPassword(int max){
   char c;
   int i = 0;
   string s = "";
-  string::size_type MAX_CHARS = max;	
+  string::size_type max_chars = max;	
   while(true){
     c = getch();
     
@@ -62,7 +66,7 @@ string inputPassword(int max){
 	  return s;
     }
     
-	if( s.size() > MAX_CHARS ) {
+	if( s.size() > max_chars ) {
       cerr<<"Errore: inseriti piu' di "<<max<<" caratteri; "<<endl;
       cout<<"Reinserire password:"<<endl;
       s="";

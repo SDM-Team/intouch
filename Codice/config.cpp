@@ -1,4 +1,5 @@
-#include "config.h"
+// Librerie personalizzate
+#include "config.h"			/* Libreria di riferimento 				*/
 
 // Variabili globali relative a nomi e path dei file di testo
 string path_files = "File/";

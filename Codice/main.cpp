@@ -1,5 +1,6 @@
-#include <cstdlib>
-#include <iostream>
+#include <cstdlib>		/* system								*/
+
+// Libreria personalizzata
 #include "intouch.h"
 
 using namespace std;

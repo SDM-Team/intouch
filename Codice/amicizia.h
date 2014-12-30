@@ -1,12 +1,6 @@
 #ifndef __AMICIZIA_H__
 #define __AMICIZIA_H__
 
-#include <cstdlib>
-#include <iostream>
-#include <string>
-
-using namespace std;
-
 // Definizione del tipo di dato Stato
 typedef enum Stato {A,X,R};
 
@@ -15,6 +9,8 @@ typedef enum Ruolo {MITTENTE,DESTINATARIO};
 
 // Forward declaration: evita inclusione circolare tra amicizia.h e utente.h
 class Utente;
+
+using namespace std;
 
 // Dichiarazione classe Amicizia
 class Amicizia {

@@ -1,16 +1,23 @@
-#include "utente.h"
-#include "intouch.h"
-#include "config.h"
-//per le prove
-#include "post.h"
-#include "input.h"
+#include <cstdlib>		/* system								*/
+#include <fstream>		/* ofstream								*/
+#include <iostream>		/* cout, endl, cerr						*/
+#include <map>			/* map, map::iterator					*/
+#include <string>		/* string								*/
+
+// Librerie personalizzate
+#include "utente.h"		/* Libreria di riferimento 				*/
+#include "config.h"		/* Definizione variabili globali 		*/
+#include "input.h"		/* inputInt, inputString, inputPassword */
+#include "intouch.h"	/* classe InTouch e metodi relativi 	*/
+#include "post.h"		/* classe Post e metodi relativi 		*/
+#include "profilo.h"	/* classe Profilo e metodi relativi 	*/
 
 // Variabili di configurazione
 extern int id_p;
-
 extern InTouch applicazione;
-
 int id_u = 1;
+
+using namespace std;
 
 // Costruttore specifico a due parametri per la procedura di login
 Utente::Utente(string e, string p) {
@@ -28,6 +35,17 @@ Utente::Utente(string n, string c, string e, string p) {
   cognome = c;
   email = e;
   password = p;
+}
+
+// Costruttore di copia
+Utente::Utente(const Utente& u){
+             nome= u.nome;
+             cognome= u.cognome;
+             email= u.email;
+             password= u.password;
+             bacheca= u.bacheca;
+             profilo= u.profilo;
+             lista_amicizie = u.lista_amicizie;
 }
 
 int Utente::get_idutente() const {
@@ -62,16 +80,6 @@ map<int,Amicizia>* Utente::get_listaamicizie() {
   return (&lista_amicizie);
 }
 
-// Costruttore di copia
-Utente::Utente(const Utente& u){
-             nome= u.nome;
-             cognome= u.cognome;
-             email= u.email;
-             password= u.password;
-             bacheca= u.bacheca;
-             profilo= u.profilo;
-             lista_amicizie = u.lista_amicizie;
-}
 
 // Schermata iniziale che si visualizza una volte autenticato correttamente
 void Utente::schermata_iniziale() {
@@ -389,7 +397,7 @@ void Utente::visualizza_contenuto_amici(){
             // Torno alla schermata iniziale
             case 0: return;                    
           }
-          }while(t!=0 && t!=1); // Continuo finchè t!=0 e t!=1          
+          }while(t!=0 && t!=1); // Continuo finchè t=0 e t=1          
 }
    
 // Metodo che permette di visualizzare gli amici                                

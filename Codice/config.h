@@ -1,10 +1,12 @@
 #ifndef __CONFIG_H__
 #define __CONFIG_H__
 
-#include <string>
+#include <string>		/* string							*/
 
+// Definizione variabili globali
 #define MAXPOST 250
 #define MAXTITLE 30
+#define MAXLUN 25
 
 using namespace std;
 

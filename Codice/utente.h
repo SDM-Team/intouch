@@ -1,15 +1,13 @@
 #ifndef __UTENTE_H__
 #define __UTENTE_H__
 
-#include <cstdlib>
-#include <iostream>
-#include <string>
-#include <fstream>
-#include <list>
-#include "profilo.h"
-#include "bacheca.h"
-#include "amicizia.h"
+#include <map>			/* map									*/
+#include <string>		/* string 								*/
 
+// Librerie personalizzate
+#include "amicizia.h"	/* classe Amicizia e metodi relativi 	*/
+#include "bacheca.h"	/* classe Bacheca e metodi relativi 	*/
+#include "profilo.h"	/* classe Profilo e metodi relativi 	*/
 
 using namespace std;
 

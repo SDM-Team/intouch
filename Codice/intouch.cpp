@@ -10,7 +10,7 @@
 #include "intouch.h"	/* Libreria di riferimento 				*/
 #include "amicizia.h"	/* classe Amicizia e costruttori 		*/
 #include "commento.h"	/* classe Commento e metodi relativi 	*/
-#include "config.h"		/* Variabili globali 					*/
+#include "config.h"		/* Definizione variabili globali 		*/
 #include "data.h"		/* classe Data e metodi relativi 		*/
 #include "input.h"		/* inputInt, inputString, inputPassword */
 #include "post.h"		/* classe Post e metodi relativi 		*/

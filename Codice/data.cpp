@@ -1,4 +1,8 @@
-#include "data.h"
+#include <time.h>		/* time(0), struct tm, localtime		*/
+
+// Librerie personalizzate
+#include "data.h"		/* Libreria di riferimento 				*/
+#include "input.h"		/* inputInt								*/
 
 // Costruttore di default
 Data::Data() {

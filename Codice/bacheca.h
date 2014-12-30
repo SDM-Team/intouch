@@ -1,14 +1,15 @@
 #ifndef __BACHECA_H__
 #define __BACHECA_H__
 
-#include <cstdlib>
-#include <iostream>
-#include <map>
-#include <string>
-#include "data.h"
+#include <map>			/* map									*/
+
+// Libreria personalizzata
 #include "post.h"
 
+// Forward declaration
 class Utente;
+
+using namespace std;
 
 // Dichiarazione della classe Bacheca
 class Bacheca {

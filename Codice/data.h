@@ -1,8 +1,7 @@
-#ifndef data_h
-#define data_h
-#include <cstdlib>
-#include <iostream>
-#include <time.h>
+#ifndef __DATA_H__
+#define __DATA_H__
+
+#include <iostream> 		/* ostream							*/
 
 using namespace std;
 
@@ -21,7 +20,6 @@ class Data{
              friend ostream& operator<<(ostream& os,const Data& d); 
              void imposta_data();
              void imposta_dataOra();
-       
 };
 
 #endif

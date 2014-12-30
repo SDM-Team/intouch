@@ -1,4 +1,5 @@
-#include "amicizia.h"
+// Libreria personalizzata
+#include "amicizia.h"		/* Libreria di riferimento 				*/
 
 // Variabile globale per ID univoco amicizia
 int id_a = 1;

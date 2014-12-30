@@ -1,13 +1,16 @@
 #ifndef __PROFILO_H__
 #define __PROFILO_H__
-#include <string>
-#include <cstdlib>
-#include <iostream>
-#include "data.h"
-#define MAXLUN 25
+
+#include <string>		/* string								*/
+
+// Librerie personalizzate
+#include "config.h"		/* Definizione variabili globali 		*/
+#include "data.h"		/* classe Data e metodi relativi 		*/
+
+
+typedef char stringa [MAXLUN+1];
 
 using namespace std;
-typedef char stringa [MAXLUN+1];
 
 class Profilo{
       private:

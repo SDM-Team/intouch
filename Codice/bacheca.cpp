@@ -1,13 +1,17 @@
-#include <cstdlib>
-#include <iostream>
-#include <string>
-#include <fstream>
-#include <direct.h>
+#include <cstdlib>		/* system								*/
+#include <direct.h>		/* mkdir		 						*/
+#include <fstream>		/* ofstream								*/
+#include <iostream>		/* cin									*/
+#include <map>			/* map									*/
+#include <sstream>		/* stringstream							*/
+#include <string>		/* string, getline						*/
 
-#include "bacheca.h"
-#include "input.h"
-#include "config.h"
-#include "utente.h"
+// Librerie personalizzate
+#include "bacheca.h"	/* Libreria di riferimento 				*/
+#include "commento.h"	/* classe Commento e metodi relativi 	*/
+#include "config.h"		/* Definizione variabili globali 		*/
+#include "input.h"		/* inputInt								*/
+#include "utente.h"		/* classe Utente e metodi relativi 		*/
 
 using namespace std;
 
