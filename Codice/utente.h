@@ -39,6 +39,9 @@ class Utente {
        void visualizza_profilo();
        void modifica_profilo();
        void visualizza_bacheca();
+       void visualizza_contenuto_amici();
+       void visualizza_bacheca_amico();
+       void visualizza_profilo_amico();       
        void visualizza_bacheca_generale();
        void visualizza_amici();
        void gestisci_amicizie();

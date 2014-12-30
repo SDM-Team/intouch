@@ -63,7 +63,8 @@ string inputPassword(int max){
     }
     
 	if( s.size() > MAX_CHARS ) {
-      cerr<<"Errore: inseriti piu' di "<<max<<" caratteri; reinserire:"<<endl;
+      cerr<<"Errore: inseriti piu' di "<<max<<" caratteri; "<<endl;
+      cout<<"Reinserire password:"<<endl;
       s="";
     }
     
