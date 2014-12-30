@@ -30,6 +30,11 @@ InTouch::InTouch() {
     importa_amicizie();
 }
 
+// Costruttore di copia 
+InTouch::InTouch(const InTouch& i){
+  lista_utenti= i.lista_utenti;                   
+}
+
 map<string,Utente> InTouch::get_listautenti() {
     return lista_utenti;
 }

@@ -18,10 +18,11 @@ class Commento{
 		Data tempo;
 		string testo;
 		Utente* autore;
-	public:
-		Commento(Utente* _autore, string _testo);
+	public:		
+        Commento(Utente* _autore, string _testo);
 		Commento(int _id, Utente* _autore, Data _tempo, string _testo);
-		Data get_tempo() const;
+		Commento(const Commento& c);
+        Data get_tempo() const;
 		void visualizza_commento();
 };
 

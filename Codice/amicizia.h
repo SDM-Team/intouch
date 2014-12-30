@@ -26,6 +26,7 @@ class Amicizia {
   public:
     Amicizia(Utente* _u, Ruolo _r);
     Amicizia(int _id, Utente* _u, Stato _s, Ruolo _r);
+    Amicizia(const Amicizia& a);
     Utente* get_utente();
     Stato get_status() const;
     Ruolo get_ruolo() const;

@@ -21,7 +21,7 @@ Commento::Commento(Utente* _autore, string _testo){
   testo = _testo;
 }
 
-//costruttore specifico per creazione commenti fittizi
+// Costruttore specifico per creazione commenti fittizi
 Commento::Commento(int _id, Utente* _autore, Data _tempo, string _testo){
   id_commento = _id;
   autore = _autore;
@@ -29,6 +29,15 @@ Commento::Commento(int _id, Utente* _autore, Data _tempo, string _testo){
   testo = _testo;
 }
 
+// Costruttore di copia
+Commento::Commento(const Commento& c){
+  id_commento= c.id_commento;
+  tempo= c.tempo;
+  testo= c.testo;
+  autore= c.autore;                         
+}
+
+// Metodo che ritorna il tempo
 Data Commento::get_tempo() const{
 	return tempo;	
 }

@@ -36,6 +36,16 @@ Post::Post(Utente* _u, string _testo){
   testo = _testo;
 }
 
+// Costruttore di copia
+Post::Post(const Post& p){
+  id_post= p.id_post;
+  tempo= p.tempo;
+  testo= p.testo;
+  author= p.author;
+  lista_commenti = p.lista_commenti;
+  lista_likes= p.lista_likes;          
+}
+
 int Post::get_idpost () const {
   return id_post; 
 }

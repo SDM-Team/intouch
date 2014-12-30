@@ -15,6 +15,7 @@ class InTouch {
        map<string,Utente> lista_utenti;
     public:
        InTouch();
+       InTouch(const InTouch& i);
        map<string,Utente> get_listautenti();
        void schermata_autenticazione();
        void login();

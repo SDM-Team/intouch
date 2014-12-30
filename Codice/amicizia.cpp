@@ -18,6 +18,14 @@ Amicizia::Amicizia(int _id, Utente* _u, Stato _s, Ruolo _r) {
   ruolo = _r;
 }
 
+// Costruttore di copia
+Amicizia::Amicizia(const Amicizia& a){
+  id_amicizia= a.id_amicizia;
+  utente= a.utente;
+  status= a.status;
+  ruolo= a.ruolo;                            
+}
+
 // Restituisce il puntatore all'utente coinvolto
 Utente* Amicizia::get_utente() {
   return utente;

@@ -27,7 +27,8 @@ class Post{
 	public:
 		Post(int _id, Utente* _autore, string _testo, Data _tempo);
 		Post(Utente* _u, string _testo);
-		int get_idpost() const;
+		Post(const Post& p);
+        int get_idpost() const;
 		Data get_tempo() const;
 		string get_testo() const;
 		Utente* get_autore(); //si puo' fare const?
