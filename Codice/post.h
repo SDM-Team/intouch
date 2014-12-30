@@ -1,22 +1,20 @@
 #ifndef __POST_H__
 #define __POST_H__
 
-#include <cstdlib>
-#include <iostream>
-#include <string>
-#include <list>
-#include <map>
-#include "data.h"
-#include "commento.h"
+#include <list>			/* list									*/
+#include <map>			/* map									*/
+#include <string>		/* string								*/
 
+// Librerie personalizzate
+#include "commento.h"	/* classe Commento e relativi metodi 	*/
+#include "config.h"		/* Definizione variabili globali		*/
+#include "data.h"		/* classe Data e relativi metodi 		*/
 
-#define MAXPOST 250
-#define MAXTITLE 30
+// Forward declaration
+class Utente;			/* riferimento a Utente 				*/
+class Bacheca;			/* riferimento a Bacheca 				*/
 
 using namespace std;
-
-class Utente;
-class Bacheca;
 
 class Post{
 	private:

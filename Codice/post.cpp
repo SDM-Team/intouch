@@ -1,41 +1,43 @@
-#include "post.h"
-#include "input.h"
-#include "config.h"
-#include "utente.h"
+#include <cstring>  	/* strtok								*/
+#include <fstream>		/* ofstream, ifstream 					*/
+#include <iostream>		/* cout, endl, remove, rename			*/
+#include <list>			/* list, list::iterator					*/
+#include <map>			/* map, map::iterator					*/
+#include <sstream>		/* stringstream							*/
+#include <string>		/* string								*/
 
-#include <fstream>
-#include <sstream>
-#include <cstring> /* strtok */
+// Librerie personalizzate
+#include "post.h"		/* Libreria di riferimento 				*/
+#include "commento.h"	/* classe Commento e relativi metodi 	*/
+#include "config.h"		/* Definizione variabili globali		*/
+#include "data.h"		/* classe Data e relativi metodi 		*/
+#include "input.h"		/* inputInt, inputString				*/
+#include "utente.h"		/* classe Utente e relativi metodi 		*/
 
-using namespace std;
-
-
+// Variabili globali di post e commenti
 int id_p = 1;
 extern int id_c;
+
+using namespace std;
 
 Post::Post(int _id, Utente* _autore, string _testo, Data _tempo) {
   id_post = _id;
   author = _autore;
-    
   tempo = _tempo;
-	
   testo = _testo;
 }
 
 Post::Post(Utente* _u, string _testo){
-	id_post = id_p;
-	
-	Data temp;
-	temp.imposta_dataOra();
-	tempo = temp;
-	
-	author = _u;
-	
-	testo = _testo;
+  id_post = id_p;
+  Data temp;
+    temp.imposta_dataOra();
+    tempo = temp;
+  author = _u;
+  testo = _testo;
 }
 
 int Post::get_idpost () const {
-      return id_post; 
+  return id_post; 
 }
 
 Data Post::get_tempo() const {
@@ -43,24 +45,28 @@ Data Post::get_tempo() const {
 }
 
 string Post::get_testo() const {
-    return testo;
+  return testo;
 }
 
 Utente* Post::get_autore(){
-    return author;
+  return author;
 }
 
 list<Commento>* Post::get_listacommenti() {
-    return (&lista_commenti);
+  return (&lista_commenti);
 }
 
 void Post::visualizza_post_light() {
   cout << "POST #" << id_post << endl;
-	cout << "Autore: "; 
-	if(author != NULL) { cout << author->get_cognome() << " " << author->get_nome() << " (" << author->get_email() << ")" << endl; }
-	cout << "Data: " << tempo <<endl;
-	cout << endl << '"' << testo << '"' << endl << endl;
+  cout << "Autore: ";
+  // Stampa autore del post
+  if(author != NULL) { 	cout << author->get_cognome() << " ";
+  						cout << author->get_nome() << " (";
+						cout << author->get_email() << ")" << endl; }
+  cout << "Data: " << tempo <<endl;
+  cout << endl << '"' << testo << '"' << endl << endl;
   
+  // Stampa numero commenti del post
   if (lista_commenti.size() == 0) {
     cout << "Nessun commento" << endl;
   } else if (lista_commenti.size() == 1) {
@@ -69,53 +75,51 @@ void Post::visualizza_post_light() {
     cout << lista_commenti.size() << " commenti" << endl;
   }
   
-  
+  // Stampa numero mi piace del post
   if (lista_likes.size() == 0) {
     cout << "Nessun \"mi piace\"" << endl;
-  } else if (lista_likes.size() == 1) {
-    cout << "1 \"mi piace\"" << endl;
   } else {
     cout << lista_likes.size() << " \"mi piace\"" << endl;
   }
   cout << endl;  
 }
 
-//metodo che stampa a video il post e tutta la lista dei commenti relativi ad esso
+// Metodo che stampa a video il post e tutta la lista dei commenti relativi ad esso
 void Post::visualizza_post(){
-	cout << "POST #" << id_post << " ####################" << endl;
-	cout << "Autore: ";
-	if(author != NULL) { cout << author->get_cognome() << " " << author->get_nome() << " (" << author->get_email() << ")" << endl; }
-	cout << "Data: " << tempo <<endl;
-	cout << endl << '"' << testo << '"' << endl << endl;
+  cout << "POST #" << id_post << " ####################" << endl;
+  cout << "Autore: ";
+  if(author != NULL) { cout << author->get_cognome() << " " << author->get_nome() << " (" << author->get_email() << ")" << endl; }
+  cout << "Data: " << tempo <<endl;
+  cout << endl << '"' << testo << '"' << endl << endl;
 	
-	if (lista_commenti.size() == 0) {
+  // Stampa dei commenti del post
+  if (lista_commenti.size() == 0) {
     cout << "Nessun commento" << endl;
   } else {
-  
-    //stampa commenti
-	  int i=0;
-	  list<Commento>::iterator iter; 
-	  for(iter = lista_commenti.begin(); iter != lista_commenti.end(); iter++){
+	int i=0;
+	list<Commento>::iterator iter; 
+	for(iter = lista_commenti.begin(); iter != lista_commenti.end(); iter++){
 	  cout << "Commento #" << ++i << endl;
 	  iter->visualizza_commento();
-	  }
-	  cout << endl;
+	}
+	cout << endl;
   }
 	
-	//stampa likes
-	if (lista_likes.size() == 0) {
+  // Stampa likes del post
+  if (lista_likes.size() == 0) {
     cout << "Ancora nessun \"mi piace\"" << endl;
   } else {
     map<string,Utente*>::iterator iter_listalike;
     cout << "Utenti a cui piace questo post:" << endl;
-	  for (iter_listalike = lista_likes.begin(); iter_listalike != lista_likes.end(); iter_listalike++) {
-      cout << "\t" << iter_listalike->second->get_cognome() << " " << iter_listalike->second->get_nome() << endl;
+	for (iter_listalike = lista_likes.begin(); iter_listalike != lista_likes.end(); iter_listalike++) {
+      cout << "\t" << iter_listalike->second->get_cognome() << " ";
+	  cout << iter_listalike->second->get_nome() << endl;
     }
   }
-	cout << endl;
+  cout << endl;
 }
 
-//aggiunge un commento al post
+// Aggiunge un commento al post
 void Post::commenta_post(Utente* autore){
 	int s = 0;
 	string testo_commento;
@@ -224,7 +228,7 @@ void Post::rimuovi_like(Utente* autore){
     file_copia.close();
     
     //elimino il precedente file
-    if(remove(path.c_str()) != 0){ cerr << "Errore eliminazione file!"; return; }
+    if( remove(path.c_str()) != 0){ cerr << "Errore eliminazione file!"; return; }
     //rinomino
     if( rename( path_copia.c_str(),path.c_str() ) != 0){ cerr << "Errore rinomino file!"; return; }
     

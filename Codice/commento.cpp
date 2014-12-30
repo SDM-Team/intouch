@@ -1,11 +1,17 @@
-#include "commento.h"
-#include "utente.h"
-#include <fstream>
+#include <iostream>		/* cout, endl							*/
+#include <string>		/* string								*/
+
+// Librerie personalizzate
+#include "commento.h"	/* Libreria di riferimento				*/
+#include "data.h"		/* classe Data e relativi metodi 		*/
+#include "utente.h"		/* classe Utente e relativi metodi 		*/
 
 // Variabile globale per ID univoco commento
 int id_c = 1;
 
-//costruttore usato per creare commento passando utente e testo, autotimestamp corrente
+using namespace std;
+
+// Costruttore usato per creare commento passando utente e testo, autotimestamp corrente
 Commento::Commento(Utente* _autore, string _testo){
   id_commento = id_c;
   autore = _autore;

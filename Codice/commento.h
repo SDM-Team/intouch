@@ -1,14 +1,15 @@
 #ifndef __COMMENTO_H__
 #define __COMMENTO_H__
+		
+#include <string>		/* string */		
 
-#include <cstdlib>
-#include <iostream>
-#include <string>
-#include "data.h"
+// Libreria personalizzata
+#include "data.h"		/* classe Data e metodi relativi */
+
+// Forward declaration
+class Utente;			/* riferimento a Utente */
 
 using namespace std;
-
-class Utente;
 
 // Dichiarazione classe Commento
 class Commento{
@@ -22,7 +23,6 @@ class Commento{
 		Commento(int _id, Utente* _autore, Data _tempo, string _testo);
 		Data get_tempo() const;
 		void visualizza_commento();
-		
 };
 
 #endif

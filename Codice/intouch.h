@@ -1,15 +1,15 @@
 #ifndef __INTOUCH_H__
 #define __INTOUCH_H__
 
-//#include <cstdlib>
-//#include <iostream>
-//#include <list>
-#include <string>		/* string */
-#include <map> 			/* map */
-#include "utente.h" 	/* Utente */
+#include <map> 			/* map 								*/
+#include <string>		/* string							*/
+
+// Libreria personalizzata
+#include "utente.h" 	/* classe Utente e metodi relativi 	*/
 
 using namespace std;
 
+// Dichiarazione classe InTouch
 class InTouch {
     private:
        map<string,Utente> lista_utenti;

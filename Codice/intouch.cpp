@@ -1,20 +1,26 @@
-#include <iostream>		/* cout, endl */
-#include <cstdlib>		/* system */
-//#include <sstream>	/* dentro iostream */
-#include <fstream>
-#include <cstring>		/* string */
-#include <direct.h>
-#include <map>
-#include <list>
+#include <cstdlib>		/* system, atoi 						*/
+#include <cstring>		/* string, strtok 						*/
+#include <direct.h>		/* mkdir, rmdir 						*/
+#include <fstream>		/* ofstream, ifstream 					*/
+#include <iostream>		/* cout, endl, remove, rename			*/
+#include <map>			/* map, map::iterator					*/
+#include <sstream>		/* stringstream 						*/
 
-#include "intouch.h"
-#include "utente.h" 	/* Utente */
-#include "input.h"
-#include "config.h"
+// Librerie personalizzate
+#include "intouch.h"	/* Libreria di riferimento 				*/
+#include "amicizia.h"	/* classe Amicizia e costruttori 		*/
+#include "commento.h"	/* classe Commento e metodi relativi 	*/
+#include "config.h"		/* Variabili globali 					*/
+#include "data.h"		/* classe Data e metodi relativi 		*/
+#include "input.h"		/* inputInt, inputString, inputPassword */
+#include "post.h"		/* classe Post e metodi relativi 		*/
+#include "utente.h" 	/* classe Utente e metodi relativi 		*/
 
 //ID utente e post
 extern int id_u;
 extern int id_p;
+
+using namespace std;
 
 // Costruttore di default, per importare i dati da file all'avvio
 InTouch::InTouch() {
@@ -73,7 +79,6 @@ void InTouch::login() {
     
     // Inserimento password
     cout << "Inserisci la tua password: ";
-    //password = inputString(MAXLUN);
     password = inputPassword(MAXLUN);
     
     Utente u(email,password);
@@ -204,7 +209,7 @@ bool InTouch::check_login(const Utente& u) {
 }
 
 // Metodo che resetta il sistema eliminando utenti e post creati finora, con opportuni file e cartelle
-void InTouch::reset() { 
+void InTouch::reset() {
 	system("CLS");
     string path;
     
@@ -213,9 +218,9 @@ void InTouch::reset() {
     for (iter = lista_utenti.begin(); iter != lista_utenti.end(); iter++) {
        path = path_files_u + iter->first;
        cout<<"Cancello "<<(path + "/" + nome_file_amicizie).c_str()<<endl;
-       if( remove((path + "/" + nome_file_amicizie).c_str()) != 0){ cerr << " Errore eliminazione file"; }
+       if( remove((path + "/" + nome_file_amicizie).c_str()) != 0){ cerr << " Errore eliminazione file\n"; }
        cout<<"Cancello "<<(path + "/" + nome_file_profilo).c_str()<<endl;
-       if( remove((path + "/" + nome_file_profilo).c_str()) != 0){ cerr << " Errore eliminazione file"; }
+       if( remove((path + "/" + nome_file_profilo).c_str()) != 0){ cerr << " Errore eliminazione file\n"; }
        rmdir(path.c_str());
     }
     
@@ -225,23 +230,23 @@ void InTouch::reset() {
        convert << i;
        path = path_files_p + convert.str();
        cout<<"Cancello "<<(path + "/" + nome_file_likes).c_str()<<endl;
-       if( remove((path + "/" + nome_file_likes).c_str()) != 0){ cerr << " Errore eliminazione file"; }
+       if( remove((path + "/" + nome_file_likes).c_str()) != 0){ cerr << " Errore eliminazione file\n"; }
        cout<<"Cancello "<<(path + "/" + nome_file_commenti).c_str()<<endl;
-       if( remove((path + "/" + nome_file_commenti).c_str()) != 0){ cerr << " Errore eliminazione file"; }
+       if( remove((path + "/" + nome_file_commenti).c_str()) != 0){ cerr << " Errore eliminazione file\n"; }
        rmdir(path.c_str());
     }
     
     // Elimino directory principale
     cout<<"Cancello "<<(path_files + nome_file_utenti).c_str()<<endl;
-    if( remove((path_files + nome_file_utenti).c_str()) != 0){ cerr << " Errore eliminazione file"; }
+    if( remove((path_files + nome_file_utenti).c_str()) != 0){ cerr << " Errore eliminazione file\n"; }
     cout<<"Cancello "<<(path_files + nome_file_post).c_str()<<endl;
-    if( remove((path_files + nome_file_post).c_str()) != 0){ cerr << " Errore eliminazione file"; }
+    if( remove((path_files + nome_file_post).c_str()) != 0){ cerr << " Errore eliminazione file\n"; }
     cout<<"Cancello "<<(path_files_p).c_str()<<endl;
-	if( rmdir(path_files_p.c_str()) != 0){ cerr << " Errore eliminazione cartella"; }
+	if( rmdir(path_files_p.c_str()) != 0){ cerr << " Errore eliminazione cartella\n"; }
 	cout<<"Cancello "<<(path_files_u).c_str()<<endl;
-    if( rmdir(path_files_u.c_str()) != 0){ cerr << " Errore eliminazione cartella"; }
+    if( rmdir(path_files_u.c_str()) != 0){ cerr << " Errore eliminazione cartella\n"; }
     cout<<"Cancello "<<(path_files).c_str()<<endl;
-    if( rmdir(path_files.c_str()) != 0){ cerr << " Errore eliminazione cartella"; }
+    if( rmdir(path_files.c_str()) != 0){ cerr << " Errore eliminazione cartella\n"; }
     system("PAUSE");
     exit(1);
 }    
@@ -552,39 +557,3 @@ void InTouch::importa_amicizie() {
       file.close();
     }
 }
-
-//controllo input: http://www.dreamincode.net/forums/topic/137648-limiting-string-length/
-
-/*
-
-int charsread = 0;
-string str;
-char c;
-while (// more input
-)
-{
-    // read a character (c)
-    if (charsread < 5)
-        str += c;
-    ++charsread;
-}
-
-*/
-//alternativa: https://www.daniweb.com/software-development/cpp/threads/398829/restricting-string-input-size-c-vs-c-strings
-/* 
-
-std::string name ;
-    constexpr std::string::size_type MAX_CHARS = 20 ;
-    if( std::cout << "name (max " << MAX_CHARS << " chars)? " && std::getline( std::cin, name  ) )
-    {
-        if( name.size() > MAX_CHARS )
-        {
-            std::cerr << name << " is too long; truncating it\n" ;
-            name = name.substr( 0, MAX_CHARS ) ;
-        }
-        // use name
-    }
-    // else i/o error
-    
-*/
-

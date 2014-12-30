@@ -3,6 +3,9 @@
 
 #include <string>
 
+#define MAXPOST 250
+#define MAXTITLE 30
+
 using namespace std;
 
 // Variabili globali relative a nomi e path dei file di testo
