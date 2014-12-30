@@ -1,12 +1,13 @@
 #ifndef __INTOUCH_H__
 #define __INTOUCH_H__
 
-//#include <cstdlib>
-//#include <iostream>
-//#include <list>
-#include <string>		/* string */
-#include <map> 			/* map */
-#include "utente.h" 	/* Utente */
+#include <cstdlib>
+#include <iostream>
+#include <string> /* string, */
+#include <list>
+#include <map> /* map, */
+
+#include "utente.h" /* utente, */
 
 using namespace std;
 
