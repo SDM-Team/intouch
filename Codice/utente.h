@@ -25,7 +25,8 @@ class Utente {
        map<int,Amicizia> lista_amicizie;
     public:
        Utente(string e, string p);
-       Utente(string n, string c, string e, string p);
+       Utente(string n, string c, string e, string p); 
+       Utente(const Utente& u);      
        int get_idutente() const;
        string get_nome() const;
        string get_cognome() const;

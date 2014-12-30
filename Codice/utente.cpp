@@ -62,6 +62,17 @@ map<int,Amicizia>* Utente::get_listaamicizie() {
   return (&lista_amicizie);
 }
 
+// Costruttore di copia
+Utente::Utente(const Utente& u){
+             nome= u.nome;
+             cognome= u.cognome;
+             email= u.email;
+             password= u.password;
+             bacheca= u.bacheca;
+             profilo= u.profilo;
+             lista_amicizie = u.lista_amicizie;
+}
+
 // Schermata iniziale che si visualizza una volte autenticato correttamente
 void Utente::schermata_iniziale() {
 
@@ -69,7 +80,7 @@ void Utente::schermata_iniziale() {
   string t;
     do { 
 	   
-	    //schermata iniziale
+      // Schermata iniziale
       cout << "Benvenuto!" << endl;
       cout << "Seleziona la funzione desiderata:" << endl;
       cout << "1. Gestisci amicizie" << endl;
@@ -336,24 +347,31 @@ void Utente::visualizza_bacheca_generale() {
     
 }
 
-
+// Metodo che permette di visualizzare il profilo e la bacheca di un amico
 void Utente::visualizza_contenuto_amici(){
           int t;
           do{
-          cout<<"Elenco dei tuoi amici:"<<endl;
-          visualizza_amici();
-          int s;
-          map<int,Amicizia>::iterator iter;
-          cout<< "Selezionare il numero dell'amico per visualizzare le sue informazioni "<<endl;         
-          cout<< "Per tornare alla schermata iniziale premi 0"<<endl;
+            // Mostro elenco degli amici
+            cout<<"Elenco dei tuoi amici:"<<endl;
+            visualizza_amici();                                                                      
+            int s;          
+            map<int,Amicizia>::iterator iter;
+            // Menù di scelta
+            cout<< "Selezionare il numero dell'amico per visualizzare le sue informazioni "<<endl;         
+            cout<< "Per tornare alla schermata iniziale premi 0"<<endl;
           
-          do{
-                  s= inputInt(0,id_u);
-                  if(s==0){system("CLS"); return;}
-                  iter= lista_amicizie.find(s); 
-                  if(iter==lista_amicizie.end()){cout<<"Non e' tuo amico"<<endl;}                              
-          }while(iter==lista_amicizie.end());
-                   
+            do{
+              s= inputInt(0,id_u);
+              // Ritorno alla schermata iniziale se la scelta è 0
+              if(s==0){system("CLS"); return;}
+              // Cerco l'amico selezionato nella lista amicizie
+              iter= lista_amicizie.find(s); 
+              // Se non lo trovo, stampo "Non è amico"
+              if(iter==lista_amicizie.end()){cerr<<"Non e' tuo amico"<<endl;}                              
+          }
+          while(iter==lista_amicizie.end()); // Continuo finchè non viene selezionato un amico
+          
+          // Menù di scelta         
           cout<<"Per visualizzare la sua bacheca premi 1"<<endl;
           cout<<"Per visualizzare il suo profilo premi 2"<<endl;
           cout<<"Per tornare alla selezione dell'amico premi 3"<<endl;
@@ -362,33 +380,45 @@ void Utente::visualizza_contenuto_amici(){
           t=inputInt(0,3);
           system("CLS");
           switch(t){
+            // Visualizzo bacheca amico
             case 1: iter->second.get_utente()->visualizza_bacheca(); return;
+            // Visualizzo profilo amico
             case 2: iter->second.get_utente()->visualizza_profilo_amico(); break;
+            // Torno alla schermata di selezione dell'amico
             case 3: break;
+            // Torno alla schermata iniziale
             case 0: return;                    
           }
-          }while(t!=0 && t!=1);          
+          }while(t!=0 && t!=1); // Continuo finchè t!=0 e t!=1          
 }
-                                   
+   
+// Metodo che permette di visualizzare gli amici                                
 void Utente::visualizza_amici() {
     map<int,Amicizia>::iterator iter;
+    // Se lista amicizie è vuota stampo "Ancora nessun amico!"
     if(lista_amicizie.size()==0){
                cout<<"Ancora nessun amico!"<<endl;                             
                return;
           } 
+    // Scorro lista amicizie
     for (iter = lista_amicizie.begin(); iter != lista_amicizie.end(); iter++) {
+       // Se lo stato dell'amicizia è A (accettata) stampo l'amico nella lista amicizie
        if (iter->second.get_status() == A) {
           cout << iter->first <<" - ";
           cout << iter->second.get_utente()->get_nome() << " " << iter->second.get_utente()->get_cognome() << endl;
-       } else {
+       }
+       // Se no, continuo a scorrere la lista amicizie 
+       else {
           continue;
        }
     }
 }
 
+// Metodo per gestire amicizie
 void Utente::gestisci_amicizie() {
   int s=0;
   do{
+    // Menù di scelta
     cout << "Seleziona la funzione desiderata:" << endl;
     cout << "1. Richiedi amicizia" << endl;
     cout << "2. Accetta/rifiuta amicizia" << endl;
@@ -396,13 +426,15 @@ void Utente::gestisci_amicizie() {
     cout << "4. Visualizza amicizie" << endl;
     cout << "Premi 0 per tornare alla schermata iniziale" << endl;
     s = inputInt(0,4);
-    
     system("CLS");
+    
     switch (s) {
       case 0:
-        return; //riporta alla schermata iniziale
+        // Torno alla schermata iniziale
+        return; 
       case 1:
-      richiedi_amicizia();
+        // Richiedo amicizia
+        richiedi_amicizia();
         break;
       case 2:
         cout << "A/R amicizia" << endl;
@@ -411,18 +443,21 @@ void Utente::gestisci_amicizie() {
         cout << "Canc amicizia" << endl;
         break;      
       case 4:
-      	cout << "Lista amici:" << endl << endl;
+      	// Visualizzo lista amicizia
+        cout << "Lista amici:" << endl << endl;
       	visualizza_amici();
-      	cout << endl << "Premere 0 per tornare alla schermata iniziale" << endl;
+      	// Torno alla schermata iniziale
+        cout << endl << "Premere 0 per tornare alla schermata iniziale" << endl;
       	s = inputInt(0,0);
       	break;
 	}
 	
 	system("CLS");
-  }while(s != 0);
+  }while(s != 0); // Continuo finchè s!=0
   
 }
 
+// Metodo per richiedere amicizia ad un utente
 void Utente::richiedi_amicizia(){
 	map<string,Utente>::iterator iter;
 

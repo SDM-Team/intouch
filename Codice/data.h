@@ -15,6 +15,7 @@ class Data{
               int minuti;
       public:
              Data();
+             Data(const Data& d);
              Data(int _g, int _m, int _a);
              Data(int _g, int _m, int _a, int _o, int _min);
              friend ostream& operator<<(ostream& os,const Data& d); 

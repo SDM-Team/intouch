@@ -9,6 +9,15 @@ Data::Data() {
 	minuti = 88;             
 }
 
+// Costruttore di copia
+Data::Data(const Data& d){
+              giorno = d.giorno;
+              mese = d.mese;
+              anno= d.anno;
+              ore= d.ore;
+              minuti= d.minuti;                 
+}
+
 // Costruttore specifico
 Data::Data(int _g, int _m, int _a) {
   giorno =  _g;
@@ -18,6 +27,7 @@ Data::Data(int _g, int _m, int _a) {
 	minuti = 88;
 }
 
+// Costruttore specifico
 Data::Data(int _g, int _m, int _a, int _o, int _min) {
   giorno =  _g;
   mese = _m;
@@ -90,6 +100,7 @@ void Data::imposta_data(){
                           }                           
 }
 
+// Metodo che prende la data e l'ora corrente
 void Data::imposta_dataOra(){
     time_t t = time(0);   //tempo corrente
     struct tm * now = localtime( & t );

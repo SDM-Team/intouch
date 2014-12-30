@@ -15,6 +15,8 @@ class Bacheca {
   private:
     map<int,Post> lista_post;
   public:
+    Bacheca();
+    Bacheca(const Bacheca& b);
     void aggiungi_post(Utente* _u);
     map<int,Post>* get_listapost();
 };

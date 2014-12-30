@@ -11,10 +11,21 @@
 
 using namespace std;
 
+
+// Costruttore di default
+Bacheca::Bacheca(){
+  lista_post.clear();   
+}
+
+// Costruttore di copia
+Bacheca::Bacheca(const Bacheca& b){
+  lista_post= b.lista_post;                       
+}
+
 // Richiamo la variabile globale id_p per il tracciamento degli ID univoci dei post
 extern int id_p;
 
-// Funzione che permette l'aggiunta di un post alla bacheca dell'utente
+// Metodo che permette l'aggiunta di un post alla bacheca dell'utente
 void Bacheca::aggiungi_post(Utente* _u){
 	int s;
   string testo;

@@ -19,6 +19,7 @@ class Profilo{
                string luogonasc;
       public:
               Profilo();
+              Profilo(const Profilo& p);
               Profilo(stringa _sex, string _prof, string _situa, string _luogo);              
               string get_sesso();
               string get_professione();
