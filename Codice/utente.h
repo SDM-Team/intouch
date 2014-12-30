@@ -42,7 +42,6 @@ class Utente {
        void visualizza_bacheca_generale();
        void visualizza_amici();
        void gestisci_amicizie();
-       void richiedi_amicizia();
 };
 
 #endif

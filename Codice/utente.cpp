@@ -340,16 +340,15 @@ void Utente::gestisci_amicizie() {
     cout << "1. Richiedi amicizia" << endl;
     cout << "2. Accetta/rifiuta amicizia" << endl;
     cout << "3. Cancella amicizia" << endl;
-    cout << "4. Visualizza amicizie" << endl;
     cout << "Premi 0 per tornare alla schermata iniziale" << endl;
-    s = inputInt(0,4);
+    s = inputInt(0,3);
     
     system("CLS");
     switch (s) {
       case 0:
         return; //riporta alla schermata iniziale
       case 1:
-      richiedi_amicizia();
+//      richiedi_amicizia();
         break;
       case 2:
         cout << "A/R amicizia" << endl;
@@ -357,25 +356,7 @@ void Utente::gestisci_amicizie() {
       case 3:
         cout << "Canc amicizia" << endl;
         break;      
-      case 4:
-      	cout << "Lista amici:" << endl << endl;
-      	visualizza_amici();
-      	cout << endl << "Premere 0 per tornare alla schermata iniziale" << endl;
-      	s = inputInt(0,0);
-      	break;
 	}
-	system("CLS");
   }while(s != 0);
   
-}
-
-void Utente::richiedi_amicizia(){
-	map<string,Utente>::iterator iter;
-
-	//mostro elenco tutti utenti CICLO NON FUNZIONANTE
-	for(iter = applicazione.get_listautenti().begin(); iter != applicazione.get_listautenti().end(); iter++){
-	  //cout << "#" << iter->second.get_idutente() << " - " << endl;
-	  
-	}
-	
 }

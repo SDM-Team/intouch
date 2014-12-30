@@ -3,11 +3,11 @@
 
 #include <cstdlib>
 #include <iostream>
-#include <string> /* string, */
+#include <string>
 #include <list>
-#include <map> /* map, */
+#include <map>
 
-#include "utente.h" /* utente, */
+#include "utente.h"
 
 using namespace std;
 
