@@ -1,16 +1,18 @@
-#include <sstream>
+#include <iostream>		/* cout, endl */
+#include <cstdlib>		/* system */
+//#include <sstream>
 #include <fstream>
-#include <cstring>
+#include <cstring>		/* string */
 #include <direct.h>
 #include <map>
 #include <list>
 
 #include "intouch.h"
+#include "utente.h" 	/* Utente */
 #include "input.h"
 #include "config.h"
 
-
-
+//ID utente e post
 extern int id_u;
 extern int id_p;
 
