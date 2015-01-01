@@ -99,7 +99,7 @@ void InTouch::login() {
        // Carico i dati dell'utente una volta autenticato
        map<string,Utente>::iterator iter;
        iter = lista_utenti.find(email);
-       iter->second.schermata_iniziale();
+       iter->second.schermata_iniziale(&lista_utenti);
     } else {
        // Se l'utente esiste ma la password inserita non è corretta stampa un messaggio di errore
        // e rimanda alla schermata di autenticazione

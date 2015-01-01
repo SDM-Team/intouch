@@ -33,7 +33,7 @@ class Utente {
        Bacheca* get_bacheca();
        Profilo* get_profilo();
        map<int,Amicizia>* get_listaamicizie();
-       void schermata_iniziale();
+       void schermata_iniziale(map<string,Utente>* lista_utenti_p);
        void logout();
        void visualizza_profilo();
        void modifica_profilo();
@@ -43,8 +43,10 @@ class Utente {
        void visualizza_profilo_amico();       
        void visualizza_bacheca_generale();
        void visualizza_amici();
-       void gestisci_amicizie();
-       void richiedi_amicizia();
+       void gestisci_amicizie(map<string,Utente>* lista_utenti_p);
+       void richiedi_amicizia(map<string,Utente>* lista_utenti_p);
+       bool check_amico(string _e);
+       bool check_richiesta(string _e);
 };
 
 #endif

@@ -39,6 +39,7 @@ Utente::Utente(string n, string c, string e, string p) {
 
 // Costruttore di copia
 Utente::Utente(const Utente& u){
+             id_utente = u.id_utente;
              nome= u.nome;
              cognome= u.cognome;
              email= u.email;
@@ -82,7 +83,7 @@ map<int,Amicizia>* Utente::get_listaamicizie() {
 
 
 // Schermata iniziale che si visualizza una volte autenticato correttamente
-void Utente::schermata_iniziale() {
+void Utente::schermata_iniziale(map<string,Utente>* lista_utenti_p) {
 
   int s = 7;
   string t;
@@ -104,7 +105,7 @@ void Utente::schermata_iniziale() {
       system("CLS");
       switch (s) {
         case 1:
-          gestisci_amicizie();
+          gestisci_amicizie(lista_utenti_p);
           break;
         case 2:
     	    visualizza_bacheca_generale();
@@ -423,7 +424,7 @@ void Utente::visualizza_amici() {
 }
 
 // Metodo per gestire amicizie
-void Utente::gestisci_amicizie() {
+void Utente::gestisci_amicizie(map<string,Utente>* lista_utenti_p) {
   int s=0;
   do{
     // Menù di scelta
@@ -442,7 +443,7 @@ void Utente::gestisci_amicizie() {
         return; 
       case 1:
         // Richiedo amicizia
-        richiedi_amicizia();
+        richiedi_amicizia(lista_utenti_p);
         break;
       case 2:
         cout << "A/R amicizia" << endl;
@@ -466,12 +467,65 @@ void Utente::gestisci_amicizie() {
 }
 
 // Metodo per richiedere amicizia ad un utente
-void Utente::richiedi_amicizia(){
+void Utente::richiedi_amicizia(map<string,Utente>* lista_utenti_p){
+  int s=0;
 	map<string,Utente>::iterator iter;
 
 	//mostro elenco tutti utenti CICLO NON FUNZIONANTE
-	for(iter = applicazione.get_listautenti().begin(); iter != applicazione.get_listautenti().end(); iter++){
-	  //cout << "#" << iter->second.get_idutente() << " - " << endl;
-	  
+	if (lista_utenti_p->size() == 1) {
+    cout << "Nessun altro utente registrato" << endl;
+    return;
+  }
+  
+	for(iter = lista_utenti_p->begin(); iter != lista_utenti_p->end(); iter++){
+	  if (email == iter->first) {
+      continue;
+    } else {
+      cout << "#" << iter->second.get_idutente() << " - "
+           << iter->second.get_cognome() << " " << iter->second.get_nome() << endl;
+    }
 	}
+	
+	cout << "Seleziona utente a cui chiedere l'amicizia" << endl;
+	s = inputInt(0,lista_utenti_p->size());
+	
+	string e = "";
+	
+  for(iter = lista_utenti_p->begin(); iter != lista_utenti_p->end(); iter++){
+    if (s == iter->second.get_idutente()) {
+      e = iter->first;
+      break;
+    }
+  }
+  
+  if (e == email) {
+    cerr << "Non puoi chiedere l'amicizia a te stesso!" << endl;
+  }
+  
+  if (check_amico(e)) {
+    cerr << "L'utente selezionato è già tuo amico!" << endl;
+  } else if (check_richiesta(e)) {
+    cerr << "Hai già richiesto l'amicizia a questo utente!" << endl;
+  } else {
+    // TODO
+}
+
+bool Utente::check_amico(string _e) {
+  map<int,Amicizia>::iterator iter;
+  for (iter = lista_amicizie.begin(); iter != lista_amicizie.end(); iter++) {
+    if ((iter->second.get_utente()->get_email() == _e) && (iter->second.get_status() == A)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+bool Utente::check_richiesta(string _e) {
+  map<int,Amicizia>::iterator iter;
+  for (iter = lista_amicizie.begin(); iter != lista_amicizie.end(); iter++) {
+    if (iter->second.get_utente()->get_email() == _e) {
+      return true;
+    }
+  }
+  return false;
 }
