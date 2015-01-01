@@ -870,7 +870,6 @@ void Utente::cancella_amicizia(){
 	  Amicizia mitt(keep_id,this,status,DESTINATARIO);
 	  iter_mit = iter_ra->second.get_utente()->get_listaamicizie()->find(s);
 	  if(iter_mit != iter_ra->second.get_utente()->get_listaamicizie()->end() ){
-	  cout <<"canc corr";
 	  iter_ra->second.get_utente()->get_listaamicizie()->erase(s);
 	  iter_ra->second.get_utente()->get_listaamicizie()->insert( pair<int,Amicizia> (keep_id,mitt) );
 	  }
@@ -915,6 +914,12 @@ void Utente::cancella_amicizia(){
       if( remove(path.c_str()) != 0){ cerr << "Errore eliminazione file!"; return; }
       //rinomino
       if( rename( path_copia.c_str(),path.c_str() ) != 0){ cerr << "Errore rinomino file!"; return; }
+		
+	  system("CLS");
+      cout << "Amicizia cancellata correttamente! Un rifiuto e' per sempre!" << endl << endl;
+      
+      return;
+		
 		
 	} else {
 	  system("CLS");
