@@ -45,6 +45,8 @@ class Utente {
        void visualizza_amici();
        void gestisci_amicizie(map<string,Utente>* lista_utenti_p);
        void richiedi_amicizia(map<string,Utente>* lista_utenti_p);
+       void accetta_rifiuta_amicizia();
+       void cancella_amicizia();
        bool check_amico(string _e);
        bool check_richiesta(string _e);
 };

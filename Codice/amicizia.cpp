@@ -27,6 +27,10 @@ Amicizia::Amicizia(const Amicizia& a){
   ruolo= a.ruolo;                            
 }
 
+int Amicizia::get_idamicizia() const {
+  return id_amicizia;
+}
+
 // Restituisce il puntatore all'utente coinvolto
 Utente* Amicizia::get_utente() {
   return utente;

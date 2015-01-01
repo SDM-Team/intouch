@@ -1,10 +1,11 @@
 #include <cstdlib>		/* system, atoi 						*/
-#include <cstring>		/* string, strtok 						*/
+#include <cstring>		/* strtok 								*/
 #include <direct.h>		/* mkdir, rmdir 						*/
 #include <fstream>		/* ofstream, ifstream 					*/
 #include <iostream>		/* cout, endl, remove, rename			*/
 #include <map>			/* map, map::iterator					*/
 #include <sstream>		/* stringstream 						*/
+#include <string>		/* string		 						*/
 
 // Librerie personalizzate
 #include "intouch.h"	/* Libreria di riferimento 				*/
