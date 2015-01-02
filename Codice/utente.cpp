@@ -839,72 +839,29 @@ void Utente::cancella_amicizia(){
 	
 	if( s == 0 ) { system("CLS"); return; }
 	
-	iter_ra = lista_amicizie.find(s);
-	if( iter_ra != lista_amicizie.end() ){ cout<<"1";
-		
-	  Stato status = R;
-	  // Rimuovo e creo amicizia con status aggiornato per utente (destinatario)
-	  int keep_id = iter_ra->second.get_idamicizia();
-	  Amicizia dest(keep_id,iter_ra->second.get_utente(),status,DESTINATARIO);
-	  lista_amicizie.erase(s);
-	  cout<<"2";
-	  lista_amicizie.insert( pair<int,Amicizia> (keep_id,dest) );
 	
+	
+	
+	
+	
+	iter_ra = lista_amicizie.find(s);
+	if( iter_ra != lista_amicizie.end() ){ 
+	  Stato status = R;
+	  int keep_id = iter_ra->second.get_idamicizia();
 	  char linea[150];
-      string path = path_files_u + email.c_str() + "/" + nome_file_amicizie;
-      string path_copia = path_files_u + email.c_str() + "/" + "copia_" + nome_file_amicizie;
-      cout<<"3";
-      ofstream file_copia;
-	  file_copia.open(path_copia.c_str(), ios::out);
-	  // Controllo apertura corretta file
-	  if(!file_copia){ cerr<< "Errore apertura file!"; return;}
-    
-	  ifstream file;
-	  file.open(path.c_str(), ios::in);
-	  // Controllo apertura corretta file
-	  if(!file){ cerr<< "Errore apertura file!"; return;}
-	  while (!file.getline(linea,150).eof()) {
-        
-		//token ID amicizia
-        int _id = atoi(strtok(linea,";"));
-        //token utente amicizia
-        string _utente = strtok(NULL,";");
-        //token status amicizia
-        string _s = strtok(NULL,";");
-        //token ruolo amicizia
-        string _r = strtok(NULL,";");
-        
-        // Aggiorno l'amicizia da accettare o rifiutare
-        if(_id == keep_id){ _s = "R"; }
-        
-          file_copia << _id << ";";
-		  file_copia << _utente << ";";
-		  file_copia << _s << ";";
-		  file_copia << _r << endl;
-	  }	
- 
-      file.close();
-      file_copia.close();
-    
-      //elimino il precedente file
-      if( remove(path.c_str()) != 0){ cerr << "Errore eliminazione file!"; return; }
-      //rinomino
-      if( rename( path_copia.c_str(),path.c_str() ) != 0){ cerr << "Errore rinomino file!"; return; }
-      cout<<"4";
-	  //
-	  //
-	  //
-	  // Stessa cosa per l'utente mittente
+	
+		  // Stessa cosa per l'utente mittente
 	  Amicizia mitt(keep_id,this,status,DESTINATARIO);
 	  iter_mit = iter_ra->second.get_utente()->get_listaamicizie()->find(s);
 	  if(iter_mit != iter_ra->second.get_utente()->get_listaamicizie()->end() ){
-	  iter_ra->second.get_utente()->get_listaamicizie()->erase(s);
+	  iter_ra->second.get_utente()->get_listaamicizie()->erase(iter_mit);
 	  iter_ra->second.get_utente()->get_listaamicizie()->insert( pair<int,Amicizia> (keep_id,mitt) );
 	  }
 	  
-      path = path_files_u + (iter_ra->second.get_utente()->get_email()).c_str() + "/" + nome_file_amicizie;
-      path_copia = path_files_u + (iter_ra->second.get_utente()->get_email()).c_str() + "/" + "copia_" + nome_file_amicizie;
+      string path = path_files_u + (iter_ra->second.get_utente()->get_email()).c_str() + "/" + nome_file_amicizie;
+      string path_copia = path_files_u + (iter_ra->second.get_utente()->get_email()).c_str() + "/" + "copia_" + nome_file_amicizie;
       
+      ofstream file_copia;
 	  file_copia.open(path_copia.c_str(), ios::out);
 	  // Controllo apertura corretta file
 	  if(!file_copia){ cerr<< "Errore apertura file!"; return;}
@@ -937,6 +894,57 @@ void Utente::cancella_amicizia(){
 	  }	
  
       file2.close();
+      file_copia.close();
+    
+      //elimino il precedente file
+      if( remove(path.c_str()) != 0){ cerr << "Errore eliminazione file!"; return; }
+      //rinomino
+      if( rename( path_copia.c_str(),path.c_str() ) != 0){ cerr << "Errore rinomino file!"; return; }
+		//
+		//
+		//
+		// Utente destinatario
+
+	  // Rimuovo e creo amicizia con status aggiornato per utente (destinatario)
+
+	  Amicizia dest(keep_id,iter_ra->second.get_utente(),status,DESTINATARIO);
+	  lista_amicizie.erase(iter_ra);
+	  lista_amicizie.insert( pair<int,Amicizia> (keep_id,dest) );
+	
+
+      path = path_files_u + email.c_str() + "/" + nome_file_amicizie;
+      path_copia = path_files_u + email.c_str() + "/" + "copia_" + nome_file_amicizie;
+      
+
+	  file_copia.open(path_copia.c_str(), ios::out);
+	  // Controllo apertura corretta file
+	  if(!file_copia){ cerr<< "Errore apertura file!"; return;}
+    
+	  ifstream file;
+	  file.open(path.c_str(), ios::in);
+	  // Controllo apertura corretta file
+	  if(!file){ cerr<< "Errore apertura file!"; return;}
+	  while (!file.getline(linea,150).eof()) {
+        
+		//token ID amicizia
+        int _id = atoi(strtok(linea,";"));
+        //token utente amicizia
+        string _utente = strtok(NULL,";");
+        //token status amicizia
+        string _s = strtok(NULL,";");
+        //token ruolo amicizia
+        string _r = strtok(NULL,";");
+        
+        // Aggiorno l'amicizia da accettare o rifiutare
+        if(_id == keep_id){ _s = "R"; }
+        
+          file_copia << _id << ";";
+		  file_copia << _utente << ";";
+		  file_copia << _s << ";";
+		  file_copia << _r << endl;
+	  }	
+ 
+      file.close();
       file_copia.close();
     
       //elimino il precedente file
