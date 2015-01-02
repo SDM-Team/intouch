@@ -49,6 +49,7 @@ class Utente {
        void cancella_amicizia();
        bool check_amico(string _e);
        bool check_richiesta(string _e);
+       int num_richieste_pendenti();
 };
 
 #endif

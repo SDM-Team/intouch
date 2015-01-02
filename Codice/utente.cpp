@@ -94,6 +94,13 @@ void Utente::schermata_iniziale(map<string,Utente>* lista_utenti_p) {
 	   
       // Schermata iniziale
       cout << "Benvenuto!" << endl;
+      
+      if (num_richieste_pendenti() == 1) {
+        cout << endl << "Hai " << num_richieste_pendenti() << " richiesta di amicizia pendente!" << endl << endl;
+      } else if (num_richieste_pendenti() > 1) {
+        cout << endl << "Hai " << num_richieste_pendenti() << " richieste di amicizia pendenti!" << endl << endl;
+      }
+      
       cout << "Seleziona la funzione desiderata:" << endl;
       cout << "1. Gestisci amicizie" << endl;
       cout << "2. Visualizza i post degli amici" << endl;
@@ -967,3 +974,15 @@ void Utente::cancella_amicizia(){
   
 }
 
+int Utente::num_richieste_pendenti() {
+  int count = 0;
+  map<int,Amicizia>::iterator iter;
+  
+  for (iter = lista_amicizie.begin(); iter != lista_amicizie.end(); iter++) {
+    if ((iter->second.get_status() == X) && (iter->second.get_ruolo() == DESTINATARIO)) {
+      count += 1;
+    }
+  }
+  
+  return count;
+}
