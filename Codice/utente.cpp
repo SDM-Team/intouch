@@ -807,7 +807,31 @@ void Utente::cancella_amicizia(){
 	
 	do{
 	cout << "Lista amici:" << endl;
-	visualizza_amici();
+	//
+	//
+	map<int,Amicizia>::iterator iter;
+    // Se lista amicizie è vuota stampo "Ancora nessun amico!"
+    //OCCHIO SE HAI AMICIZIE X NON VISUALIZZA NULLA PERCHE' >0 MA !=A
+    if(lista_amicizie.size()==0){
+               cout<<"Ancora nessun amico!"<<endl;                             
+               return;
+          } 
+    // Scorro lista amicizie
+    for (iter = lista_amicizie.begin(); iter != lista_amicizie.end(); iter++) {
+       // Se lo stato dell'amicizia è A (accettata) stampo l'amico nella lista amicizie
+       if (iter->second.get_status() == A) {
+          cout << iter->first <<" - ";
+          cout << iter->second.get_utente()->get_nome() << " " << iter->second.get_utente()->get_cognome() << endl;
+       }
+       // Se no, continuo a scorrere la lista amicizie 
+       else {
+          continue;
+       }
+    }
+	
+	
+	//
+	//
 	cout << "Seleziona numero dell'amico da cancellare" << endl;
 	cout << "Premi 0 per tornare alla schermata precedente" << endl;
 	
@@ -816,19 +840,20 @@ void Utente::cancella_amicizia(){
 	if( s == 0 ) { system("CLS"); return; }
 	
 	iter_ra = lista_amicizie.find(s);
-	if( iter_ra != lista_amicizie.end() ){
+	if( iter_ra != lista_amicizie.end() ){ cout<<"1";
 		
 	  Stato status = R;
 	  // Rimuovo e creo amicizia con status aggiornato per utente (destinatario)
 	  int keep_id = iter_ra->second.get_idamicizia();
 	  Amicizia dest(keep_id,iter_ra->second.get_utente(),status,DESTINATARIO);
 	  lista_amicizie.erase(s);
+	  cout<<"2";
 	  lista_amicizie.insert( pair<int,Amicizia> (keep_id,dest) );
 	
 	  char linea[150];
       string path = path_files_u + email.c_str() + "/" + nome_file_amicizie;
       string path_copia = path_files_u + email.c_str() + "/" + "copia_" + nome_file_amicizie;
-      
+      cout<<"3";
       ofstream file_copia;
 	  file_copia.open(path_copia.c_str(), ios::out);
 	  // Controllo apertura corretta file
@@ -865,6 +890,7 @@ void Utente::cancella_amicizia(){
       if( remove(path.c_str()) != 0){ cerr << "Errore eliminazione file!"; return; }
       //rinomino
       if( rename( path_copia.c_str(),path.c_str() ) != 0){ cerr << "Errore rinomino file!"; return; }
+      cout<<"4";
 	  //
 	  //
 	  //
