@@ -728,10 +728,12 @@ void Utente::accetta_rifiuta_amicizia(){
 	  // Controllo apertura corretta file
 	  if(!file_copia){ cerr<< "Errore apertura file!"; return;}
     
-	  file.open(path.c_str(), ios::in);
+    ifstream file2;
+    
+	  file2.open(path.c_str(), ios::in);
 	  // Controllo apertura corretta file
-	  if(!file){ cerr<< "Errore apertura file!"; return;}
-	  while (!file.getline(linea,150).eof()) {
+	  if(!file2){ cerr<< "Errore apertura file!"; return;}
+	  while (!file2.getline(linea,150).eof()) {
         
 		//token ID amicizia
         int _id = atoi(strtok(linea,";"));
@@ -754,7 +756,7 @@ void Utente::accetta_rifiuta_amicizia(){
 		  file_copia << _r << endl;
 	  }	
  
-      file.close();
+      file2.close();
       file_copia.close();
     
       //elimino il precedente file
@@ -881,10 +883,11 @@ void Utente::cancella_amicizia(){
 	  // Controllo apertura corretta file
 	  if(!file_copia){ cerr<< "Errore apertura file!"; return;}
     
-	  file.open(path.c_str(), ios::in);
+    ifstream file2;
+	  file2.open(path.c_str(), ios::in);
 	  // Controllo apertura corretta file
-	  if(!file){ cerr<< "Errore apertura file!"; return;}
-	  while (!file.getline(linea,150).eof()) {
+	  if(!file2){ cerr<< "Errore apertura file!"; return;}
+	  while (!file2.getline(linea,150).eof()) {
         
 		//token ID amicizia
         int _id = atoi(strtok(linea,";"));
@@ -907,7 +910,7 @@ void Utente::cancella_amicizia(){
 		  file_copia << _r << endl;
 	  }	
  
-      file.close();
+      file2.close();
       file_copia.close();
     
       //elimino il precedente file

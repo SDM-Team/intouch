@@ -17,9 +17,11 @@
 #include "post.h"		/* classe Post e metodi relativi 		*/
 #include "utente.h" 	/* classe Utente e metodi relativi 		*/
 
-//ID utente e post
+//ID utente, post, commento e amicizia
 extern int id_u;
 extern int id_p;
+extern int id_c;
+extern int id_a;
 
 using namespace std;
 
@@ -441,6 +443,8 @@ void InTouch::importa_commenti(string _autore, int id_post) {
         
         iter_post = iter_autore_post->second.get_bacheca()->get_listapost()->find(id_post);
         iter_post->second.get_listacommenti()->push_back(c);
+        
+        id_c = id + 1;
       }
     }else{
 	  cerr << "Errore import commenti!" << endl;	
@@ -556,6 +560,7 @@ void InTouch::importa_amicizie() {
           Amicizia a(id,&iter_utenti2->second,stato,ruolo);
           
           iter_utenti->second.get_listaamicizie()->insert(pair<int,Amicizia> (id,a));
+          id_a = id + 1;
         }
       }else{
 	    cerr << "Errore import amicizia!" << endl;	
