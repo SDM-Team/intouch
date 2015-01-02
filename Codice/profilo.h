@@ -7,9 +7,6 @@
 #include "config.h"		/* Definizione variabili globali 		*/
 #include "data.h"		/* classe Data e metodi relativi 		*/
 
-
-typedef char stringa [MAXLUN+1];
-
 using namespace std;
 
 class Profilo{
@@ -23,7 +20,7 @@ class Profilo{
       public:
               Profilo();
               Profilo(const Profilo& p);
-              Profilo(stringa _sex, string _prof, string _situa, string _luogo);              
+              Profilo(string _sex, string _prof, string _situa, string _luogo);              
               string get_sesso();
               string get_professione();
               string get_situasent();

@@ -214,7 +214,7 @@ void Post::rimuovi_like(Utente* autore){
 	convert << id_post;
 	
     string path = path_files_p + convert.str() + "/" + nome_file_likes;	
-    string path_copia = path_files_p + convert.str() + "/" + nome_file_likes + "_copia";
+    string path_copia = path_files_p + convert.str() + "/" + "copia_" + nome_file_likes;
     
 	ofstream file_copia;
 	file_copia.open(path_copia.c_str(), ios::out);

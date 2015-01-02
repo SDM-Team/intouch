@@ -672,7 +672,7 @@ void Utente::accetta_rifiuta_amicizia(){
 	
 	  char linea[150];
       string path = path_files_u + email.c_str() + "/" + nome_file_amicizie;
-      string path_copia = path_files_u + email.c_str() + "/" + nome_file_amicizie + "_copia";
+      string path_copia = path_files_u + email.c_str() + "/" + "copia_" + nome_file_amicizie;
       
       ofstream file_copia;
 	  file_copia.open(path_copia.c_str(), ios::out);
@@ -722,7 +722,7 @@ void Utente::accetta_rifiuta_amicizia(){
 	  iter_ra->second.get_utente()->get_listaamicizie()->insert( pair<int,Amicizia> (keep_id,mitt) );
 	
       path = path_files_u + (iter_ra->second.get_utente()->get_email()).c_str() + "/" + nome_file_amicizie;
-      path_copia = path_files_u + (iter_ra->second.get_utente()->get_email()).c_str() + "/" + nome_file_amicizie + "_copia";
+      path_copia = path_files_u + (iter_ra->second.get_utente()->get_email()).c_str() + "/" + "copia_" + nome_file_amicizie;
       
 	  file_copia.open(path_copia.c_str(), ios::out);
 	  // Controllo apertura corretta file
@@ -825,7 +825,7 @@ void Utente::cancella_amicizia(){
 	
 	  char linea[150];
       string path = path_files_u + email.c_str() + "/" + nome_file_amicizie;
-      string path_copia = path_files_u + email.c_str() + "/" + nome_file_amicizie + "_copia";
+      string path_copia = path_files_u + email.c_str() + "/" + "copia_" + nome_file_amicizie;
       
       ofstream file_copia;
 	  file_copia.open(path_copia.c_str(), ios::out);
@@ -875,7 +875,7 @@ void Utente::cancella_amicizia(){
 	  }
 	  
       path = path_files_u + (iter_ra->second.get_utente()->get_email()).c_str() + "/" + nome_file_amicizie;
-      path_copia = path_files_u + (iter_ra->second.get_utente()->get_email()).c_str() + "/" + nome_file_amicizie + "_copia";
+      path_copia = path_files_u + (iter_ra->second.get_utente()->get_email()).c_str() + "/" + "copia_" + nome_file_amicizie;
       
 	  file_copia.open(path_copia.c_str(), ios::out);
 	  // Controllo apertura corretta file

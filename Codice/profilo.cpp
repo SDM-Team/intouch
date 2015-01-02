@@ -25,7 +25,7 @@ Profilo::Profilo(const Profilo& p){
 }
 
 // Costruttore specifico
-Profilo::Profilo(stringa _sex, string _prof, string _situa, string _luogo){
+Profilo::Profilo(string _sex, string _prof, string _situa, string _luogo){
                        sesso= _sex;
                        professione= _prof;
                        situasent= _situa; 
