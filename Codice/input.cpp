@@ -32,7 +32,6 @@ int inputInt(int min, int max){
     else{
       cout << "Errore: range non valido" << endl;	
     }
-    
   }
   return t;
 }
@@ -46,7 +45,7 @@ string inputString(int max){
     if( s.size() > max_chars ) {
       cerr<<"Errore: inseriti piu' di "<<max<<" caratteri; reinserire:"<<endl;
       //s = s.substr( 0, MAX_CHARS ) ; //per troncare
-    }else{
+    } else {
       break;	
     }
   }
@@ -63,32 +62,26 @@ string inputPassword(int max){
     
     //smette input se premi invio
     if( c == '\r'){
-	  return s;
+	    return s;
     }
     
-	if( s.size() > max_chars ) {
+	  if( s.size() > max_chars ) {
       cerr<<"Errore: inseriti piu' di "<<max<<" caratteri; "<<endl;
       cout<<"Reinserire password:"<<endl;
       s="";
-    }
-    
-    else if( c == '\b' || c == char(8) //c != 8 && c != 127 && //tasti backspace e delete
-	){ 
-	
-	  if(i > 0){
-	    //cout << string(1,'\b' ); //cancella 1 carattere
-	    cout << char(8);
-	    cout<<" ";
-	    cout << char(8);
-        i--;
-	    s = s.substr( 0, i ); //tronca la stringa al carattere precedente
-	  }
-    }else{
+    } else if( c == '\b' || c == char(8)){ //c != 8 && c != 127 && //tasti backspace e delete
+      if(i > 0){
+	      //cout << string(1,'\b' ); //cancella 1 carattere
+	      cout << char(8);
+	      cout<<" ";
+	      cout << char(8);
+          i--;
+	      s = s.substr( 0, i ); //tronca la stringa al carattere precedente
+	    }
+    } else {
       cout << "*";
       s+=c;
       i++;
     }
-    
   }
-  
 }

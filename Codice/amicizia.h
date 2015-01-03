@@ -27,8 +27,6 @@ class Amicizia {
     Utente* get_utente();
     Stato get_status() const;
     Ruolo get_ruolo() const;
-    void set_statusA();
-    void set_statusR();
 };
 
 #endif

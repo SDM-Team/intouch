@@ -92,5 +92,5 @@ void Bacheca::aggiungi_post(Utente* _u){
 
 // Restituisce un puntatore alla lista dei post
 map<int,Post>* Bacheca::get_listapost() {
-    return &lista_post;
+  return &lista_post;
 }

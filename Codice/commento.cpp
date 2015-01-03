@@ -44,7 +44,9 @@ Data Commento::get_tempo() const{
 
 void Commento::visualizza_commento(){
 	cout << "Autore: ";
-	if(autore != NULL) { cout << autore->get_cognome() << " " << autore->get_nome() << " (" << autore->get_email() << ")" << endl; }
+	if(autore != NULL) {
+    cout << autore->get_cognome() << " " << autore->get_nome() << " (" << autore->get_email() << ")" << endl;
+  }
 	cout << "Data: " << tempo <<endl;
 	cout << '"' << testo << '"' << endl << endl;
 }

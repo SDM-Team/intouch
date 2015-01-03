@@ -8,4 +8,3 @@ string inputString(int max);
 string inputPassword(int max);
 
 #endif
-

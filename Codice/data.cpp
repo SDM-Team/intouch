@@ -15,25 +15,25 @@ Data::Data() {
 
 // Costruttore di copia
 Data::Data(const Data& d){
-              giorno = d.giorno;
-              mese = d.mese;
-              anno= d.anno;
-              ore= d.ore;
-              minuti= d.minuti;                 
+  giorno = d.giorno;
+  mese = d.mese;
+  anno = d.anno;
+  ore = d.ore;
+  minuti = d.minuti;                 
 }
 
 // Costruttore specifico
 Data::Data(int _g, int _m, int _a) {
-  giorno =  _g;
-  mese =  _m;
-  anno =  _a;  
+  giorno = _g;
+  mese = _m;
+  anno = _a;  
 	ore = 88;
 	minuti = 88;
 }
 
 // Costruttore specifico
 Data::Data(int _g, int _m, int _a, int _o, int _min) {
-  giorno =  _g;
+  giorno = _g;
   mese = _m;
   anno = _a;  
 	ore = _o;
@@ -91,28 +91,29 @@ void Data::imposta_data(){
       cout << "Errore: giorno non esistente" << endl;
     }
     printf("Inserire giorno: "); cin>>giorno; cin.ignore();                     
-                          }                                                                           
-                          printf("Inserire mese: "); cin>>mese; cin.ignore();                            
-                          while((mese<1)||(mese>12)){
-                                               if((mese<1)||(mese>12)){printf("Errore scelta non possibile\n");}
-                                               printf("Inserire mese: "); cin>>mese; cin.ignore();                    
-                          }                                                     
-                          printf("Inserire anno: "); cin>>anno; cin.ignore();                        
-                          while((anno<0)||(anno>2014)){
-                                                 if((anno<0)||(anno>2014)){printf("Errore scelta non possibile\n");}
-                                                 printf("Inserire anno: "); cin>>anno; cin.ignore();                      
-                          }                           
+  }
+  
+  printf("Inserire mese: "); cin>>mese; cin.ignore();                            
+  while((mese<1)||(mese>12)){
+    if((mese<1)||(mese>12)){cout << "Errore scelta non possibile" << endl;}
+    printf("Inserire mese: "); cin>>mese; cin.ignore();                    
+  }
+  
+  printf("Inserire anno: "); cin>>anno; cin.ignore();                        
+  while((anno<0)||(anno>2014)){
+    if((anno<0)||(anno>2014)){cout << "Errore scelta non possibile" << endl;}
+    printf("Inserire anno: "); cin>>anno; cin.ignore();                      
+  }
 }
 
 // Metodo che prende la data e l'ora corrente
 void Data::imposta_dataOra(){
-    time_t t = time(0);   //tempo corrente
-    struct tm * now = localtime( & t );
+  time_t t = time(0);   //tempo corrente
+  struct tm * now = localtime( & t );
 		 
 	giorno = now->tm_mday;
 	mese = (now->tm_mon +1);
 	anno = (now->tm_year + 1900);
 	ore = now->tm_hour;
-	minuti = now->tm_min;   
-	               
+	minuti = now->tm_min;
 }

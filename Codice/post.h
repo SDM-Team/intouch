@@ -28,7 +28,7 @@ class Post{
 		Post(int _id, Utente* _autore, string _testo, Data _tempo);
 		Post(Utente* _u, string _testo);
 		Post(const Post& p);
-        int get_idpost() const;
+    int get_idpost() const;
 		Data get_tempo() const;
 		string get_testo() const;
 		Utente* get_autore(); //si puo' fare const?
@@ -42,4 +42,3 @@ class Post{
 };
 
 #endif
-

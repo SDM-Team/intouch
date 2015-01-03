@@ -45,13 +45,3 @@ Stato Amicizia::get_status() const {
 Ruolo Amicizia::get_ruolo() const {
   return ruolo;
 }
-
-// Imposta lo stato dell'amicizia su A(ccettata)
-void Amicizia::set_statusA() {
-  status = A;
-}
-
-// Imposta lo stato dell'amicizia su R(ifiutata)
-void Amicizia::set_statusR() {
-  status = R;
-}
