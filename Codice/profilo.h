@@ -7,6 +7,7 @@
 #include "config.h"		/* Definizione variabili globali 		*/
 #include "data.h"		/* classe Data e metodi relativi 		*/
 
+// Namespace
 using namespace std;
 
 class Profilo{

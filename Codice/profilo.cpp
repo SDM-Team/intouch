@@ -5,6 +5,7 @@
 #include "config.h"		/* Definizione variabili globali 		*/
 #include "data.h"		/* classe Data e metodi relativi 		*/
 
+// Namespace
 using namespace std;
 
 // Costruttore di default
@@ -57,34 +58,34 @@ string Profilo::get_luogonasc() {
   return luogonasc;
 }
 
-// Metodo che setta il sesso
+// Metodo che imposta il sesso con il valore passato
 void Profilo::set_sesso(const string& _sesso) {
   sesso = _sesso;
 }
 
-// Metodo che setta la professione
+// Metodo che imposta la professione con il valore passato
 void Profilo::set_professione(const string& _professione) {
   professione = _professione;
 }
 
-// Metodo che setta la situazione sentimentale
+// Metodo che imposta la situazione sentimentale con il valore passato
 void Profilo::set_situasent(const string& _situasent) {
   situasent = _situasent;
 }
 
-// Metodo che chiede all'utente di settare la data di nascita
+// Metodo che chiede all'utente di inserire giorno, mese e anno della data di nascita e la imposta su tali valori
 void Profilo::set_datanasc() {
   Data d;
   d.imposta_data();
   datanasc = d;
 }
 
-// Metodo che setta la data di nascita 
+// Metodo che imposta la data di nascita con il valore passato
 void Profilo::set_datanasc_par(const Data& d) {
   datanasc = d;
 }
 
-// Metodo che setta il luogo di nascita
+// Metodo che imposta il luogo di nascita con il valore passato
 void Profilo::set_luogonasc(const string& _luogonasc) {
   luogonasc = _luogonasc;
 }

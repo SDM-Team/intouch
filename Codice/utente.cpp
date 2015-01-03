@@ -17,9 +17,9 @@
 // Variabili di configurazione
 extern int id_p;
 extern int id_a;
-extern InTouch applicazione;
 int id_u = 1;
 
+// Namespace
 using namespace std;
 
 // Costruttore specifico a due parametri per la procedura di login
@@ -52,54 +52,62 @@ Utente::Utente(const Utente& u){
   lista_amicizie = u.lista_amicizie;
 }
 
+// Restituisce l'id dell'utente
 int Utente::get_idutente() const {
   return id_utente;
 }
 
+// Restituisce il nome dell'utente
 string Utente::get_nome() const {
   return nome;
 }
 
+// Restituisce il cognome dell'utente
 string Utente::get_cognome() const {
   return cognome;
 }
 
+// Restituisce l'indirizzo email dell'utente
 string Utente::get_email() const {
   return email;
 }
 
+// Restituisce la password dell'utente
 string Utente::get_password() const {
   return password;
 }
 
+// Restituisce un puntatore alla bacheca dell'utente
 Bacheca* Utente::get_bacheca() {
   return (&bacheca);
 }
 
+// Restituisce un puntatore al profilo dell'utente
 Profilo* Utente::get_profilo() {
   return (&profilo);
 }
 
+// Restituisce un puntatore alla lista di amicizie dell'utente
 map<int,Amicizia>* Utente::get_listaamicizie() {
   return (&lista_amicizie);
 }
 
-
-// Schermata iniziale che si visualizza una volte autenticato correttamente
+// Schermata iniziale che si visualizza una volta autenticati correttamente
 void Utente::schermata_iniziale(map<string,Utente>* lista_utenti_p) {
-
   int s = 7;
   string t;
     do { 
       // Schermata iniziale
       cout << "Benvenuto!" << endl;
       
+      // Eventuale notifica di richieste di amicizia in attesa di risposta
       if (num_richieste_pendenti() == 1) {
         cout << endl << "Hai " << num_richieste_pendenti() << " richiesta di amicizia pendente!" << endl << endl;
       } else if (num_richieste_pendenti() > 1) {
         cout << endl << "Hai " << num_richieste_pendenti() << " richieste di amicizia pendenti!" << endl << endl;
       }
       
+      // Voci di menu
       cout << "Seleziona la funzione desiderata:" << endl;
       cout << "1. Gestisci amicizie" << endl;
       cout << "2. Visualizza i post degli amici" << endl;
@@ -114,34 +122,38 @@ void Utente::schermata_iniziale(map<string,Utente>* lista_utenti_p) {
       system("CLS");
       switch (s) {
         case 1:
+          // Gestione amicizie
           gestisci_amicizie(lista_utenti_p);
           break;
         case 2:
+          // Visualizzazione bacheca generale (post amici)
     	    visualizza_bacheca_generale();
           break;
         case 3:
+          // Visualizzazione propria bacheca
           visualizza_bacheca();
           break;
         case 4:
+          // Visualizzazione/modifica proprio profilo
           visualizza_profilo();
           break;
         case 5:
-          // Profilo e bacheca amico
+          // Visualizzazione profilo e bacheca amico
           visualizza_contenuto_amici();
           break;
         case 6:
-          // Crea post
+          // Creazione post
           bacheca.aggiungi_post(this);
           break;
         case 7:
+          // Esce dallo switch ed effettua il logout
           break;
     	}
 	  } while(s != 7);
     
-    //if (s == 7){
+    // Se si preme 7, si procede al logout
     cout << "Logout effettuato!" << endl << endl;
-    logout();	
-    //}
+    logout();
 }
 
 // Metodo di logout, rimanda alla schermata di autenticazione
@@ -151,10 +163,11 @@ void Utente::logout() {
 
 void Utente::visualizza_profilo(){
   int s=0;
-  
   do {       
-    //Prendo il nome e cognome dell'utente e le informazioni sono di default se non modificate
+    // Stampa nome e cognome dell'utente
     cout << "[" << get_nome() << " " << get_cognome() << "]" << endl;
+    
+    // Stampa le sue informazioni
     cout << "Sesso: "<< profilo.get_sesso() <<endl;
     cout << "Professione: " << profilo.get_professione() <<endl;
     cout << "Situazione Sentimentale: " << profilo.get_situasent() <<endl;
@@ -171,6 +184,7 @@ void Utente::visualizza_profilo(){
       case 0: 
 		    return; //ritorna alla schermata iniziale
       case 1: 
+        // Modifica profilo
 		    modifica_profilo();
 		    break;          
     } 
@@ -178,7 +192,10 @@ void Utente::visualizza_profilo(){
 }
 
 void Utente::visualizza_profilo_amico(){
+  // Stampa nome e cognome dell'amico
   cout << "[" << get_nome() << " " << get_cognome() << "]" << endl;
+  
+  // Stampa le sue informazioni
   cout << "Sesso: "<< profilo.get_sesso() <<endl;
   cout << "Professione: " << profilo.get_professione() <<endl;
   cout << "Situazione Sentimentale: " << profilo.get_situasent() <<endl;
@@ -187,13 +204,17 @@ void Utente::visualizza_profilo_amico(){
   cout << "Per tornare alla schermata precedente premi 0" <<endl;
   
   int c;
-  c = inputInt(0,0);  
+  c = inputInt(0,0); // l'utente può solo tornare alla schermata iniziale
   system("CLS");  
 }
 
 void Utente::modifica_profilo(){
   int s = 1;
+  
+  // Stampa nome e cognome dell'utente
   cout << "[" << get_nome() << " " << get_cognome() << "]" << endl;
+  
+  // Stampa le sue informazioni
   cout << "1. Sesso: " << profilo.get_sesso() << endl;
   cout << "2. Professione: " << profilo.get_professione() << endl;
   cout << "3. Situazione Sentimentale: " << profilo.get_situasent() << endl;
@@ -202,38 +223,45 @@ void Utente::modifica_profilo(){
   cout << "Per modificare i campi selezionare il numero corrispondente: "<<endl;
   cout << "Per tornare alla schermata iniziale premi 0" << endl;
 
+  // Richiede quale campo si desidera modificare
   s = inputInt(0,5);
 
   string modificaStringa;
 
   switch(s){
     case 0:
+      // Ritorno alla visualizzazione del profilo
   	  system("CLS");
-	    return; //rimanda al profilo 
+	    return;
     case 1:
+      // Modifica sesso
       cout << "Inserire Sesso (max " << MAXLUN << " caratteri): ";
       modificaStringa = inputString(MAXLUN);
       profilo.set_sesso(modificaStringa);
       cout << endl;
       break;
     case 2:
+      // Modifica professione
       cout << "Inserire Professione (max " << MAXLUN << " caratteri): ";
       modificaStringa = inputString(MAXLUN);
       profilo.set_professione(modificaStringa);
       cout << endl;
       break;
     case 3:
+      // Modifica situazione sentimentale
       cout << "Inserire situazione sentimentale (max " << MAXLUN << " caratteri): ";
       modificaStringa = inputString(MAXLUN);
       profilo.set_situasent(modificaStringa);
       cout << endl;
       break;
     case 4:
+      // Modifica data di nascita
       cout << "Inserire data di nascita: \n";
       profilo.set_datanasc();
       cout << endl;
       break;
     case 5:
+      // Modifica luogo di nascita
       cout << "Inserire Luogo di nascita (max " << MAXLUN << " caratteri): ";
       modificaStringa = inputString(MAXLUN);
       profilo.set_luogonasc(modificaStringa);
@@ -241,18 +269,21 @@ void Utente::modifica_profilo(){
       break;
   }
   
-  // Aggiorno il .csv se è stato modificato qualcosa
+  // Aggiorna il .csv se è stato modificato qualcosa
   if (s != 0) {
+     // Apre il file relativo al profilo dell'utente, sovrascrivendo il contenuto precedente (ios::out)
      string path = path_files_u + get_email() + "/" + nome_file_profilo;
      ofstream file;
      file.open(path.c_str(), ios::out);
      
+     // Sovrascrive le informazioni precedentemente presenti stampando quelle nuove
      file << profilo.get_sesso() << ";"
           << profilo.get_professione() << ";"
           << profilo.get_situasent() << ";"
           << profilo.get_datanasc() << ";"
           << profilo.get_luogonasc() << endl;
           
+     // Chiude il file
      file.close();
   }
 
@@ -265,7 +296,10 @@ void Utente::visualizza_bacheca() {
   int s = 0;
   
   do {
+    // Stampa il nome del proprietario della bacheca
 	  cout << "Bacheca di " << get_nome() << " " << get_cognome()<<endl;
+	  
+	  // Stampa tutti i post in maniera compatta
     for (iter = get_bacheca()->get_listapost()->rbegin(); iter != get_bacheca()->get_listapost()->rend(); iter++) {
       iter->second.visualizza_post_light();
     }
@@ -276,6 +310,8 @@ void Utente::visualizza_bacheca() {
     system("CLS");
     
     if(s == 0){ return; }
+    
+    // Se viene selezionato un post in particolare, lo visualizza in modo dettagliato
     if ( get_bacheca()->get_listapost()->find(s) != get_bacheca()->get_listapost()->end() ){
 			get_bacheca()->get_listapost()->find(s)->second.visualizza_post();
 			cout << "Per commentare il post selezionato premi 1" << endl;
@@ -284,15 +320,20 @@ void Utente::visualizza_bacheca() {
       int p = inputInt(0,2);
 
    	  switch(p){
-		    case 0: system("CLS"); 
-					return;	
-   			case 1: get_bacheca()->get_listapost()->find(s)->second.commenta_post(this);
+		    case 0: system("CLS");
+          // Ritorno alla bacheca completa
+					return;
+   			case 1:
+          // Aggiunta commento al post
+          get_bacheca()->get_listapost()->find(s)->second.commenta_post(this);
 					break;
-		  	case 2: get_bacheca()->get_listapost()->find(s)->second.aggiungi_like(this);
+		  	case 2:
+          // Aggiunta like al post
+          get_bacheca()->get_listapost()->find(s)->second.aggiungi_like(this);
 					return;
 		  }
       system("CLS");  	  
-    } else {
+    } else { // se non si trova il numero di post immesso
       system("CLS");
       cerr << "Post non trovato!" << endl << endl;
     }
@@ -305,8 +346,11 @@ void Utente::visualizza_bacheca_generale() {
   map<int,Post>::iterator iter_post;
   int s = 0;
 
+  // Scorre la lista di amicizie dell'utente
   for (iter_amicizie = lista_amicizie.begin(); iter_amicizie != lista_amicizie.end(); iter_amicizie++) {
+    // Se l'amicizia è accettata
     if (iter_amicizie->second.get_status() == A) {
+      // scorre i post dell'amico e ne inserisce un puntatore in un map, utilizzando l'id del post come key
       for (iter_post = iter_amicizie->second.get_utente()->get_bacheca()->get_listapost()->begin();
            iter_post != iter_amicizie->second.get_utente()->get_bacheca()->get_listapost()->end();
            iter_post++) {
@@ -315,11 +359,13 @@ void Utente::visualizza_bacheca_generale() {
     }
   }
 
+  // Se la nuova lista è vuota, comunica che non ci sono ancora post degli amici
   if (lista_post_amici.size() == 0) {
     cout << "Ancora nessun post!" << endl << endl;
     return;
   }
 
+  // Altrimenti stampa l'elenco dei post degli amici in ordine cronologico inverso ed in modo compatto
   map<int,Post*>::iterator iter_post_amici;
   for (iter_post_amici = lista_post_amici.begin(); iter_post_amici != lista_post_amici.end(); iter_post_amici++) {
     iter_post_amici->second->visualizza_post_light();
@@ -331,9 +377,11 @@ void Utente::visualizza_bacheca_generale() {
   s = inputInt(0,id_p);
   system("CLS");
 
+  // Ritorno alla schermata iniziale
   if( s == 0){ return; }
+  
+  // Se viene selezionato un post, lo visualizza in modo dettagliato
   if ( lista_post_amici.find(s) != lista_post_amici.end() ){
-
   	lista_post_amici.find(s)->second->visualizza_post();
 	  cout<< "Per commentare il post selezionato premi 1" << endl;
 		cout<< "Per mettere[/togliere] \"mi piace\" premi 2" << endl;
@@ -342,28 +390,30 @@ void Utente::visualizza_bacheca_generale() {
 
 	  switch(p){
 	    case 0:
+        // Ritorno alla bacheca generale completa
         system("CLS");
 				return;	
 			case 1:
+        // Aggiunta commento al post
         lista_post_amici.find(s)->second->commenta_post(this);
 				break;
 			case 2:
+        // Aggiunta like al post
         lista_post_amici.find(s)->second->aggiungi_like(this);
 				return;
 	  }
     system("CLS");  	  
-  } else {
+  } else { // se non trova il numero del post immesso
     system("CLS");
     cerr << "Post non trovato!" << endl << endl;
   }
-
 }
 
 // Metodo che permette di visualizzare il profilo e la bacheca di un amico
 void Utente::visualizza_contenuto_amici(){
   int t;
   do {
-    // Mostro elenco degli amici
+    // Mostra elenco degli amici
     cout << "Elenco dei tuoi amici:" << endl;
     visualizza_amici();                                                                      
     int s;          
@@ -376,13 +426,12 @@ void Utente::visualizza_contenuto_amici(){
     do {
       s = inputInt(0,id_u);
       // Ritorno alla schermata iniziale se la scelta è 0
-      if(s==0){system("CLS"); return;}
+      if(s == 0){system("CLS"); return;}
       // Cerco l'amico selezionato nella lista amicizie
-      iter= lista_amicizie.find(s); 
+      iter = lista_amicizie.find(s); 
       // Se non lo trovo, stampo "Non è amico"
-      if(iter==lista_amicizie.end()){cerr<<"Non e' tuo amico"<<endl;}                              
-    }
-    while(iter==lista_amicizie.end()); // Continuo finchè non viene selezionato un amico
+      if(iter == lista_amicizie.end()) {cerr << "Non e' tuo amico" << endl;}                              
+    } while(iter == lista_amicizie.end()); // Continuo finchè non viene selezionato un amico
 
     // Menù di scelta         
     cout << "Per visualizzare la sua bacheca premi 1" << endl;
@@ -390,26 +439,26 @@ void Utente::visualizza_contenuto_amici(){
     cout << "Per tornare alla selezione dell'amico premi 3" << endl;
     cout << "Per tornare alla schermata iniziale premi 0" << endl;
 
-    t=inputInt(0,3);
+    t = inputInt(0,3);
     system("CLS");
 
     switch(t){
-      // Visualizzo bacheca amico
       case 1:
+        // Visualizzo bacheca amico
         iter->second.get_utente()->visualizza_bacheca();
         return;
-      // Visualizzo profilo amico
       case 2:
+        // Visualizzo profilo amico
         iter->second.get_utente()->visualizza_profilo_amico();
         break;
-      // Torno alla schermata di selezione dell'amico
       case 3:
+        // Torno alla schermata di selezione dell'amico
         break;
-      // Torno alla schermata iniziale
       case 0:
+        // Torno alla schermata iniziale
         return;                    
     }
-  } while (t!=0 && t!=1); // Continuo finchè t=0 e t=1          
+  } while ((t!=0) && (t!=1)); // Continuo finchè t=0 e t=1          
 }
    
 // Metodo che permette di visualizzare gli amici                                
@@ -430,7 +479,7 @@ void Utente::visualizza_amici() {
       cout << iter->second.get_utente()->get_nome() << " " << iter->second.get_utente()->get_cognome() << endl;
     }
     
-    // Se no, continuo a scorrere la lista amicizie 
+    // Altrimenti continuo a scorrere la lista amicizie 
     else {
       continue;
     }
@@ -468,7 +517,7 @@ void Utente::gestisci_amicizie(map<string,Utente>* lista_utenti_p) {
         cancella_amicizia();
         break;      
       case 4:
-      	// Visualizzo lista amicizia
+      	// Visualizzo lista amici
         cout << "Lista amici:" << endl << endl;
       	visualizza_amici();
       	// Torno alla schermata iniziale

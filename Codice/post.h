@@ -14,6 +14,7 @@
 class Utente;			/* riferimento a Utente 				*/
 class Bacheca;			/* riferimento a Bacheca 				*/
 
+// Namespace
 using namespace std;
 
 class Post{
