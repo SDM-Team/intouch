@@ -10,6 +10,7 @@ typedef enum Ruolo {MITTENTE,DESTINATARIO};
 // Forward declaration: evita inclusione circolare tra amicizia.h e utente.h
 class Utente;
 
+// Namespace
 using namespace std;
 
 // Dichiarazione classe Amicizia

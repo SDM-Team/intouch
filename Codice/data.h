@@ -3,6 +3,7 @@
 
 #include <iostream> 		/* ostream							*/
 
+// Namespace
 using namespace std;
 
 class Data{

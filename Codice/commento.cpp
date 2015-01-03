@@ -9,6 +9,7 @@
 // Variabile globale per ID univoco commento
 int id_c = 1;
 
+// Namespace
 using namespace std;
 
 // Costruttore usato per creare commento passando utente e testo, autotimestamp corrente
@@ -37,16 +38,23 @@ Commento::Commento(const Commento& c){
   autore= c.autore;                         
 }
 
-// Metodo che ritorna il tempo
+// Metodo che ritorna data e ora di pubblicazione
 Data Commento::get_tempo() const{
 	return tempo;	
 }
 
+// Metodo che permette di visualizzare l'elenco di commenti di un determinato post
 void Commento::visualizza_commento(){
 	cout << "Autore: ";
+	
+	// Stampa l'autore
 	if(autore != NULL) {
     cout << autore->get_cognome() << " " << autore->get_nome() << " (" << autore->get_email() << ")" << endl;
   }
+  
+  // Stampa data e ora di pubblicazione del commento
 	cout << "Data: " << tempo <<endl;
+	
+	// Stampa il testo del commento
 	cout << '"' << testo << '"' << endl << endl;
 }

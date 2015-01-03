@@ -9,6 +9,7 @@
 // Forward declaration
 class Utente;			/* riferimento a Utente */
 
+// Namespace
 using namespace std;
 
 // Dichiarazione classe Commento

@@ -9,6 +9,7 @@
 // Forward declaration
 class Utente;
 
+// Namespace
 using namespace std;
 
 // Dichiarazione della classe Bacheca

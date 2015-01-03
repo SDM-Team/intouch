@@ -3,6 +3,7 @@
 // Libreria personalizzata
 #include "intouch.h"
 
+// Namespace
 using namespace std;
 
 int main(int argc, char *argv[])

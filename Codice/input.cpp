@@ -6,6 +6,7 @@
 // Libreria personalizzata
 #include "input.h"
 
+// Namespace
 using namespace std;
 
 int inputInt(int min, int max){

@@ -4,7 +4,7 @@
 #include "data.h"		/* Libreria di riferimento 				*/
 #include "input.h"		/* inputInt								*/
 
-// Costruttore di default
+// Costruttore di default, inizializza data e ora ad un valore casuale
 Data::Data() {
   giorno = 1;
   mese = 1;
@@ -22,7 +22,7 @@ Data::Data(const Data& d){
   minuti = d.minuti;                 
 }
 
-// Costruttore specifico
+// Costruttore specifico, solo per la data
 Data::Data(int _g, int _m, int _a) {
   giorno = _g;
   mese = _m;
@@ -31,7 +31,7 @@ Data::Data(int _g, int _m, int _a) {
 	minuti = 88;
 }
 
-// Costruttore specifico
+// Costruttore specifico, per data e ora
 Data::Data(int _g, int _m, int _a, int _o, int _min) {
   giorno = _g;
   mese = _m;
@@ -42,7 +42,6 @@ Data::Data(int _g, int _m, int _a, int _o, int _min) {
 
 // L'operatore << aggiunge anche uno zero se il numero è valido e < 10
 ostream& operator << (ostream& os,const Data& d) {
-  
   // Se il giorno è tra 0 e 9 aggiunge uno 0 prima
   if((d.giorno > 0) && (d.giorno < 10)) {
     os << "0";
@@ -79,7 +78,7 @@ ostream& operator << (ostream& os,const Data& d) {
   return os;               
 }
 
-// Funzione per impostare la data
+// Funzione per impostare la data, con richiesta all'utente
 void Data::imposta_data(){  
   cout << "Inserire giorno: ";
   cin >> giorno;

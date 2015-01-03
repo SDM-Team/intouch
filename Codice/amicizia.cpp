@@ -12,6 +12,7 @@ Amicizia::Amicizia(Utente* _u, Ruolo _r) {
   ruolo = _r;
 }
 
+// Costruttore specifico a quattro parametri per importazione
 Amicizia::Amicizia(int _id, Utente* _u, Stato _s, Ruolo _r) {
   id_amicizia = _id;
   utente = _u;
@@ -27,6 +28,7 @@ Amicizia::Amicizia(const Amicizia& a){
   ruolo= a.ruolo;                            
 }
 
+// Restituisce l'id dell'amicizia
 int Amicizia::get_idamicizia() const {
   return id_amicizia;
 }

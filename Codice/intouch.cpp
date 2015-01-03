@@ -38,6 +38,7 @@ InTouch::InTouch(const InTouch& i){
   lista_utenti= i.lista_utenti;                   
 }
 
+// Restituisce la lista degli utenti registrati
 map<string,Utente> InTouch::get_listautenti() {
   return lista_utenti;
 }
@@ -47,7 +48,7 @@ void InTouch::schermata_autenticazione() {
   int s = 3;
   while(true) {
        
-    //voci menu
+    // Voci del menu
     cout << "Benvenuto!" << endl;
     cout << "Seleziona cosa vuoi fare:" << endl;
     cout << "1. Registrati" << endl;
@@ -89,6 +90,7 @@ void InTouch::login() {
   cout << "Inserisci la tua password: ";
   password = inputPassword(MAXLUN);
 
+  // Creazione istanza di utente con i parametri immessi
   Utente u(email,password);
 
   system("CLS");
@@ -144,6 +146,7 @@ void InTouch::registrazione() {
     case 0:
       break;
     case 1:
+      // Creazione istanza di utente con i dati immessi
       Utente u(nome,cognome,email,password);
 
       if (utente_esiste(u)) {
@@ -156,7 +159,7 @@ void InTouch::registrazione() {
       }
       break;
   }
-    // In ogni caso rimanda alla schermata di autenticazione per registrarsi o effettuare il login
+  // In ogni caso rimanda alla schermata di autenticazione per registrarsi o effettuare il login
 }
 
 // Metodo che controlla se un utente esiste già o meno
@@ -168,29 +171,34 @@ bool InTouch::utente_esiste(const Utente& u) {
 
 // Metodo che aggiunge un nuovo utente nella lista degli utenti
 void InTouch::aggiungi_utente(const Utente& u) {
+  // Inserisce l'utente passato come parametro al map di utenti, con l'id come key
   lista_utenti.insert(pair<string,Utente> (u.get_email(), u));
 
+  // Apre il file conteente la lista di utenti
   string path = path_files + nome_file_utenti;
   ofstream utenti(path.c_str(), ios::app);
 
-  //controllo corretta creazione o apertura file
+  // Controllo corretta creazione o apertura file
   if(!utenti){cerr<<"Errore apertura file!"<<endl; return;}
 
+  // Scrittura su file
   utenti << u.get_idutente() << ";";
   utenti << u.get_nome() << ";";
   utenti << u.get_cognome() << ";";
   utenti << u.get_email() << ";";
   utenti << u.get_password() << endl;
 
+  // Chiusura file
   utenti.close();
 
+  // Incremento ID univoco per il prossimo utente
   id_u++;
 
-  // Creo cartelle per l'utente
+  // Creazione cartelle per l'utente
   path = path_files_u + u.get_email();
   mkdir(path.c_str());
 
-  // Creo file di default
+  // Creazione file di default
   // File profilo
   string path1 = path + "/" + nome_file_profilo;
   ofstream profilo(path1.c_str(), ios::out);
@@ -214,43 +222,67 @@ bool InTouch::check_login(const Utente& u) {
   return false;
 }
 
-// Metodo che resetta il sistema eliminando utenti e post creati finora, con opportuni file e cartelle
+// Metodo che resetta il sistema eliminando utenti e post creati, con opportuni file e cartelle
 void InTouch::reset() {
 	system("CLS");
   string path;
 
   // Elimino cartelle e dati utenti
   map<string,Utente>::iterator iter;
+  
+  // Scorro la lista degli utenti
   for (iter = lista_utenti.begin(); iter != lista_utenti.end(); iter++) {
     path = path_files_u + iter->first;
+    
+    // Cancello file amicizie
     cout<<"Cancello "<<(path + "/" + nome_file_amicizie).c_str()<<endl;
     if( remove((path + "/" + nome_file_amicizie).c_str()) != 0){ cerr << " Errore eliminazione file\n"; }
+    
+    // Cancello file profilo
     cout<<"Cancello "<<(path + "/" + nome_file_profilo).c_str()<<endl;
     if( remove((path + "/" + nome_file_profilo).c_str()) != 0){ cerr << " Errore eliminazione file\n"; }
+    
+    // Elimino cartella utente
     rmdir(path.c_str());
   }
 
   // Elimino cartelle e dati post
+  // Scorro gli id dei post
   for (int i = 1; i < id_p; i++) {
     stringstream convert;
     convert << i;
     path = path_files_p + convert.str();
+    
+    // Cancello file likes
     cout<<"Cancello "<<(path + "/" + nome_file_likes).c_str()<<endl;
     if( remove((path + "/" + nome_file_likes).c_str()) != 0){ cerr << " Errore eliminazione file\n"; }
+    
+    // Cancello file commenti
     cout<<"Cancello "<<(path + "/" + nome_file_commenti).c_str()<<endl;
     if( remove((path + "/" + nome_file_commenti).c_str()) != 0){ cerr << " Errore eliminazione file\n"; }
+    
+    // Elimino cartella post
     rmdir(path.c_str());
   }
 
   // Elimino directory principale
+  // Elimino file contenente i dati degli utenti
   cout<<"Cancello "<<(path_files + nome_file_utenti).c_str()<<endl;
   if( remove((path_files + nome_file_utenti).c_str()) != 0){ cerr << " Errore eliminazione file\n"; }
+
+  // Elimino file contenente i dati dei post
   cout<<"Cancello "<<(path_files + nome_file_post).c_str()<<endl;
   if( remove((path_files + nome_file_post).c_str()) != 0){ cerr << " Errore eliminazione file\n"; }
+
+  // Elimino cartella contenente i dati dei post
   cout<<"Cancello "<<(path_files_p).c_str()<<endl;
 	if( rmdir(path_files_p.c_str()) != 0){ cerr << " Errore eliminazione cartella\n"; }
+	
+	// Elimino cartella contenente i dati degli utenti
 	cout<<"Cancello "<<(path_files_u).c_str()<<endl;
   if( rmdir(path_files_u.c_str()) != 0){ cerr << " Errore eliminazione cartella\n"; }
+  
+  // Elimino cartella generale contenente tutti i file e le cartelle
   cout<<"Cancello "<<(path_files).c_str()<<endl;
   if( rmdir(path_files.c_str()) != 0){ cerr << " Errore eliminazione cartella\n"; }
 
@@ -273,7 +305,8 @@ void InTouch::importa_utenti() {
   string path = path_files + nome_file_utenti;
   utenti.open(path.c_str(), ios::in);
 
-	if(utenti){ // Controllo file esistente e aperto correttamente
+  // Controllo file esistente e aperto correttamente
+	if(utenti){
     while (!utenti.getline(linea,100).eof()) {
       char* pch;
       
@@ -293,17 +326,20 @@ void InTouch::importa_utenti() {
       // Quinto token: Password
       string password = strtok (NULL,";");
 
+      // CReazione istanza di utente con i parametri letti da file
       Utente u(nome,cognome,email,password);
 
+      // Inserimento utente nella lista degli utenti, con l'id come key
       lista_utenti.insert(pair<string,Utente> (email,u));
 
       // Crea la cartella nel caso fosse stata cancellata
       path = path_files_u + email;
       mkdir(path.c_str());
 
+      // Aggiorna l'id utente univoco in modo tale da riprendere la numerazione dall'ultimo esistente
       id_u = id_utente + 1;
 	  }
-	} else {
+	} else { // se non riesce ad aprire il file
 	  //reset utenti.csv
 	  //cerr << "Lista utenti vuota!" << endl;
 	  string path = path_files + nome_file_utenti;
@@ -313,6 +349,7 @@ void InTouch::importa_utenti() {
     file.close();
 	}
 	
+	// Chiude il file
 	utenti.close();
 }
 
@@ -322,9 +359,11 @@ void InTouch::importa_post() {
 
   string path = path_files + nome_file_post;
 
+  // Apre il file contenente l'elenco dei post
   post.open(path.c_str(), ios::in);
 
-  if(post){ //controllo file esistente e aperto correttamente
+  // Controllo file esistente e aperto correttamente
+  if(post){
     while (!post.getline(linea,150).eof()) {
       char* pch;
 
@@ -353,15 +392,24 @@ void InTouch::importa_post() {
       // Token testo
       string testo = strtok (NULL,";");
 
+      // Crea un'istanza di data con le informazioni lette da file
       Data temp(giorno,mese,anno,ora,minuti);
 
       map<string,Utente>::iterator iter;
 
+      // Trova l'autore del post nella lista utenti
       iter = lista_utenti.find(autore);
+      
+      // Crea un'istanza di post contenente i dati letti da file
       Post p(id_post, &(iter->second) ,testo,temp);
+      
+      // Inserisce il post nella bacheca dell'utente autore, utilizzando l'id del post come key
       iter->second.get_bacheca()->get_listapost()->insert(pair<int,Post> (id_post,p));
 
+      // Importa i commenti relativi al post in questione
       importa_commenti(autore,id_post);
+
+      // Importa i likes relativi al post in questione
       importa_likes(autore,id_post);
 
       // Crea la cartella nel caso fosse stata cancellata
@@ -370,9 +418,10 @@ void InTouch::importa_post() {
       string path = path_files_p + convert.str();
       mkdir(path.c_str());
 
+      // Aggiorna l'id post univoco in modo tale da riprendere la numerazione dall'ultimo esistente
       id_p = id_post + 1;
     }
-	} else {
+	} else { // se non riesce ad aprire il file
 	  //reset post.csv
 	  //cerr << "Lista post vuota!" << endl;
 	  string path = path_files + nome_file_post;
@@ -381,6 +430,8 @@ void InTouch::importa_post() {
     file << "";
     file.close();	
 	}
+	
+	// Chiude il file
   post.close();
 }
 
@@ -388,19 +439,23 @@ void InTouch::importa_commenti(string _autore, int id_post) {
   stringstream convert;
   convert << id_post;
 
+  // Apro il file dei commenti relativo al post il cui id è stato passato
   string path = path_files_p + convert.str() + "/" + nome_file_commenti;
   ifstream file_c;
   file_c.open(path.c_str(), ios::in);
 
-  if(file_c){ //controllo file esistente e aperto correttamente
+  // Controllo file esistente e aperto correttamente
+  if(file_c){
     map<string,Utente>::iterator iter_autore_post;
+    
+    // Trovo l'autore del post nella lista utenti
     iter_autore_post = lista_utenti.find(_autore);
     map<string,Utente>::iterator iter_autore_commento;
     char linea[150];
 
     while (!file_c.getline(linea,150).eof()) {
       char* pch;
-
+      
       // Token ID post
       pch = strtok (linea,";");
       int id = atoi(pch);
@@ -426,21 +481,31 @@ void InTouch::importa_commenti(string _autore, int id_post) {
       // Token testo
       string testo = strtok (NULL,";");
 
+      // CReo un'istanza di data con i parametri letti da file
       Data temp(giorno,mese,anno,ora,minuti);
 
+      // Trovo l'utente autore del commento nella lista utenti
      	iter_autore_commento = lista_utenti.find(autore);
+     	
+     	// CReo un'istanza di commento con i dati letti da file
       Commento c(id,&(iter_autore_commento->second),temp,testo);
 
       map<int,Post>::iterator iter_post;
 
+      // Trovo il post a cui il commento si riferisce all'interno della bacheca dell'utente autore del post
       iter_post = iter_autore_post->second.get_bacheca()->get_listapost()->find(id_post);
+      
+      // Aggiungo il commento alla lista di commenti del post
       iter_post->second.get_listacommenti()->push_back(c);
 
+      // Aggiorno l'id univoco commento in modo tale da riprendere la numerazione dall'ultimo esistente
       id_c = id + 1;
     }
-  } else {
+  } else { // se non riesco ad aprire il file
 	  cerr << "Errore import commenti!" << endl;	
 	}
+
+	// Chiudo il file
   file_c.close();
 }
 
@@ -453,11 +518,18 @@ void InTouch::importa_likes(string _autore, int id_post){
   ifstream file;
   file.open(path.c_str(), ios::in);
 
-  if(file){  // Controllo file esistente e aperto correttamente
+  // Controllo file esistente e aperto correttamente
+  if(file){
     map<string,Utente>::iterator iter_autore_post;
+    
+    // Trovo l'utente autore del post nella lista utenti
     iter_autore_post = lista_utenti.find(_autore);
+    
 	  map<int,Post>::iterator iter_post;
+	  
+	  // Trovo il post il cui id è stato passato come parametro
 	  iter_post = iter_autore_post->second.get_bacheca()->get_listapost()->find(id_post);
+	  
 	  map<string,Utente>::iterator iter_autore_like;
 
     char linea[150];
@@ -466,12 +538,17 @@ void InTouch::importa_likes(string _autore, int id_post){
       // Token mail
       string _email = strtok (linea,";");
 
+      // Trovo l'utente autore del like nella lista utenti
       iter_autore_like = lista_utenti.find(_email);
+      
+      // Aggiungo i like relativi al determinato post nella lista di likes relativa al post in questione
 	    iter_post->second.popola_lista_likes( pair<string,Utente*> (_email, &(iter_autore_like->second )) );
 	  }	
-  } else {
+  } else { // se non riesce ad aprire il file
     cerr << "Errore import likes!" << endl;	
   }
+  
+  // Chiude il file
   file.close();
 }
 
@@ -487,16 +564,29 @@ void InTouch::importa_profilo() {
     string path = path_files_u + iter->first + "/" + nome_file_profilo;
     file.open(path.c_str(), ios::in);
 
-    if(file){ // Controllo file esistente e aperto correttamente
+    // Controllo file esistente e aperto correttamente
+    if(file){
       while (!file.getline(linea,150).eof()) {
 
-        // Token
+        // Token sesso
     	  string t_sesso = strtok(linea,";");
+    	  
+        // Token professione
       	string t_professione = strtok(NULL,";");
+      	
+        // Token situazione sentimentale
         string t_situazione_sent = strtok(NULL,";");
+
+        // Token giorno nascita
    	    int t_giorno_nascita = atoi(strtok(NULL,"/"));
+   	    
+        // Token mese nascita
     	  int t_mese_nascita = atoi(strtok(NULL,"/"));
+    	  
+        // Token anno nascita
       	int t_anno_nascita = atoi(strtok(NULL,";"));
+      	
+        // Token luogo nascita
       	string t_luogo_nascita = strtok(NULL,";");
 
         // Imposto gli attributi del profilo con i dati presenti nel database
@@ -509,9 +599,12 @@ void InTouch::importa_profilo() {
       	Data d(t_giorno_nascita, t_mese_nascita, t_anno_nascita);
       	iter->second.get_profilo()->set_datanasc_par(d);
       }
-	  } else {
+	  } else { // se non riesce d prire il file
 	    cerr << "Errore import profilo!" << endl;	
 	  }
+	  
+	  // Chiude il file
+	  file.close();
   }
 }
 
@@ -528,13 +621,20 @@ void InTouch::importa_amicizie() {
     ifstream file;
     file.open(path.c_str(), ios::in);
 
-    if(file){ // Controllo file esistente e aperto correttamente
+    // Controllo file esistente e aperto correttamente
+    if(file){
       while (!file.getline(linea,150).eof()) {
 
-        // Token
+        // Token ID
         int id = atoi(strtok(linea,";"));
+        
+        // Token utente coinvolto
         string utente = strtok(NULL,";");
+        
+        // Token status
         string s = strtok(NULL,";");
+        
+        // Token ruolo
         string r = strtok(NULL,";");
 
         // Imposto lo stato
@@ -567,9 +667,11 @@ void InTouch::importa_amicizie() {
         // Incremento l'id univoco
         id_a = id + 1;
       }
-    } else {
+    } else { // se non riesce ad aprire il file
 	    cerr << "Errore import amicizia!" << endl;	
 	  }
+	  
+	  // Chiude il file
     file.close();
   }
 }

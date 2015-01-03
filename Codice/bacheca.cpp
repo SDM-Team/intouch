@@ -13,8 +13,8 @@
 #include "input.h"		/* inputInt								*/
 #include "utente.h"		/* classe Utente e metodi relativi 		*/
 
+// Namespace
 using namespace std;
-
 
 // Costruttore di default
 Bacheca::Bacheca(){
@@ -42,7 +42,11 @@ void Bacheca::aggiungi_post(Utente* _u){
   cout << "Per confermare e aggiungere il post alla tua Bacheca premi 1: "<<endl;
   cout << "Per tornare alla schermata iniziale premi 0"<<endl;
   s = inputInt(0,1);
+  
+  // Pulizia schermo
   system("CLS");
+  
+  // Se si sceglie di aggiungere il post
   if (s == 1) {
     // Creo un post con le informazioni date
     Post p(_u,testo);
@@ -63,19 +67,21 @@ void Bacheca::aggiungi_post(Utente* _u){
     // Chiudo il flusso su file
     post.close();
     
-    // Creo opportuna cartella
+    // Creo opportuna cartella denominata con l'id del post
     stringstream convert;
     convert << id_p;
     path = path_files_p + convert.str();
     mkdir(path.c_str());
     
     // Creo file di default
+    // File commenti
     string path1 = path + "/" + nome_file_commenti;
     ofstream commenti(path1.c_str(), ios::out);
     if(!commenti){ cerr << "Errore apertura file!"; return;}
     commenti << "";
     commenti.close();
     
+    // File likes
     path1 = path + "/" + nome_file_likes;
     ofstream likes(path1.c_str(), ios::out);
     if(!likes){ cerr << "Errore apertura file!"; return;}
@@ -84,9 +90,8 @@ void Bacheca::aggiungi_post(Utente* _u){
       
     // Una volta aggiunto un post, incremento l'ID successivo
     id_p++;
-    
   } else {
-    return;
+    return; // se sceglie di non pubblicare il post ritorno al menu precedente
   }	
 }
 

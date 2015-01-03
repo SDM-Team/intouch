@@ -7,6 +7,7 @@
 // Libreria personalizzata
 #include "utente.h" 	/* classe Utente e metodi relativi 	*/
 
+// Namespace
 using namespace std;
 
 // Dichiarazione classe InTouch
