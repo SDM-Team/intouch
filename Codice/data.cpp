@@ -80,29 +80,46 @@ ostream& operator << (ostream& os,const Data& d) {
 
 // Funzione per impostare la data, con richiesta all'utente
 void Data::imposta_data(){  
-  cout << "Inserire giorno: ";
-  cin >> giorno;
-  cin.ignore();
-  cout << endl;
-
-  while ((giorno < 1) || (giorno > 31)) {
-    if ((giorno < 1) || (giorno > 31)) {
-      cout << "Errore: giorno non esistente" << endl;
-    }
-    printf("Inserire giorno: "); cin>>giorno; cin.ignore();                     
-  }
+  int _giorno;
+  int _mese;
+  int _anno;
   
-  printf("Inserire mese: "); cin>>mese; cin.ignore();                            
-  while((mese<1)||(mese>12)){
-    if((mese<1)||(mese>12)){cout << "Errore scelta non possibile" << endl;}
-    printf("Inserire mese: "); cin>>mese; cin.ignore();                    
-  }
+  do{
+    cout << "Inserire giorno: ";
+    _giorno = inputInt(1,31);
   
-  printf("Inserire anno: "); cin>>anno; cin.ignore();                        
-  while((anno<0)||(anno>2014)){
-    if((anno<0)||(anno>2014)){cout << "Errore scelta non possibile" << endl;}
-    printf("Inserire anno: "); cin>>anno; cin.ignore();                      
-  }
+    printf("Inserire mese: ");
+    _mese = inputInt(1,12);                            
+  
+    printf("Inserire anno: ");
+    _anno = inputInt(0,2015);  
+    
+    // Controllo validità della data rispetto a quella corrente
+    Data temp;
+    temp.imposta_dataOra();
+    if( 
+	(_anno < temp.anno) ||
+	(_anno == temp.anno && _mese < temp.mese) ||
+	(_anno == temp.anno && _mese == temp.mese && _giorno <= temp.giorno)
+	) {
+    
+      // Controllo validità giorni rispetto al mese
+	  if( _giorno <= 31 && (_mese == 1 || _mese == 3 || _mese == 5 || _mese == 7 || _mese == 8 || _mese == 10 || _mese == 12) ){ break;}    
+      if( _giorno <= 30 && ( _mese == 4 || _mese == 6 || _mese == 9 || _mese == 11) ) { break; }
+      if( _giorno <=28 && _mese == 2) { break; }
+      // Anni bisestili
+	  if( _giorno == 29 && _mese == 2 && (_anno%4 == 0) ) { break; }
+	}
+	
+    // Se non è una data valida si ripete l'input
+    cout << "La data inserita non e' valida! Reinserire." << endl << endl;
+    
+  }while(true);
+ 
+ giorno = _giorno;
+ mese = _mese;
+ anno = _anno;
+ 
 }
 
 // Metodo che prende la data e l'ora corrente

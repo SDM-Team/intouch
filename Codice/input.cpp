@@ -44,9 +44,16 @@ string inputString(int max){
     getline( cin, s );
     
     if( s.size() > max_chars ) {
-      cerr<<"Errore: inseriti piu' di "<<max<<" caratteri; reinserire:"<<endl;
+      cerr<<"Errore: inseriti piu' di "<<max<<" caratteri; "<<endl;
+      cout<<"Reinserire:";
       //s = s.substr( 0, MAX_CHARS ) ; //per troncare
-    } else {
+    } else if( s.empty() ){
+	  cerr<<"Errore: inserita stringa vuota; "<<endl;
+      cout<<"Reinserire:";
+	} else if( s[0] == char(32) ){
+	  cerr<<"Errore: la stringa non puo' iniziare con uno spazio; "<<endl;
+      cout<<"Reinserire:";
+	} else {
       break;	
     }
   }
@@ -55,34 +62,51 @@ string inputString(int max){
 
 string inputPassword(int max){
   char c;
-  int i = 0;
   string s = "";
   string::size_type max_chars = max;	
   while(true){
     c = getch();
     
-    //smette input se premi invio
-    if( c == '\r'){
-	    return s;
+    // Errore se invio con password vuota s.size() == 0
+    if( c == '\r' && s.empty() ){
+	  cerr<<endl<<"Errore: inserita password vuota; "<<endl;
+      cout<<"Reinserire password:";
+      s="";
     }
     
-	  if( s.size() > max_chars ) {
-      cerr<<"Errore: inseriti piu' di "<<max<<" caratteri; "<<endl;
-      cout<<"Reinserire password:"<<endl;
+    // Errore se invio con primo campo 'spazio' tasto 32
+    else if( c == '\r' && s[0] == char(32) ){
+	  cerr<<endl<<"Errore: la password non puo' iniziare con uno spazio; "<<endl;
+      cout<<"Reinserire password:";
       s="";
-    } else if( c == '\b' || c == char(8)){ //c != 8 && c != 127 && //tasti backspace e delete
-      if(i > 0){
-	      //cout << string(1,'\b' ); //cancella 1 carattere
-	      cout << char(8);
-	      cout<<" ";
-	      cout << char(8);
-          i--;
-	      s = s.substr( 0, i ); //tronca la stringa al carattere precedente
-	    }
-    } else {
+    }
+    
+    // Smette input se premi invio e la password è valida
+    else if( c == '\r' && !s.empty() && s[0] != char(32) ){
+	  return s;
+    }
+    
+    // Gestisco caratteri backspace e delete tasti 8 e 127
+    else if( c == '\b' || c == char(8) || c == char(127) ){
+      // Controllo che la stringa contenga qualcosa prima di cancellare
+      if(s.size() > 0){
+	    //cout << string(1,'\b' ); //cancella 1 carattere
+	    cout << char(8);
+	    // Cancello un asterisco da schermo
+	    cout<<" ";
+	    cout << char(8);
+	    s = s.substr( 0, (s.size() - 1) ); // Tronca la stringa al carattere precedente
+	  }
+    }
+	
+	// Controllo che la stringa non sia piena
+	else if( s.size() >= max_chars ) {
+      cerr<<endl<<"Errore: inseriti piu' di "<<max<<" caratteri; "<<endl;
+      cout<<"Reinserire password:";
+      s="";
+    }  else { // Inserisco il carattere digitato e stampo un asterisco
       cout << "*";
       s+=c;
-      i++;
     }
   }
 }

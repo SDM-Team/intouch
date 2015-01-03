@@ -31,3 +31,4 @@ class Amicizia {
 };
 
 #endif
+

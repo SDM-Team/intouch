@@ -25,3 +25,4 @@ extern string nome_file_amicizie;
 extern string nome_file_profilo;
 
 #endif
+
