@@ -250,33 +250,33 @@ void Post::aggiungi_like(Utente* autore){
 }
 
 void Post::rimuovi_like(Utente* autore){
-	// Controllo eseguito in aggiungi_like
-	// Elimina l'utente dalla lista di utenti che hanno espresso il proprio like
-	lista_likes.erase( autore->get_email() );
+  // Controllo eseguito in aggiungi_like
+  // Elimina l'utente dalla lista di utenti che hanno espresso il proprio like
+  lista_likes.erase( autore->get_email() );
 
-	// Riscrittura su nuovo file
-	stringstream convert;
-	convert << id_post;
+  // Riscrittura su nuovo file
+  stringstream convert;
+  convert << id_post;
 
   string path = path_files_p + convert.str() + "/" + nome_file_likes;	
   string path_copia = path_files_p + convert.str() + "/" + "copia_" + nome_file_likes;
 
-  // Apertura file copia
-	ofstream file_copia;
-	file_copia.open(path_copia.c_str(), ios::out);
+  // Apertura file copia in scrittura
+  ofstream file_copia;
+  file_copia.open(path_copia.c_str(), ios::out);
 
-	// Controllo apertura corretta file
-	if(!file_copia){ cerr<< "Errore apertura file!"; return;}
+  // Controllo apertura corretta file
+  if(!file_copia){ cerr<< "Errore apertura file!"; return;}
 
-  // Apertura file standard
-	ifstream file;
-	file.open(path.c_str(), ios::in);
+  // Apertura file standard in lettura
+  ifstream file;
+  file.open(path.c_str(), ios::in);
 
-	// Controllo apertura file
-	if(!file){ cerr << "Errore apertura file!"; return;}
+  // Controllo apertura file
+  if(!file){ cerr << "Errore apertura file!"; return;}
 
-	char linea[150];
-	while (!file.getline(linea,150).eof()) {
+  char linea[150];
+  while (!file.getline(linea,150).eof()) {
     // Token mail
     string _email = strtok (linea,";");
     
@@ -298,10 +298,10 @@ void Post::rimuovi_like(Utente* autore){
   // Rinomina il file copia con il nome del file standard
   if( rename( path_copia.c_str(),path.c_str() ) != 0){ cerr << "Errore rinomino file!"; return; }
 
-	system("CLS");
+  system("CLS");
 	
-	// Messaggio di conferma
-	cout << "Non ti piace piu'!" << endl << endl; 
+  // Messaggio di conferma
+  cout << "Non ti piace piu'!" << endl << endl; 
 }
 
 // Inserisce la coppia passata all'interno della lista di likes

@@ -117,7 +117,7 @@ void Utente::schermata_iniziale(map<string,Utente>* lista_utenti_p) {
       cout << "6. Crea post" << endl;
       cout << "7. Logout" << endl;
 	
-	    s = inputInt(1,7);
+	  s = inputInt(1,7);
       
       system("CLS");
       switch (s) {
@@ -152,12 +152,12 @@ void Utente::schermata_iniziale(map<string,Utente>* lista_utenti_p) {
 	  } while(s != 7);
     
     // Se si preme 7, si procede al logout
-    cout << "Logout effettuato!" << endl << endl;
     logout();
 }
 
 // Metodo di logout, rimanda alla schermata di autenticazione
 void Utente::logout() {
+  cout << "Logout effettuato!" << endl << endl;
   return;
 }
 
@@ -201,7 +201,7 @@ void Utente::visualizza_profilo_amico(){
   cout << "Situazione Sentimentale: " << profilo.get_situasent() <<endl;
   cout << "Data di nascita: " << profilo.get_datanasc() <<endl;
   cout << "Luogo di nascita: " << profilo.get_luogonasc() <<endl<<endl;
-  cout << "Per tornare alla schermata precedente premi 0" <<endl;
+  cout << "Per tornare alla schermata di selezione dell'amico premi 0" <<endl;
   
   int c;
   c = inputInt(0,0); // l'utente può solo tornare alla schermata iniziale
@@ -296,16 +296,25 @@ void Utente::visualizza_bacheca() {
   int s = 0;
   
   do {
+  	int count = 0;
     // Stampa il nome del proprietario della bacheca
-	  cout << "Bacheca di " << get_nome() << " " << get_cognome()<<endl;
+	cout << "Bacheca di " << get_nome() << " " << get_cognome()<<endl;
 	  
 	  // Stampa tutti i post in maniera compatta
     for (iter = get_bacheca()->get_listapost()->rbegin(); iter != get_bacheca()->get_listapost()->rend(); iter++) {
       iter->second.visualizza_post_light();
+      count++;
     }
-
+    
+    // Se non ci sono post rimando alla schermata iniziale
+    if( count == 0) { 
+	  system("CLS");
+	  cout << "Non ci sono post nella bacheca!" << endl << endl;
+	  return;
+	}
+    
     cout << "Per visualizzare i dettagli di un post e interagire con esso digitarne il numero";
-    cout << "Per tornare alla schermata iniziale premi 0" << endl;
+    cout << "Per tornare alla schermata precedente premi 0" << endl;
     s = inputInt(0,id_p);
     system("CLS");
     
@@ -414,12 +423,31 @@ void Utente::visualizza_contenuto_amici(){
   int t;
   do {
     // Mostra elenco degli amici
-    cout << "Elenco dei tuoi amici:" << endl;
-    visualizza_amici();                                                                      
-    int s;          
     map<int,Amicizia>::iterator iter;
-    
+    int count = 0;
+    cout << "Lista amici:" << endl << endl;			
+  
+    // Scorro lista amicizie
+    for (iter = lista_amicizie.begin(); iter != lista_amicizie.end(); iter++) {
+      // Se lo stato dell'amicizia è A (accettata) stampo l'amico nella lista amicizie
+      if (iter->second.get_status() == A) {
+        cout << "#" << iter->first <<" - ";
+        cout << iter->second.get_utente()->get_nome() << " " << iter->second.get_utente()->get_cognome() << endl;
+        count++;
+      }
+      // Altrimenti continuo a scorrere la lista amicizie 
+    }
+  
+  // Se lista amicizie è vuota stampo "Ancora nessun amico!"
+  if(count == 0){
+  	system("CLS");
+    cout << "Ancora nessun amico!" << endl << endl;
+    return;
+  } 
+                                                                   
+    int s = 0;
     // Menù di scelta
+    cout << endl;
     cout << "Selezionare il numero dell'amico per visualizzare le sue informazioni " << endl;         
     cout << "Per tornare alla schermata iniziale premi 0" << endl;
 
@@ -430,10 +458,16 @@ void Utente::visualizza_contenuto_amici(){
       // Cerco l'amico selezionato nella lista amicizie
       iter = lista_amicizie.find(s); 
       // Se non lo trovo, stampo "Non è amico"
-      if(iter == lista_amicizie.end()) {cerr << "Non e' tuo amico" << endl;}                              
+      if(iter == lista_amicizie.end()) {cerr << "Non e' tuo amico! Riseleziona: ";}                              
     } while(iter == lista_amicizie.end()); // Continuo finchè non viene selezionato un amico
 
-    // Menù di scelta         
+    system("CLS");
+	cout << "#" << iter->first << " - ";
+	cout << iter->second.get_utente()->get_nome() << " ";
+	cout << iter->second.get_utente()->get_cognome() << " (";
+	cout << iter->second.get_utente()->get_email() << ")" << endl << endl;
+	
+	// Menù di scelta         
     cout << "Per visualizzare la sua bacheca premi 1" << endl;
     cout << "Per visualizzare il suo profilo premi 2" << endl;
     cout << "Per tornare alla selezione dell'amico premi 3" << endl;
@@ -446,7 +480,7 @@ void Utente::visualizza_contenuto_amici(){
       case 1:
         // Visualizzo bacheca amico
         iter->second.get_utente()->visualizza_bacheca();
-        return;
+        break;
       case 2:
         // Visualizzo profilo amico
         iter->second.get_utente()->visualizza_profilo_amico();
@@ -458,13 +492,17 @@ void Utente::visualizza_contenuto_amici(){
         // Torno alla schermata iniziale
         return;                    
     }
-  } while ((t!=0) && (t!=1)); // Continuo finchè t=0 e t=1          
+  } while (t!=0); // Continuo finchè t=0         
 }
    
 // Metodo che permette di visualizzare gli amici                                
 void Utente::visualizza_amici() {
   map<int,Amicizia>::iterator iter;
   int count = 0;
+  int s = 0;
+  cout << "Lista amici:" << endl << endl;
+				
+  
   // Scorro lista amicizie
   for (iter = lista_amicizie.begin(); iter != lista_amicizie.end(); iter++) {
     // Se lo stato dell'amicizia è A (accettata) stampo l'amico nella lista amicizie
@@ -479,9 +517,16 @@ void Utente::visualizza_amici() {
   
   // Se lista amicizie è vuota stampo "Ancora nessun amico!"
   if(count == 0){
-    cout << "Ancora nessun amico!" << endl;
+  	system("CLS");
+    cout << "Ancora nessun amico!" << endl << endl;
     return;
   } 
+  cout << endl;
+  cout << "Premi 0 per tornare alla schermata precedente" << endl;
+  s = inputInt(0,0);
+  
+  // Rimanda alla schermata precedente
+  system("CLS");
 }
 
 // Metodo per gestire amicizie
@@ -516,11 +561,7 @@ void Utente::gestisci_amicizie(map<string,Utente>* lista_utenti_p) {
         break;      
       case 4:
       	// Visualizzo lista amici
-        cout << "Lista amici:" << endl << endl;
       	visualizza_amici();
-      	// Torno alla schermata iniziale
-        cout << endl << "Premi 0 per tornare alla schermata iniziale" << endl;
-      	s = inputInt(0,0);
       	break;
 	  }
   } while (s != 0); // Continuo finchè s!=0
@@ -820,7 +861,7 @@ void Utente::cancella_amicizia(){
 	int s = 0;
 	
 	do {
-	  cout << "Lista amici:" << endl;
+	  cout << "Lista amici:" << endl << endl;
   	map<int,Amicizia>::iterator iter;
   	int count = 0;
   	
@@ -841,13 +882,13 @@ void Utente::cancella_amicizia(){
       cout << "Ancora nessun amico!" << endl << endl;
       return;
     }
-
-	  cout << "Seleziona numero dell'amico da cancellare" << endl;
-	  cout << "Premi 0 per tornare alla schermata precedente" << endl;
+	cout << endl;
+	cout << "Seleziona numero dell'amico da cancellare" << endl;
+	cout << "Premi 0 per tornare alla schermata precedente" << endl;
 	
-	  s = inputInt( 0, id_a );
+	s = inputInt( 0, id_a );
 	
-	  if( s == 0 ) { system("CLS"); return; }
+	if( s == 0 ) { system("CLS"); return; }
 
   	iter_ra = lista_amicizie.find(s);
   	if( iter_ra != lista_amicizie.end() ){ // Amicizia trovata nell'utente
