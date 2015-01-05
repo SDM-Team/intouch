@@ -147,7 +147,6 @@ void Post::visualizza_post(){
 	    cout << iter_listalike->second->get_nome() << endl;
     }
   }
-  cout << endl;
 }
 
 // Aggiunge un commento al post

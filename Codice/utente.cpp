@@ -292,7 +292,7 @@ void Utente::visualizza_bacheca() {
   int count = 0;
   do{
     // Stampa il nome del proprietario della bacheca
-    cout << "Bacheca di " << get_nome() << " " << get_cognome()<<endl;
+    cout << "Bacheca di " << get_nome() << " " << get_cognome() << endl << endl;
 	  
     // Stampa tutti i post in maniera compatta
     for (iter = get_bacheca()->get_listapost()->rbegin(); iter != get_bacheca()->get_listapost()->rend(); iter++) {
@@ -355,7 +355,7 @@ void Utente::visualizza_bacheca_amico(Utente* u){
   int count = 0;
   do{
     // Stampa il nome del proprietario della bacheca
-    cout << "Bacheca di " << get_nome() << " " << get_cognome()<<endl;
+    cout << "Bacheca di " << get_nome() << " " << get_cognome() << endl << endl;
 	  
     // Stampa tutti i post in maniera compatta
     for (iter = get_bacheca()->get_listapost()->rbegin(); iter != get_bacheca()->get_listapost()->rend(); iter++) {

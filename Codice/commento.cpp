@@ -43,7 +43,7 @@ Data Commento::get_tempo() const{
 
 // Metodo che permette di visualizzare l'elenco di commenti di un determinato post
 void Commento::visualizza_commento(){
-	cout << "Autore: ";
+	cout << " Autore: ";
 	
 	// Stampa l'autore
 	if(autore != NULL) {
@@ -51,8 +51,8 @@ void Commento::visualizza_commento(){
   }
   
   // Stampa data e ora di pubblicazione del commento
-	cout << "Data: " << tempo <<endl;
+	cout << " Data: " << tempo <<endl;
 	
 	// Stampa il testo del commento
-	cout << '"' << testo << '"' << endl;
+	cout << " \"" << testo << "\"" << endl << endl;
 }
