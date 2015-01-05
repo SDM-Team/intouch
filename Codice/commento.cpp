@@ -3,11 +3,9 @@
 
 // Librerie personalizzate
 #include "commento.h"	/* Libreria di riferimento				*/
+#include "config.h"		/* Definizione variabili globali 		*/
 #include "data.h"		/* classe Data e relativi metodi 		*/
 #include "utente.h"		/* classe Utente e relativi metodi 		*/
-
-// Variabile globale per ID univoco commento
-int id_c = 1;
 
 // Namespace
 using namespace std;

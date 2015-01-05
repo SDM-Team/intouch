@@ -25,13 +25,15 @@ int inputInt(int min, int max){
    	  stringstream myStream(input);
       if (myStream >> t)
         break;
-   	  cout << "Errore: numero non valido, Reinserire: ";
+   	  cerr << "Errore: numero non valido;" << endl;
+	  cout << "Reinserire: ";
     }
     
     if(t>=min && t<=max)
       break;
     else{
-      cout << "Errore: range non valido, Reinserire: ";
+      cerr << "Errore: range non valido;" << endl;
+	  cout << "Reinserire: ";
     }
   }
   return t;
@@ -44,15 +46,15 @@ string inputString(int max){
     getline( cin, s );
     
     if( s.size() > max_chars ) {
-      cerr<<"Errore: inseriti piu' di "<<max<<" caratteri; "<<endl;
-      cout<<"Reinserire:";
+      cerr<<"Errore: inseriti piu' di "<<max<<" caratteri;" << endl;
+      cout<<"Reinserire: ";
       //s = s.substr( 0, MAX_CHARS ) ; //per troncare
     } else if( s.empty() ){
 	  cerr<<"Errore: inserita stringa vuota; "<<endl;
       cout<<"Reinserire:";
 	} else if( s[0] == char(32) ){
-	  cerr<<"Errore: la stringa non puo' iniziare con uno spazio; "<<endl;
-      cout<<"Reinserire:";
+	  cerr << "Errore: la stringa non puo' iniziare con uno spazio;" << endl;
+      cout << "Reinserire: ";
 	} else {
       break;	
     }
@@ -69,15 +71,15 @@ string inputPassword(int max){
     
     // Errore se invio con password vuota s.size() == 0
     if( c == '\r' && s.empty() ){
-	  cerr<<endl<<"Errore: inserita password vuota; "<<endl;
-      cout<<"Reinserire password:";
+	  cerr << endl << "Errore: inserita password vuota;" << endl;
+      cout << "Reinserire password: ";
       s="";
     }
     
     // Errore se invio con primo campo 'spazio' tasto 32
     else if( c == '\r' && s[0] == char(32) ){
-	  cerr<<endl<<"Errore: la password non puo' iniziare con uno spazio; "<<endl;
-      cout<<"Reinserire password:";
+	  cerr << endl << "Errore: la password non puo' iniziare con uno spazio;" << endl;
+      cout << "Reinserire password: ";
       s="";
     }
     
@@ -101,8 +103,8 @@ string inputPassword(int max){
 	
 	// Controllo che la stringa non sia piena
 	else if( s.size() >= max_chars ) {
-      cerr<<endl<<"Errore: inseriti piu' di "<<max<<" caratteri; "<<endl;
-      cout<<"Reinserire password:";
+      cerr << endl << "Errore: inseriti piu' di "<<max<<" caratteri;" << endl;
+      cout << "Reinserire password: ";
       s="";
     }  else { // Inserisco il carattere digitato e stampo un asterisco
       cout << "*";

@@ -15,10 +15,6 @@
 #include "input.h"		/* inputInt, inputString				*/
 #include "utente.h"		/* classe Utente e relativi metodi 		*/
 
-// Variabili globali di post e commenti
-int id_p = 1;
-extern int id_c;
-
 // Namespace
 using namespace std;
 
@@ -166,15 +162,15 @@ void Post::commenta_post(Utente* autore){
 
 	  cout << "Per confermare ed aggiungere il commento al post premi 2" << endl;
 	  cout << "Per modificare il testo del commento premi 1" << endl;
-	  cout << "Per tornare alla schermata iniziale premi 0" << endl;
+	  cout << "Per tornare alla schermata precedente premi 0" << endl;
 
     s = inputInt(0,2);
 	} while(s == 1);
-
+system("CLS");
 	switch(s){
   	case 0:
       // Torna alla schermata iniziale
-      system("CLS");
+      
       return;
 	  case 2:
       // Esce dallo switch ed aggiunge il commento
@@ -210,6 +206,9 @@ void Post::commenta_post(Utente* autore){
 
   // Incrementa il contatore dell'id univoco commenti
   id_c++;
+  
+  // Messaggio di conferma
+  cout << "Commento aggiunto!" << endl << endl;
 }
 
 void Post::aggiungi_like(Utente* autore){	
@@ -305,6 +304,7 @@ void Post::rimuovi_like(Utente* autore){
 }
 
 // Inserisce la coppia passata all'interno della lista di likes
+// Usato per importare likes degli utenti da file nelle loro liste
 void Post::popola_lista_likes( pair<string, Utente* > pair ){
 	lista_likes.insert( pair );	
 }

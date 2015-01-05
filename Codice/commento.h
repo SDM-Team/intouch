@@ -1,13 +1,13 @@
 #ifndef __COMMENTO_H__
 #define __COMMENTO_H__
 		
-#include <string>		/* string */		
+#include <string>		/* string 								*/		
 
 // Libreria personalizzata
-#include "data.h"		/* classe Data e metodi relativi */
+#include "data.h"		/* classe Data e metodi relativi 		*/
 
 // Forward declaration
-class Utente;			/* riferimento a Utente */
+class Utente;			/* riferimento a Utente 				*/
 
 // Namespace
 using namespace std;

@@ -13,3 +13,9 @@ string nome_file_commenti = "commenti.csv";
 string nome_file_likes = "likes.csv";
 string nome_file_amicizie = "amicizie.csv";
 string nome_file_profilo = "profilo.csv";
+
+//Variabili globali per numeri univoci identificativi
+int id_p = 1;
+int id_c = 1;
+int id_a = 1;
+int id_u = 1;

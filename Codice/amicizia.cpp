@@ -1,8 +1,6 @@
 // Libreria personalizzata
-#include "amicizia.h"		/* Libreria di riferimento 				*/
-
-// Variabile globale per ID univoco amicizia
-int id_a = 1;
+#include "amicizia.h"	/* Libreria di riferimento 				*/
+#include "config.h"		/* Definizione variabili globali 		*/
 
 //Costruttore specifico amicizia (passati puntatore ad utente e ruolo)
 Amicizia::Amicizia(Utente* _u, Ruolo _r) {

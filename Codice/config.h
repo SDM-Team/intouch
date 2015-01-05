@@ -24,5 +24,11 @@ extern string nome_file_likes;
 extern string nome_file_amicizie;
 extern string nome_file_profilo;
 
+//Variabili globali per numeri univoci identificativi
+extern int id_p;
+extern int id_c;
+extern int id_a;
+extern int id_u;
+
 #endif
 

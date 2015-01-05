@@ -17,12 +17,6 @@
 #include "post.h"		/* classe Post e metodi relativi 		*/
 #include "utente.h" 	/* classe Utente e metodi relativi 		*/
 
-//ID utente, post, commento e amicizia
-extern int id_u;
-extern int id_p;
-extern int id_c;
-extern int id_a;
-
 using namespace std;
 
 // Costruttore di default, per importare i dati da file all'avvio
@@ -56,15 +50,14 @@ void InTouch::schermata_autenticazione() {
     cout << "3. Chiudi applicazione" << endl;
     cout << "4. Reset programma" << endl;
        
- 	  s = inputInt(1,4);
-
+ 	s = inputInt(1,4);
+	system("CLS");
+	
     switch (s) {
       case 1:
-        system("CLS");
         registrazione();
-    	  break;
+    	break;
       case 2:
-        system("CLS");
         login();
         break;
       case 3:
@@ -136,6 +129,7 @@ void InTouch::registrazione() {
   cout << "Inserisci una password (max " << MAXLUN << " caratteri): ";
   password = inputString(MAXLUN);
 
+  cout << endl;
   cout << "Premi 1 per confermare la registrazione," << endl;
   cout << "Premi 0 per annullare e tornare alla schermata di accesso" << endl;
 
@@ -224,7 +218,6 @@ bool InTouch::check_login(const Utente& u) {
 
 // Metodo che resetta il sistema eliminando utenti e post creati, con opportuni file e cartelle
 void InTouch::reset() {
-	system("CLS");
   string path;
 
   // Elimino cartelle e dati utenti
