@@ -2,7 +2,7 @@
 #include <cstring>		/* strtok 								*/
 #include <direct.h>		/* mkdir, rmdir 						*/
 #include <fstream>		/* ofstream, ifstream 					*/
-#include <iostream>		/* cout, endl, remove, rename			*/
+#include <iostream>		/* cout, endl, remove, rename, cerr		*/
 #include <map>			/* map, map::iterator					*/
 #include <sstream>		/* stringstream 						*/
 #include <string>		/* string		 						*/
@@ -89,7 +89,7 @@ void InTouch::login() {
   system("CLS");
   if (!(utente_esiste(u))) {
     // Se l'utente non esiste stampa un messaggio di errore e rimanda alla schermata di autenticazione
-    cout << "Errore: Indirizzo email non registrato" << endl << endl;
+    cerr << "Errore: Indirizzo email non registrato" << endl << endl;
   } else if (check_login(u)) {
     // Se l'utente esiste e la password inserita è corretta rimanda alla schermata principale
     cout << "Login riuscito!" << endl << endl;
@@ -101,7 +101,7 @@ void InTouch::login() {
   } else {
     // Se l'utente esiste ma la password inserita non è corretta stampa un messaggio di errore
     // e rimanda alla schermata di autenticazione
-    cout << "Errore: Mancata corrispondenza tra indirizzo email e password" << endl << endl;
+    cerr << "Errore: Mancata corrispondenza tra indirizzo email e password" << endl << endl;
   }
 }
 

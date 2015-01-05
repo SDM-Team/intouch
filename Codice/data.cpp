@@ -1,4 +1,5 @@
 #include <time.h>		/* time(0), struct tm, localtime		*/
+#include <iostream>		/* cout, endl, cerr, ostream			*/
 
 // Librerie personalizzate
 #include "data.h"		/* Libreria di riferimento 				*/
@@ -92,10 +93,10 @@ void Data::imposta_data(){
     cout << "Inserire giorno: ";
     _giorno = inputInt(1,31);
   
-    printf("Inserire mese: ");
+    cout << "Inserire mese: ";
     _mese = inputInt(1,12);                            
   
-    printf("Inserire anno: ");
+    cout << "Inserire anno: ";
     _anno = inputInt(0,temp.anno);
     
     // Controllo validità della data rispetto a quella corrente
@@ -112,7 +113,7 @@ void Data::imposta_data(){
 	  }
 	
     // Se non è una data valida si ripete l'input
-    cout << "La data inserita non e' valida! Reinserire." << endl << endl;
+    cerr << "La data inserita non e' valida! Reinserire." << endl << endl;
     
   } while(true);
  

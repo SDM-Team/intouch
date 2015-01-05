@@ -1,7 +1,7 @@
 #include <cstdlib>		/* system								*/
 #include <direct.h>		/* mkdir		 						*/
 #include <fstream>		/* ofstream								*/
-#include <iostream>		/* cin									*/
+#include <iostream>		/* cin, cout, endl, cerr				*/
 #include <map>			/* map									*/
 #include <sstream>		/* stringstream							*/
 #include <string>		/* string, getline						*/

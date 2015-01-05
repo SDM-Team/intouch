@@ -7,7 +7,7 @@
 #include "post.h"
 
 // Forward declaration
-class Utente;
+class Utente;			/* riferimento a Utente 				*/
 
 // Namespace
 using namespace std;

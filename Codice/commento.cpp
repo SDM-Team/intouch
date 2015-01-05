@@ -38,21 +38,21 @@ Commento::Commento(const Commento& c){
 
 // Metodo che ritorna data e ora di pubblicazione
 Data Commento::get_tempo() const{
-	return tempo;	
+  return tempo;	
 }
 
 // Metodo che permette di visualizzare l'elenco di commenti di un determinato post
 void Commento::visualizza_commento(){
-	cout << " Autore: ";
+  cout << " Autore: ";
 	
-	// Stampa l'autore
-	if(autore != NULL) {
+  // Stampa l'autore
+  if(autore != NULL) {
     cout << autore->get_cognome() << " " << autore->get_nome() << " (" << autore->get_email() << ")" << endl;
   }
   
   // Stampa data e ora di pubblicazione del commento
-	cout << " Data: " << tempo <<endl;
+  cout << " Data: " << tempo <<endl;
 	
-	// Stampa il testo del commento
-	cout << " \"" << testo << "\"" << endl << endl;
+  // Stampa il testo del commento
+  cout << " \"" << testo << "\"" << endl << endl;
 }

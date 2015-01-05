@@ -1,5 +1,5 @@
 #include <conio.h>		/* getch								*/
-#include <iostream>		/* cout, endl, cin						*/
+#include <iostream>		/* cout, endl, cin, cerr				*/
 #include <sstream>		/* stringstream							*/
 #include <string>		/* string, getline						*/
 

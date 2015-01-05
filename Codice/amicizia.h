@@ -8,7 +8,7 @@ typedef enum Stato {A,X,R};
 typedef enum Ruolo {MITTENTE,DESTINATARIO};
 
 // Forward declaration: evita inclusione circolare tra amicizia.h e utente.h
-class Utente;
+class Utente;			/* riferimento a Utente 				*/
 
 // Namespace
 using namespace std;

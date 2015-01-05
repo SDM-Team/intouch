@@ -1,7 +1,7 @@
 #include <cstdlib>		/* system								*/
 #include <cstring>  	/* strtok								*/
 #include <fstream>		/* ofstream, ifstream 					*/
-#include <iostream>		/* cout, endl, remove, rename			*/
+#include <iostream>		/* cout, endl, remove, rename, cerr		*/
 #include <list>			/* list, list::iterator					*/
 #include <map>			/* map, map::iterator					*/
 #include <sstream>		/* stringstream							*/
