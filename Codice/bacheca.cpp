@@ -35,12 +35,12 @@ void Bacheca::aggiungi_post(Utente* _u){
   string testo;
 
   // Inserimento testo
-  cout << "Inserire Testo Post: " << endl;
+  cout << "Inserire testo post: " << endl;
   getline(cin,testo);
   
   // Conferma
-  cout << "Per confermare e aggiungere il post alla tua Bacheca premi 1: "<<endl;
-  cout << "Per tornare alla schermata iniziale premi 0"<<endl;
+  cout << "Per confermare e aggiungere il post alla tua Bacheca premi 1"<<endl;
+  cout << "Per annullare e tornare alla schermata iniziale premi 0"<<endl;
   s = inputInt(0,1);
   
   // Pulizia schermo
@@ -90,7 +90,14 @@ void Bacheca::aggiungi_post(Utente* _u){
       
     // Una volta aggiunto un post, incremento l'ID successivo
     id_p++;
+    
+    // Mostro un messaggio di conferma
+    system("CLS");
+    cout << "Post aggiunto!" << endl << endl;
+    return;
   } else {
+    system("CLS");
+    cout << "Post annullato!" << endl << endl;
     return; // se sceglie di non pubblicare il post ritorno al menu precedente
   }	
 }

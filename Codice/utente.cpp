@@ -96,9 +96,9 @@ void Utente::schermata_iniziale(map<string,Utente>* lista_utenti_p) {
       
       // Eventuale notifica di richieste di amicizia in attesa di risposta
       if (num_richieste_pendenti() == 1) {
-        cout << endl << "Hai " << num_richieste_pendenti() << " richiesta di amicizia pendente!" << endl << endl;
+        cout << endl << "Hai " << num_richieste_pendenti() << " richiesta di amicizia in attesa!" << endl << endl;
       } else if (num_richieste_pendenti() > 1) {
-        cout << endl << "Hai " << num_richieste_pendenti() << " richieste di amicizia pendenti!" << endl << endl;
+        cout << endl << "Hai " << num_richieste_pendenti() << " richieste di amicizia in attesa!" << endl << endl;
       }
       
       // Voci di menu
@@ -214,8 +214,8 @@ void Utente::modifica_profilo(){
   cout << "3. Situazione Sentimentale: " << profilo.get_situasent() << endl;
   cout << "4. Data di nascita: " << profilo.get_datanasc() << endl;
   cout << "5. Luogo di nascita: " << profilo.get_luogonasc() << endl << endl; 
-  cout << "Per modificare i campi selezionare il numero corrispondente: "<<endl;
-  cout << "Per tornare alla schermata iniziale premi 0" << endl;
+  cout << "Per modificare i campi selezionare il numero corrispondente"<<endl;
+  cout << "Per tornare alla visualizzazione del profilo premi 0" << endl;
 
   // Richiede quale campo si desidera modificare
   s = inputInt(0,5);
@@ -411,8 +411,6 @@ void Utente::visualizza_bacheca_amico(Utente* u){
   } while(true); 
 }     
 
-
-
 void Utente::visualizza_bacheca_generale() {
   map<int,Post*> lista_post_amici;
   map<int,Amicizia>::iterator iter_amicizie;
@@ -500,8 +498,8 @@ void Utente::visualizza_contenuto_amici(){
       // Se lo stato dell'amicizia è A (accettata) stampo l'amico nella lista amicizie
       if (iter->second.get_status() == A) {
         cout << "#" << iter->first <<" - ";
-        cout << iter->second.get_utente()->get_nome() << " ";
-		cout << iter->second.get_utente()->get_cognome() << " (";
+        cout << iter->second.get_utente()->get_cognome() << " ";
+		cout << iter->second.get_utente()->get_nome() << " (";
 		cout << iter->second.get_utente()->get_email() << ")" << endl;
         count++;
       }
@@ -757,7 +755,7 @@ void Utente::accetta_rifiuta_amicizia(){
       // Trovata richiesta in corso
 	    if( iter->second.get_status() == X && iter->second.get_ruolo() == DESTINATARIO){
 	  	  cout << "#" << iter->second.get_idamicizia();
-		  cout << "- " << iter->second.get_utente()->get_cognome();
+		  cout << " - " << iter->second.get_utente()->get_cognome();
 	  	  cout << " " << iter->second.get_utente()->get_nome() << endl;
 	  	  richieste_amicizia.insert( pair<int,Amicizia> (iter->second.get_idamicizia(),iter->second) );
 	    }
@@ -765,7 +763,7 @@ void Utente::accetta_rifiuta_amicizia(){
       // Controllo se non ci sono richieste
       if( richieste_amicizia.size() == 0 ) {
       	system("CLS");
-      	cout << "Nessuna richiesta pendente!" << endl << endl;
+      	cout << "Nessuna richiesta in attesa!" << endl << endl;
       	return;
 	  }
     
@@ -948,7 +946,7 @@ void Utente::cancella_amicizia(){
     // Se lo stato dell'amicizia è A (accettata) stampo l'amico nella lista amicizie
     if (iter->second.get_status() == A) {
       cout << iter->first <<" - ";
-      cout << iter->second.get_utente()->get_nome() << " " << iter->second.get_utente()->get_cognome() << endl;
+      cout << iter->second.get_utente()->get_cognome() << " " << iter->second.get_utente()->get_nome() << endl;
       count++;
     }
     // Se no, continuo a scorrere la lista amicizie 

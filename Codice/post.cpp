@@ -143,7 +143,7 @@ void Post::visualizza_post(){
     map<string,Utente*>::iterator iter_listalike;
     cout << "Utenti a cui piace questo post:" << endl;
   	for (iter_listalike = lista_likes.begin(); iter_listalike != lista_likes.end(); iter_listalike++) {
-      cout << "\t" << iter_listalike->second->get_cognome() << " ";
+      cout << " " << iter_listalike->second->get_cognome() << " ";
 	    cout << iter_listalike->second->get_nome() << endl;
     }
   }

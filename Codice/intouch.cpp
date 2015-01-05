@@ -48,7 +48,7 @@ void InTouch::schermata_autenticazione() {
     cout << "1. Registrati" << endl;
     cout << "2. Autenticati" << endl;
     cout << "3. Chiudi applicazione" << endl;
-    cout << "4. Reset programma" << endl;
+    cout << "4. Reset applicazione" << endl;
        
  	s = inputInt(1,4);
 	system("CLS");
