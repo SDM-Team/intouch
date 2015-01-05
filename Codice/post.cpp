@@ -162,15 +162,16 @@ void Post::commenta_post(Utente* autore){
 
 	  cout << "Per confermare ed aggiungere il commento al post premi 2" << endl;
 	  cout << "Per modificare il testo del commento premi 1" << endl;
-	  cout << "Per tornare alla schermata precedente premi 0" << endl;
+	  cout << "Per annullare e tornare alla schermata precedente premi 0" << endl;
 
     s = inputInt(0,2);
 	} while(s == 1);
-system("CLS");
-	switch(s){
+  system("CLS");
+	
+  switch(s){
   	case 0:
       // Torna alla schermata iniziale
-      
+      cout << "Pubblicazione del commento annullata!" << endl << endl;
       return;
 	  case 2:
       // Esce dallo switch ed aggiunge il commento
@@ -208,7 +209,7 @@ system("CLS");
   id_c++;
   
   // Messaggio di conferma
-  cout << "Commento aggiunto!" << endl << endl;
+  cout << "Commento pubblicato!" << endl << endl;
 }
 
 void Post::aggiungi_like(Utente* autore){	

@@ -93,11 +93,11 @@ void Bacheca::aggiungi_post(Utente* _u){
     
     // Mostro un messaggio di conferma
     system("CLS");
-    cout << "Post aggiunto!" << endl << endl;
+    cout << "Post pubblicato!" << endl << endl;
     return;
   } else {
     system("CLS");
-    cout << "Post annullato!" << endl << endl;
+    cout << "Pubblicazione del post annullata!" << endl << endl;
     return; // se sceglie di non pubblicare il post ritorno al menu precedente
   }	
 }

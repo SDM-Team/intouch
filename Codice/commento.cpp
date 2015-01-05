@@ -54,5 +54,5 @@ void Commento::visualizza_commento(){
 	cout << "Data: " << tempo <<endl;
 	
 	// Stampa il testo del commento
-	cout << '"' << testo << '"' << endl << endl;
+	cout << '"' << testo << '"' << endl;
 }

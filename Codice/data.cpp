@@ -84,7 +84,11 @@ void Data::imposta_data(){
   int _mese;
   int _anno;
   
-  do{
+  // Necessario per i controllo rispetto alla data corrente
+  Data temp;
+  temp.imposta_dataOra();
+  
+  do {
     cout << "Inserire giorno: ";
     _giorno = inputInt(1,31);
   
@@ -92,34 +96,29 @@ void Data::imposta_data(){
     _mese = inputInt(1,12);                            
   
     printf("Inserire anno: ");
-    _anno = inputInt(0,2015);  
+    _anno = inputInt(0,temp.anno);
     
     // Controllo validità della data rispetto a quella corrente
-    Data temp;
-    temp.imposta_dataOra();
-    if( 
-	(_anno < temp.anno) ||
-	(_anno == temp.anno && _mese < temp.mese) ||
-	(_anno == temp.anno && _mese == temp.mese && _giorno <= temp.giorno)
-	) {
+    if((_anno < temp.anno) ||	(_anno == temp.anno && _mese < temp.mese) ||
+      (_anno == temp.anno && _mese == temp.mese && _giorno <= temp.giorno)) {
     
       // Controllo validità giorni rispetto al mese
-	  if( _giorno <= 31 && (_mese == 1 || _mese == 3 || _mese == 5 || _mese == 7 || _mese == 8 || _mese == 10 || _mese == 12) ){ break;}    
-      if( _giorno <= 30 && ( _mese == 4 || _mese == 6 || _mese == 9 || _mese == 11) ) { break; }
-      if( _giorno <=28 && _mese == 2) { break; }
-      // Anni bisestili
-	  if( _giorno == 29 && _mese == 2 && (anno % 400 == 0 || (anno % 100 != 0 && anno % 4 == 0)) ) { break; }
-	}
+	    if(_giorno <= 31 && (_mese == 1 || _mese == 3 || _mese == 5 || _mese == 7 || _mese == 8 || _mese == 10 || _mese == 12) ){ break;}    
+      if(_giorno <= 30 && (_mese == 4 || _mese == 6 || _mese == 9 || _mese == 11) ) { break; }
+
+      // Controllo anni bisestili e controllo standard su febbraio
+	    if(_giorno == 29 && _mese == 2 && (_anno % 400 == 0 || (_anno % 100 != 0 && _anno % 4 == 0)) ) { break; }
+	    if(_giorno <=28 && _mese == 2) { break; }
+	  }
 	
     // Se non è una data valida si ripete l'input
     cout << "La data inserita non e' valida! Reinserire." << endl << endl;
     
-  }while(true);
+  } while(true);
  
- giorno = _giorno;
- mese = _mese;
- anno = _anno;
- 
+  giorno = _giorno;
+  mese = _mese;
+  anno = _anno;
 }
 
 // Metodo che prende la data e l'ora corrente
