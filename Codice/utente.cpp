@@ -92,7 +92,7 @@ void Utente::schermata_iniziale(map<string,Utente>* lista_utenti_p) {
   int s = 7;
   do { 
       // Schermata iniziale
-      cout << "Benvenuto!" << endl;
+      cout << "Benvenuto in InTouch!" << endl;
       
       // Eventuale notifica di richieste di amicizia in attesa di risposta
       if (num_richieste_pendenti() == 1) {

@@ -43,7 +43,7 @@ void InTouch::schermata_autenticazione() {
   while(true) {
        
     // Voci del menu
-    cout << "Benvenuto!" << endl;
+    cout << "Benvenuto in InTouch!" << endl;
     cout << "Seleziona cosa vuoi fare:" << endl;
     cout << "1. Registrati" << endl;
     cout << "2. Autenticati" << endl;
