@@ -349,6 +349,67 @@ void Utente::visualizza_bacheca() {
   } while(s!=0); 
 }
 
+// Bacheca amici, per ritornare alla schermata di selezione degli amici
+void Utente::visualizza_bacheca_amici(){
+map<int,Post>::reverse_iterator iter;
+  int s = 0;
+  
+  do {
+  	int count = 0;
+    // Stampa il nome del proprietario della bacheca
+	cout << "Bacheca di " << get_nome() << " " << get_cognome()<<endl;
+	  
+	  // Stampa tutti i post in maniera compatta
+    for (iter = get_bacheca()->get_listapost()->rbegin(); iter != get_bacheca()->get_listapost()->rend(); iter++) {
+      iter->second.visualizza_post_light();
+      count++;
+    }
+    
+    // Se non ci sono post rimando alla schermata iniziale
+    if( count == 0) { 
+	  system("CLS");
+	  cout << "Non ci sono post nella bacheca!" << endl << endl;
+	  return;
+	}
+    
+    cout << "Per visualizzare i dettagli di un post e interagire con esso digitarne il numero";
+    cout << "Per tornare alla schermata di selezione degli amici premi 0" << endl;
+    s = inputInt(0,id_p);
+    system("CLS");
+    
+    if(s == 0){ return; }
+    
+    // Se viene selezionato un post in particolare, lo visualizza in modo dettagliato
+    if ( get_bacheca()->get_listapost()->find(s) != get_bacheca()->get_listapost()->end() ){
+			get_bacheca()->get_listapost()->find(s)->second.visualizza_post();
+			cout << "Per commentare il post selezionato premi 1" << endl;
+			cout << "Per mettere[/togliere] \"mi piace\" premi 2" << endl;
+			cout << "Per tornare alla schermata iniziale premi 0" << endl;
+      int p = inputInt(0,2);
+
+   	  switch(p){
+		    case 0: system("CLS");
+          // Ritorno alla bacheca completa
+					return;
+   			case 1:
+          // Aggiunta commento al post
+          get_bacheca()->get_listapost()->find(s)->second.commenta_post(this);
+					break;
+		  	case 2:
+          // Aggiunta like al post
+          get_bacheca()->get_listapost()->find(s)->second.aggiungi_like(this);
+					return;
+		  }
+      system("CLS");  	  
+    } else { // se non si trova il numero di post immesso
+      system("CLS");
+      cerr << "Post non trovato!" << endl << endl;
+    }
+  } while(s!=0); 
+}     
+
+
+
 void Utente::visualizza_bacheca_generale() {
   map<int,Post*> lista_post_amici;
   map<int,Amicizia>::iterator iter_amicizie;
@@ -382,26 +443,28 @@ void Utente::visualizza_bacheca_generale() {
 
   cout<< "Per visualizzare i dettagli di un post e interagire con esso digitarne il numero";
   cout<< "Per tornare alla schermata iniziale premi 0"<<endl;
-
+  
+  do{
   s = inputInt(0,id_p);
-  system("CLS");
+  
 
   // Ritorno alla schermata iniziale
-  if( s == 0){ return; }
+  if( s == 0){ system("CLS"); return; }
   
   // Se viene selezionato un post, lo visualizza in modo dettagliato
   if ( lista_post_amici.find(s) != lista_post_amici.end() ){
-  	lista_post_amici.find(s)->second->visualizza_post();
+  	system("CLS");
+      lista_post_amici.find(s)->second->visualizza_post();
 	  cout<< "Per commentare il post selezionato premi 1" << endl;
 		cout<< "Per mettere[/togliere] \"mi piace\" premi 2" << endl;
 		cout<< "Per tornare alla schermata iniziale premi 0" << endl;
     int p = inputInt(0,2);
-
+    
 	  switch(p){
 	    case 0:
-        // Ritorno alla bacheca generale completa
-        system("CLS");
-				return;	
+        // Ritorno alla bacheca generale completa        
+               system("CLS");
+               return;	
 			case 1:
         // Aggiunta commento al post
         lista_post_amici.find(s)->second->commenta_post(this);
@@ -409,13 +472,14 @@ void Utente::visualizza_bacheca_generale() {
 			case 2:
         // Aggiunta like al post
         lista_post_amici.find(s)->second->aggiungi_like(this);
-				return;
+				break;
 	  }
-    system("CLS");  	  
+    system("CLS");	  
   } else { // se non trova il numero del post immesso
-    system("CLS");
-    cerr << "Post non trovato!" << endl << endl;
+    
+    cerr << "Post non trovato! Reinserire numero post: ";
   }
+ }while(true); 
 }
 
 // Metodo che permette di visualizzare il profilo e la bacheca di un amico
@@ -479,7 +543,7 @@ void Utente::visualizza_contenuto_amici(){
     switch(t){
       case 1:
         // Visualizzo bacheca amico
-        iter->second.get_utente()->visualizza_bacheca();
+        iter->second.get_utente()->visualizza_bacheca_amici();
         break;
       case 2:
         // Visualizzo profilo amico

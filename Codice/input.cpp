@@ -25,13 +25,13 @@ int inputInt(int min, int max){
    	  stringstream myStream(input);
       if (myStream >> t)
         break;
-   	  cout << "Errore: numero non valido" << endl;
+   	  cout << "Errore: numero non valido, Reinserire: ";
     }
     
     if(t>=min && t<=max)
       break;
     else{
-      cout << "Errore: range non valido" << endl;	
+      cout << "Errore: range non valido, Reinserire: ";
     }
   }
   return t;
