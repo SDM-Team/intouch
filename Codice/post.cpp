@@ -151,20 +151,20 @@ void Post::visualizza_post(){
 
 // Aggiunge un commento al post
 void Post::commenta_post(Utente* autore){
-	int s = 0;
-	string testo_commento;
-	do {
-	  cout << "Inserisci testo:" << endl;
+  int s = 0;
+  string testo_commento;
+  do {
+	cout << "Inserisci testo:" << endl;
 
-	  // Controllo input MAXPOST
-	  testo_commento = inputString(MAXPOST);
+	// Controllo input MAXPOST
+	testo_commento = inputString(MAXPOST);
 
-	  cout << "Per confermare ed aggiungere il commento al post premi 2" << endl;
-	  cout << "Per modificare il testo del commento premi 1" << endl;
-	  cout << "Per annullare e tornare alla schermata precedente premi 0" << endl;
+	cout << "Per confermare ed aggiungere il commento al post premi 2" << endl;
+	cout << "Per modificare il testo del commento premi 1" << endl;
+	cout << "Per annullare e tornare alla schermata precedente premi 0" << endl;
 
     s = inputInt(0,2);
-	} while(s == 1);
+  } while(s == 1);
   system("CLS");
 	
   switch(s){
@@ -172,34 +172,34 @@ void Post::commenta_post(Utente* autore){
       // Torna alla schermata iniziale
       cout << "Pubblicazione del commento annullata!" << endl << endl;
       return;
-	  case 2:
+	case 2:
       // Esce dallo switch ed aggiunge il commento
       break;
-	}
+  }
 
   // Crea un'istanza di commento con i dati immessi
-	Commento c(autore,testo_commento);
+  Commento c(autore,testo_commento);
 	
-	// Aggiunge il commento alla lista di commenti del post
-	lista_commenti.push_back( c );
+  // Aggiunge il commento alla lista di commenti del post
+  lista_commenti.push_back( c );
 
-	// Scrittura su file
-	stringstream convert;
-	convert << id_post;
+  // Scrittura su file
+  stringstream convert;
+  convert << id_post;
 
   // Apre il file relativo ai commenti del determinato post
   string path = path_files_p + convert.str() + "/" + nome_file_commenti;
-	ofstream file;
-	file.open(path.c_str(), ios::app);
+  ofstream file;
+  file.open(path.c_str(), ios::app);
 
-	// Controllo apertura corretta file
-	if(!file){ cerr<< "Errore apertura file!"; return;}
+  // Controllo apertura corretta file
+  if(!file){ cerr<< "Errore apertura file!"; return;}
 	
-	// Scrittura su file
-	file << id_c << ";";
-  file << autore->get_email() << ";"; 
-	file << c.get_tempo() << ";";
-	file << testo_commento << endl;
+  // Scrittura su file
+  file << id_c << "\t";
+  file << autore->get_email() << "\t"; 
+  file << c.get_tempo() << "\t";
+  file << testo_commento << endl;
 
   // Chiusura del file
   file.close();
@@ -277,7 +277,7 @@ void Post::rimuovi_like(Utente* autore){
   char linea[150];
   while (!file.getline(linea,150).eof()) {
     // Token mail
-    string _email = strtok (linea,";");
+    string _email = strtok (linea,"\n");
     
     // Copia tutti gli indirizzi tranne quello da rimuovere nel file di copia
     if(_email != autore->get_email() ){

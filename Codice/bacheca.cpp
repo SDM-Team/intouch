@@ -31,7 +31,7 @@ extern int id_p;
 
 // Metodo che permette l'aggiunta di un post alla bacheca dell'utente
 void Bacheca::aggiungi_post(Utente* _u){
-	int s;
+  int s;
   string testo;
 
   // Inserimento testo
@@ -59,9 +59,9 @@ void Bacheca::aggiungi_post(Utente* _u){
     ofstream post(path.c_str(), ios::app);
 
     // Scrivo dati su file
-    post << id_p << ";";
-    post << _u->get_email() << ";";
-    post << p.get_tempo() << ";";
+    post << id_p << "\t";
+    post << _u->get_email() << "\t";
+    post << p.get_tempo() << "\t";
     post << testo << endl;
 
     // Chiudo il flusso su file

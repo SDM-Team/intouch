@@ -123,7 +123,7 @@ void InTouch::registrazione() {
 
   // Inserimento email
   cout << "Inserisci il tuo indirizzo email (max " << MAXLUN << " caratteri): ";
-  email = inputString(MAXLUN);
+  email = inputEmail(MAXLUN);
 
   // Inserimento password
   cout << "Inserisci una password (max " << MAXLUN << " caratteri): ";
@@ -176,10 +176,10 @@ void InTouch::aggiungi_utente(const Utente& u) {
   if(!utenti){cerr<<"Errore apertura file!"<<endl; return;}
 
   // Scrittura su file
-  utenti << u.get_idutente() << ";";
-  utenti << u.get_nome() << ";";
-  utenti << u.get_cognome() << ";";
-  utenti << u.get_email() << ";";
+  utenti << u.get_idutente() << "\t";
+  utenti << u.get_nome() << "\t";
+  utenti << u.get_cognome() << "\t";
+  utenti << u.get_email() << "\t";
   utenti << u.get_password() << endl;
 
   // Chiusura file
@@ -197,7 +197,11 @@ void InTouch::aggiungi_utente(const Utente& u) {
   string path1 = path + "/" + nome_file_profilo;
   ofstream profilo(path1.c_str(), ios::out);
   if(!profilo){cerr<<"Errore apertura file!"<<endl;}
-  profilo << "ND;ND;ND;01/01/0;ND" << endl;
+  profilo << "ND" << "\t";
+  profilo << "ND" << "\t";
+  profilo << "ND" << "\t";
+  profilo << "01/01/0" << "\t";
+  profilo << "ND" << endl;
   profilo.close();
 
   // File amicizie
@@ -304,20 +308,20 @@ void InTouch::importa_utenti() {
       char* pch;
       
       // Primo token: ID utente
-      pch = strtok (linea,";");
+      pch = strtok (linea,"\t");
       int id_utente = atoi(pch);
 
       // Secondo token: Nome
-      string nome = strtok (NULL,";");
+      string nome = strtok (NULL,"\t");
 
       // Terzo token: Cognome
-      string cognome = strtok (NULL,";");
+      string cognome = strtok (NULL,"\t");
 
       // Quarto token: Email
-      string email = strtok (NULL,";");
+      string email = strtok (NULL,"\t");
 
       // Quinto token: Password
-      string password = strtok (NULL,";");
+      string password = strtok (NULL,"\n");
 
       // CReazione istanza di utente con i parametri letti da file
       Utente u(nome,cognome,email,password);
@@ -361,11 +365,11 @@ void InTouch::importa_post() {
       char* pch;
 
       // Token ID post
-      pch = strtok (linea,";");
+      pch = strtok (linea,"\t");
       int id_post = atoi(pch);
 
       // Token autore
-      string autore = strtok (NULL,";");
+      string autore = strtok (NULL,"\t");
 
       // Token giorno
       int giorno = atoi(strtok(NULL,"/"));
@@ -380,10 +384,10 @@ void InTouch::importa_post() {
       int ora = atoi(strtok(NULL,":"));
 
       // Token minuti
-      int minuti = atoi(strtok(NULL,";"));
+      int minuti = atoi(strtok(NULL,"\t"));
 
       // Token testo
-      string testo = strtok (NULL,";");
+      string testo = strtok (NULL,"\n");
 
       // Crea un'istanza di data con le informazioni lette da file
       Data temp(giorno,mese,anno,ora,minuti);
@@ -450,11 +454,11 @@ void InTouch::importa_commenti(string _autore, int id_post) {
       char* pch;
       
       // Token ID post
-      pch = strtok (linea,";");
+      pch = strtok (linea,"\t");
       int id = atoi(pch);
 
       // Token autore
-      string autore = strtok (NULL,";");
+      string autore = strtok (NULL,"\t");
 
       // Token giorno
       int giorno = atoi(strtok(NULL,"/"));
@@ -469,10 +473,10 @@ void InTouch::importa_commenti(string _autore, int id_post) {
       int ora = atoi(strtok(NULL,":"));
 
       // Token minuti
-      int minuti = atoi(strtok(NULL,";"));
+      int minuti = atoi(strtok(NULL,"\t"));
 
       // Token testo
-      string testo = strtok (NULL,";");
+      string testo = strtok (NULL,"\n");
 
       // CReo un'istanza di data con i parametri letti da file
       Data temp(giorno,mese,anno,ora,minuti);
@@ -529,7 +533,7 @@ void InTouch::importa_likes(string _autore, int id_post){
 
     while (!file.getline(linea,150).eof()) {
       // Token mail
-      string _email = strtok (linea,";");
+      string _email = strtok (linea,"\n");
 
       // Trovo l'utente autore del like nella lista utenti
       iter_autore_like = lista_utenti.find(_email);
@@ -562,13 +566,13 @@ void InTouch::importa_profilo() {
       while (!file.getline(linea,150).eof()) {
 
         // Token sesso
-    	  string t_sesso = strtok(linea,";");
+    	  string t_sesso = strtok(linea,"\t");
     	  
         // Token professione
-      	string t_professione = strtok(NULL,";");
+      	string t_professione = strtok(NULL,"\t");
       	
         // Token situazione sentimentale
-        string t_situazione_sent = strtok(NULL,";");
+        string t_situazione_sent = strtok(NULL,"\t");
 
         // Token giorno nascita
    	    int t_giorno_nascita = atoi(strtok(NULL,"/"));
@@ -577,10 +581,10 @@ void InTouch::importa_profilo() {
     	  int t_mese_nascita = atoi(strtok(NULL,"/"));
     	  
         // Token anno nascita
-      	int t_anno_nascita = atoi(strtok(NULL,";"));
+      	int t_anno_nascita = atoi(strtok(NULL,"\t"));
       	
         // Token luogo nascita
-      	string t_luogo_nascita = strtok(NULL,";");
+      	string t_luogo_nascita = strtok(NULL,"\t");
 
         // Imposto gli attributi del profilo con i dati presenti nel database
       	iter->second.get_profilo()->set_sesso(t_sesso);
@@ -619,16 +623,16 @@ void InTouch::importa_amicizie() {
       while (!file.getline(linea,150).eof()) {
 
         // Token ID
-        int id = atoi(strtok(linea,";"));
+        int id = atoi(strtok(linea,"\t"));
         
         // Token utente coinvolto
-        string utente = strtok(NULL,";");
+        string utente = strtok(NULL,"\t");
         
         // Token status
-        string s = strtok(NULL,";");
+        string s = strtok(NULL,"\t");
         
         // Token ruolo
-        string r = strtok(NULL,";");
+        string r = strtok(NULL,"\t");
 
         // Imposto lo stato
         Stato stato;

@@ -121,7 +121,7 @@ void Utente::schermata_iniziale(map<string,Utente>* lista_utenti_p) {
           break;
         case 2:
           // Visualizzazione bacheca generale (post amici)
-    	    visualizza_bacheca_generale();
+    	  visualizza_bacheca_generale();
           break;
         case 3:
           // Visualizzazione propria bacheca
@@ -271,10 +271,10 @@ void Utente::modifica_profilo(){
      file.open(path.c_str(), ios::out);
      
      // Sovrascrive le informazioni precedentemente presenti stampando quelle nuove
-     file << profilo.get_sesso() << ";"
-          << profilo.get_professione() << ";"
-          << profilo.get_situasent() << ";"
-          << profilo.get_datanasc() << ";"
+     file << profilo.get_sesso() << "\t"
+          << profilo.get_professione() << "\t"
+          << profilo.get_situasent() << "\t"
+          << profilo.get_datanasc() << "\t"
           << profilo.get_luogonasc() << endl;
           
      // Chiude il file
@@ -710,9 +710,9 @@ void Utente::richiedi_amicizia(map<string,Utente>* lista_utenti_p){
 	  // Controllo apertura corretta file
 	  if(!file){ cerr<< "Errore apertura file!"; return;}
   
-    file << id_a << ";";
-    file << iter_lar->second->get_email() << ";"; 
-    file << "X" << ";";
+    file << id_a << "\t";
+    file << iter_lar->second->get_email() << "\t"; 
+    file << "X" << "\t";
   	file << "MITTENTE" << endl;
 
     file.close();
@@ -727,9 +727,9 @@ void Utente::richiedi_amicizia(map<string,Utente>* lista_utenti_p){
 	  
     // Controllo apertura corretta file
 	  if(!file){ cerr<< "Errore apertura file!"; return;}
-  	file << id_a << ";";
-    file << email << ";"; 
-  	file << "X" << ";";
+  	file << id_a << "\t";
+    file << email << "\t"; 
+  	file << "X" << "\t";
 	  file << "DESTINATARIO" << endl;
 	     
     file.close();
@@ -832,16 +832,16 @@ void Utente::accetta_rifiuta_amicizia(){
     if(!file2){ cerr<< "Errore apertura file!"; return;}
     while (!file2.getline(linea,150).eof()) {
       // Token ID amicizia
-      int _id = atoi(strtok(linea,";"));
+      int _id = atoi(strtok(linea,"\t"));
         
       // Token utente amicizia
-      string _utente = strtok(NULL,";");
+      string _utente = strtok(NULL,"\t");
        
       // Token status amicizia
-      string _s = strtok(NULL,";");
+      string _s = strtok(NULL,"\t");
         
       // Token ruolo amicizia
-      string _r = strtok(NULL,";");
+      string _r = strtok(NULL,"\n");
         
       // Aggiorno l'amicizia da accettare o rifiutare
       if(_id == keep_id) { 
@@ -849,9 +849,9 @@ void Utente::accetta_rifiuta_amicizia(){
         else if(status == R) { _s = "R"; }
 	    }
         
-      file_copia << _id << ";";
-		  file_copia << _utente << ";";
-		  file_copia << _s << ";";
+      file_copia << _id << "\t";
+		  file_copia << _utente << "\t";
+		  file_copia << _s << "\t";
 		  file_copia << _r << endl;
     }	
  
@@ -892,16 +892,16 @@ void Utente::accetta_rifiuta_amicizia(){
   	if(!file){ cerr<< "Errore apertura file!"; return;}
   	while (!file.getline(linea,150).eof()) {
       // Token ID amicizia
-      int _id = atoi(strtok(linea,";"));
+      int _id = atoi(strtok(linea,"\t"));
         
       // Token utente amicizia
-      string _utente = strtok(NULL,";");
+      string _utente = strtok(NULL,"\t");
         
       // Token status amicizia
-      string _s = strtok(NULL,";");
+      string _s = strtok(NULL,"\t");
         
       // Token ruolo amicizia
-      string _r = strtok(NULL,";");
+      string _r = strtok(NULL,"\n");
         
       // Aggiorno l'amicizia da accettare o rifiutare
       if(_id == keep_id) { 
@@ -909,10 +909,10 @@ void Utente::accetta_rifiuta_amicizia(){
 		    else if(status == R) { _s = "R"; }
 	    }
 
-      file_copia << _id << ";"
-  		           << _utente << ";"
-	  			       << _s << ";"
-				         << _r << endl;
+      file_copia << _id << "\t";
+  	  file_copia << _utente << "\t";
+	  file_copia << _s << "\t";
+	  file_copia << _r << endl;
     }	
  
     file.close();
@@ -1020,25 +1020,25 @@ void Utente::cancella_amicizia(){
   if(!file2){ cerr<< "Errore apertura file!"; return;}
   while (!file2.getline(linea,150).eof()) {      
     // Token ID amicizia
-    int _id = atoi(strtok(linea,";"));
+    int _id = atoi(strtok(linea,"\t"));
         
     // Token utente amicizia
-    string _utente = strtok(NULL,";");
+    string _utente = strtok(NULL,"\t");
         
     // Token status amicizia
-    string _s = strtok(NULL,";");
+    string _s = strtok(NULL,"\t");
         
     // Token ruolo amicizia
-    string _r = strtok(NULL,";");
+    string _r = strtok(NULL,"/n");
         
     // Aggiorno l'amicizia da cancellare
     if(_id == keep_id) { 
 	  _s = "R"; 
 	}
         
-    file_copia << _id << ";";
-	file_copia << _utente << ";";
-  	file_copia << _s << ";";
+    file_copia << _id << "\t";
+	file_copia << _utente << "\t";
+  	file_copia << _s << "\t";
   	file_copia << _r << endl;
   }	
 
@@ -1072,23 +1072,23 @@ void Utente::cancella_amicizia(){
   if(!file){ cerr<< "Errore apertura file!"; return;}
   while (!file.getline(linea,150).eof()) {
     // Token ID amicizia
-    int _id = atoi(strtok(linea,";"));
+    int _id = atoi(strtok(linea,"\t"));
 
     // Token utente amicizia
-    string _utente = strtok(NULL,";");
+    string _utente = strtok(NULL,"\t");
 
     // Token status amicizia
-    string _s = strtok(NULL,";");
+    string _s = strtok(NULL,"\t");
 
     // Token ruolo amicizia
-    string _r = strtok(NULL,";");
+    string _r = strtok(NULL,"/n");
         
     // Aggiorno l'amicizia da accettare o rifiutare
     if(_id == keep_id){ _s = "R"; }
         
-    file_copia << _id << ";";
-    file_copia << _utente << ";";
-    file_copia << _s << ";";
+    file_copia << _id << "\t";
+    file_copia << _utente << "\t";
+    file_copia << _s << "\t";
     file_copia << _r << endl;
   }
  
