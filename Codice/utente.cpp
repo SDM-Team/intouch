@@ -394,7 +394,7 @@ void Utente::visualizza_bacheca_amico(Utente* u){
 	    cout << "Per commentare il post selezionato premi 1" << endl;
   	  cout << "Per";
     
-      if (get_bacheca()->get_listapost()->find(s)->second.check_like(get_email())) {
+      if (get_bacheca()->get_listapost()->find(s)->second.check_like(u->get_email())) {
         cout << " togliere ";
       } else {
         cout << " mettere ";
@@ -547,9 +547,9 @@ void Utente::visualizza_contenuto_amici(){
       // Se non lo trovo, stampo "Non è amico"
       if(iter == lista_amicizie.end()) {cerr << "Non e' tuo amico! Riseleziona: ";}                              
     } while(iter == lista_amicizie.end()); // Continuo finchè non viene selezionato un amico
-	
+	system("CLS");
     do { // Ciclo per tornare al menu di selezione dopo aver visualizzato bacheca o profilo
-      system("CLS");
+      
 	    cout << "#" << iter->first << " - ";
 	    cout << iter->second.get_utente()->get_nome() << " ";
 	    cout << iter->second.get_utente()->get_cognome() << " (";
