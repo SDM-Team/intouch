@@ -292,7 +292,7 @@ void InTouch::importa_utenti() {
   lista_utenti.clear();
   ifstream utenti;
 
-  char linea[(MAXLUN*4)+6];
+  char linea[11+(MAXLUN*4)+4];
 
   // Creazione files se non esistenti
   mkdir(path_files.c_str());
@@ -303,8 +303,8 @@ void InTouch::importa_utenti() {
   utenti.open(path.c_str(), ios::in);
 
   // Controllo file esistente e aperto correttamente
-	if(utenti){
-    while (!utenti.getline(linea,((MAXLUN*4)+6)).eof()) {
+  if(utenti){
+    while (!utenti.getline(linea,(11+(MAXLUN*4)+4)).eof()) {
       char* pch;
       
       // Primo token: ID utente
@@ -335,19 +335,17 @@ void InTouch::importa_utenti() {
 
       // Aggiorna l'id utente univoco in modo tale da riprendere la numerazione dall'ultimo esistente
       id_u = id_utente + 1;
-	  }
-	} else { // se non riesce ad aprire il file
-	  //reset utenti.csv
-	  //cerr << "Lista utenti vuota!" << endl;
-	  string path = path_files + nome_file_utenti;
+	}
+  } else { // se non riesce ad aprire il file, reset utenti.tsv
+	string path = path_files + nome_file_utenti;
     ofstream file(path.c_str(), ios::out);
     if(!file){cerr<<"Errore apertura file!"<<endl;}
     file << "";
     file.close();
-	}
+  }
 	
-	// Chiude il file
-	utenti.close();
+  // Chiude il file
+  utenti.close();
 }
 
 void InTouch::importa_post() {
@@ -418,17 +416,15 @@ void InTouch::importa_post() {
       // Aggiorna l'id post univoco in modo tale da riprendere la numerazione dall'ultimo esistente
       id_p = id_post + 1;
     }
-	} else { // se non riesce ad aprire il file
-	  //reset post.csv
-	  //cerr << "Lista post vuota!" << endl;
-	  string path = path_files + nome_file_post;
+  } else { // se non riesce ad aprire il file, reset post.tsv
+	string path = path_files + nome_file_post;
     ofstream file(path.c_str(), ios::out);
     if(!file){cerr<<"Errore apertura file!"<<endl;}
     file << "";
     file.close();	
-	}
+  }
 	
-	// Chiude il file
+  // Chiude il file
   post.close();
 }
 
@@ -448,9 +444,9 @@ void InTouch::importa_commenti(string _autore, int id_post) {
     // Trovo l'autore del post nella lista utenti
     iter_autore_post = lista_utenti.find(_autore);
     map<string,Utente>::iterator iter_autore_commento;
-    char linea[MAXLUN+MAXPOST+21];
+    char linea[11+MAXLUN+MAXPOST+19];
 
-    while (!file_c.getline(linea,(MAXLUN+MAXPOST+21)).eof()) {
+    while (!file_c.getline(linea,(11+MAXLUN+MAXPOST+19)).eof()) {
       char* pch;
       
       // Token ID post
@@ -550,7 +546,7 @@ void InTouch::importa_likes(string _autore, int id_post){
 }
 
 void InTouch::importa_profilo() {
-  char linea[(MAXLUN*4)+15];
+  char linea[(MAXLUN*4)+21];
 
   map<string,Utente>::iterator iter;
   
@@ -563,10 +559,10 @@ void InTouch::importa_profilo() {
 
     // Controllo file esistente e aperto correttamente
     if(file){
-      while (!file.getline(linea,((MAXLUN*4)+15)).eof()) {
+      while (!file.getline(linea,((MAXLUN*4)+21)).eof()) {
 
         // Token sesso
-    	  string t_sesso = strtok(linea,"\t");
+    	string t_sesso = strtok(linea,"\t");
     	  
         // Token professione
       	string t_professione = strtok(NULL,"\t");
@@ -578,13 +574,13 @@ void InTouch::importa_profilo() {
    	    int t_giorno_nascita = atoi(strtok(NULL,"/"));
    	    
         // Token mese nascita
-    	  int t_mese_nascita = atoi(strtok(NULL,"/"));
+    	int t_mese_nascita = atoi(strtok(NULL,"/"));
     	  
         // Token anno nascita
       	int t_anno_nascita = atoi(strtok(NULL,"\t"));
       	
         // Token luogo nascita
-      	string t_luogo_nascita = strtok(NULL,"\t");
+      	string t_luogo_nascita = strtok(NULL,"\n");
 
         // Imposto gli attributi del profilo con i dati presenti nel database
       	iter->second.get_profilo()->set_sesso(t_sesso);
@@ -606,7 +602,7 @@ void InTouch::importa_profilo() {
 }
 
 void InTouch::importa_amicizie() {
-  char linea[3+4+MAXLUN];
+  char linea[11+MAXLUN+17];
 
   map<string,Utente>::iterator iter_utenti;
   map<string,Utente>::iterator iter_utenti2;
@@ -620,7 +616,7 @@ void InTouch::importa_amicizie() {
 
     // Controllo file esistente e aperto correttamente
     if(file){
-      while (!file.getline(linea,(3+4+MAXLUN)).eof()) {
+      while (!file.getline(linea,(11+MAXLUN+17)).eof()) {
 
         // Token ID
         int id = atoi(strtok(linea,"\t"));
@@ -632,7 +628,7 @@ void InTouch::importa_amicizie() {
         string s = strtok(NULL,"\t");
         
         // Token ruolo
-        string r = strtok(NULL,"\t");
+        string r = strtok(NULL,"\n");
 
         // Imposto lo stato
         Stato stato;
