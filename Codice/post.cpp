@@ -125,7 +125,7 @@ void Post::visualizza_post(){
 
   // Stampa dei commenti del post
   if (lista_commenti.size() == 0) {
-    cout << "Nessun commento" << endl;
+    cout << "Nessun commento" << endl << endl;
   } else {
   	int i=0;
 	  list<Commento>::iterator iter; 
