@@ -5,7 +5,6 @@
 
 // Definizione variabili globali
 #define MAXPOST 250
-#define MAXTITLE 30
 #define MAXLUN 25
 
 // Namespace

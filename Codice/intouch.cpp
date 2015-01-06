@@ -292,7 +292,7 @@ void InTouch::importa_utenti() {
   lista_utenti.clear();
   ifstream utenti;
 
-  char linea[105];
+  char linea[(MAXLUN*4)+6];
 
   // Creazione files se non esistenti
   mkdir(path_files.c_str());
@@ -304,7 +304,7 @@ void InTouch::importa_utenti() {
 
   // Controllo file esistente e aperto correttamente
 	if(utenti){
-    while (!utenti.getline(linea,105).eof()) {
+    while (!utenti.getline(linea,((MAXLUN*4)+6)).eof()) {
       char* pch;
       
       // Primo token: ID utente
@@ -352,7 +352,7 @@ void InTouch::importa_utenti() {
 
 void InTouch::importa_post() {
   ifstream post;
-  char linea[300];
+  char linea[MAXLUN+MAXPOST+21];
 
   string path = path_files + nome_file_post;
 
@@ -361,7 +361,7 @@ void InTouch::importa_post() {
 
   // Controllo file esistente e aperto correttamente
   if(post){
-    while (!post.getline(linea,300).eof()) {
+    while (!post.getline(linea,(MAXLUN+MAXPOST+21)).eof()) {
       char* pch;
 
       // Token ID post
@@ -448,9 +448,9 @@ void InTouch::importa_commenti(string _autore, int id_post) {
     // Trovo l'autore del post nella lista utenti
     iter_autore_post = lista_utenti.find(_autore);
     map<string,Utente>::iterator iter_autore_commento;
-    char linea[300];
+    char linea[MAXLUN+MAXPOST+21];
 
-    while (!file_c.getline(linea,300).eof()) {
+    while (!file_c.getline(linea,(MAXLUN+MAXPOST+21)).eof()) {
       char* pch;
       
       // Token ID post
@@ -529,9 +529,9 @@ void InTouch::importa_likes(string _autore, int id_post){
 	  
 	  map<string,Utente>::iterator iter_autore_like;
 
-    char linea[30];
+    char linea[MAXLUN+1];
 
-    while (!file.getline(linea,30).eof()) {
+    while (!file.getline(linea,(MAXLUN+1)).eof()) {
       // Token mail
       string _email = strtok (linea,"\n");
 
@@ -550,7 +550,7 @@ void InTouch::importa_likes(string _autore, int id_post){
 }
 
 void InTouch::importa_profilo() {
-  char linea[150];
+  char linea[(MAXLUN*4)+15];
 
   map<string,Utente>::iterator iter;
   
@@ -563,7 +563,7 @@ void InTouch::importa_profilo() {
 
     // Controllo file esistente e aperto correttamente
     if(file){
-      while (!file.getline(linea,150).eof()) {
+      while (!file.getline(linea,((MAXLUN*4)+15)).eof()) {
 
         // Token sesso
     	  string t_sesso = strtok(linea,"\t");
@@ -606,7 +606,7 @@ void InTouch::importa_profilo() {
 }
 
 void InTouch::importa_amicizie() {
-  char linea[50];
+  char linea[3+4+MAXLUN];
 
   map<string,Utente>::iterator iter_utenti;
   map<string,Utente>::iterator iter_utenti2;
@@ -620,7 +620,7 @@ void InTouch::importa_amicizie() {
 
     // Controllo file esistente e aperto correttamente
     if(file){
-      while (!file.getline(linea,50).eof()) {
+      while (!file.getline(linea,(3+4+MAXLUN)).eof()) {
 
         // Token ID
         int id = atoi(strtok(linea,"\t"));
