@@ -87,7 +87,7 @@ string inputEmail(int max){
 	  cerr << "Errore: la stringa contiene caratteri non validi (tab);" << endl;
       cout << "Reinserire: "; 
 	} else if( s.find( "\\" ) != string::npos ){ 
-	  cerr << "Errore: la stringa contiene caratteri non validi (\);" << endl;
+	  cerr << "Errore: la stringa contiene caratteri non validi (\\);" << endl;
       cout << "Reinserire: "; 
 	} else if( s.find( "/" ) != string::npos ){ 
 	  cerr << "Errore: la stringa contiene caratteri non validi (/);" << endl;

@@ -318,31 +318,37 @@ void Utente::visualizza_bacheca() {
     } while( piter == get_bacheca()->get_listapost()->end() );   
     
     system("CLS");
-	do{ // Ciclo per tornare a visualizzazione post dopo aver commentato o messo mi piace
-    
+	  do{ // Ciclo per tornare a visualizzazione post dopo aver commentato o messo mi piace
       // Se viene selezionato un post in particolare, lo visualizza in modo dettagliato
 	  
-	  get_bacheca()->get_listapost()->find(s)->second.visualizza_post();
-	  cout << "Per commentare il post selezionato premi 1" << endl;
-	  cout << "Per mettere[/togliere] \"mi piace\" premi 2" << endl;
-	  cout << "Per tornare alla bacheca premi 0" << endl;
+  	  get_bacheca()->get_listapost()->find(s)->second.visualizza_post();
+  	  cout << "Per commentare il post selezionato premi 1" << endl;
+  	  cout << "Per";
+    
+      if (get_bacheca()->get_listapost()->find(s)->second.check_like(get_email())) {
+        cout << " togliere ";
+      } else {
+        cout << " mettere ";
+      }
+    
+      cout << "\"mi piace\" premi 2" << endl;
+  	  cout << "Per tornare alla bacheca premi 0" << endl;
       p = inputInt(0,2);
 
    	  switch(p){
-		case 0: 
+    		case 0: 
           // Ritorno alla bacheca completa
-		  system("CLS");
-		  break;
-   		case 1:
+    		  system("CLS");
+    		  break;
+     		case 1:
           // Aggiunta commento al post
           get_bacheca()->get_listapost()->find(s)->second.commenta_post(this);
-		  break;
-		case 2:
+	    	  break;
+    		case 2:
           // Aggiunta like al post
           get_bacheca()->get_listapost()->find(s)->second.aggiungi_like(this);
-	      break;
-	  }
-      	     
+	        break;
+	    }
     } while (p!=0);
   } while (true);
 }
@@ -381,35 +387,41 @@ void Utente::visualizza_bacheca_amico(Utente* u){
     } while( piter == get_bacheca()->get_listapost()->end() );   
     
     system("CLS");
-	do{ // Ciclo per tornare a visualizzazione post dopo aver commentato o messo mi piace
-    
+	  do{ // Ciclo per tornare a visualizzazione post dopo aver commentato o messo mi piace
       // Se viene selezionato un post in particolare, lo visualizza in modo dettagliato
 	  
-	  get_bacheca()->get_listapost()->find(s)->second.visualizza_post();
-	  cout << "Per commentare il post selezionato premi 1" << endl;
-	  cout << "Per mettere[/togliere] \"mi piace\" premi 2" << endl;
-	  cout << "Per tornare alla bacheca premi 0" << endl;
+  	  get_bacheca()->get_listapost()->find(s)->second.visualizza_post();
+	    cout << "Per commentare il post selezionato premi 1" << endl;
+  	  cout << "Per";
+    
+      if (get_bacheca()->get_listapost()->find(s)->second.check_like(get_email())) {
+        cout << " togliere ";
+      } else {
+        cout << " mettere ";
+      }
+    
+      cout << "\"mi piace\" premi 2" << endl;
+  	  cout << "Per tornare alla bacheca premi 0" << endl;
       p = inputInt(0,2);
 
-   	  switch(p){
-		case 0: 
+     	switch(p){
+  		  case 0: 
           // Ritorno alla bacheca completa
-		  system("CLS");
-		  break;
-   		case 1:
+  		    system("CLS");
+  		    break;
+     		case 1:
           // Aggiunta commento al post
           get_bacheca()->get_listapost()->find(s)->second.commenta_post(u);
-		  break;
-		case 2:
+  		    break;
+  		  case 2:
           // Aggiunta like al post
-		  system("CLS");
+  		    system("CLS");
           get_bacheca()->get_listapost()->find(s)->second.aggiungi_like(u);
-	      break;
-	  }
-      	     
+  	      break;
+  	  }
     } while( p!=0 );
   } while(true); 
-}     
+}
 
 void Utente::visualizza_bacheca_generale() {
   map<int,Post*> lista_post_amici;
@@ -456,32 +468,39 @@ void Utente::visualizza_bacheca_generale() {
       }
     } while( lista_post_amici.find(s) == lista_post_amici.end() );
     
-  	  system("CLS");    
+  	system("CLS");    
     // Se viene selezionato un post, lo visualizza in modo dettagliato
     do{ // Ciclo che torna al post se viene commentato o messo mi piace
       lista_post_amici.find(s)->second->visualizza_post();
-	  cout<< "Per commentare il post selezionato premi 1" << endl;
-	  cout<< "Per mettere[/togliere] \"mi piace\" premi 2" << endl;
-	  cout<< "Per tornare alla schermata precedente premi 0" << endl;
+  	  cout << "Per commentare il post selezionato premi 1" << endl;
+      cout << "Per";
+    
+      if (get_bacheca()->get_listapost()->find(s)->second.check_like(get_email())) {
+        cout << " togliere ";
+      } else {
+        cout << " mettere ";
+      }
+    
+      cout << "\"mi piace\" premi 2" << endl;
+  	  cout << "Per tornare alla bacheca premi 0" << endl;
       p = inputInt(0,2);
     
-	  switch(p){
-	    case 0:
+      switch(p){
+        case 0:
           // Ritorno alla bacheca generale completa        
           system("CLS");
           break;	
-		case 1:
+     		case 1:
           // Aggiunta commento al post
           lista_post_amici.find(s)->second->commenta_post(this);
-		  break;
-		case 2:
+    		  break;
+    		case 2:
           // Aggiunta like al post
           lista_post_amici.find(s)->second->aggiungi_like(this);
-		  break;
-	  }
-      	  
-   }while( p!=0 );
- }while(true); 
+    		  break;
+   	  }
+    }while( p!=0 );
+  }while(true); 
 }
 
 // Metodo che permette di visualizzare il profilo e la bacheca di un amico

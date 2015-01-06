@@ -133,7 +133,6 @@ void Post::visualizza_post(){
   	  cout << "Commento #" << ++i << endl;
   	  iter->visualizza_commento();
 	  }
-	  cout << endl;
   }
 
   // Stampa likes del post
@@ -147,6 +146,7 @@ void Post::visualizza_post(){
 	    cout << iter_listalike->second->get_nome() << endl;
     }
   }
+  cout << endl;
 }
 
 // Aggiunge un commento al post
@@ -307,4 +307,13 @@ void Post::rimuovi_like(Utente* autore){
 // Usato per importare likes degli utenti da file nelle loro liste
 void Post::popola_lista_likes( pair<string, Utente* > pair ){
 	lista_likes.insert( pair );	
+}
+
+// Controlla se l'utente specificato ha messo o meno il proprio "mi piace" al post
+bool Post::check_like(string _e) {
+  map<string,Utente*>::iterator iter;
+  
+  iter = lista_likes.find(_e);
+    
+  return (iter != lista_likes.end());
 }

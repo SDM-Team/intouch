@@ -40,6 +40,7 @@ class Post{
 		void aggiungi_like(Utente* autore);
 		void rimuovi_like(Utente* autore);
 		void popola_lista_likes( pair<string,Utente* > pair );
+		bool check_like(string _e);
 };
 
 #endif
