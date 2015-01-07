@@ -79,7 +79,7 @@ void Post::visualizza_post_light() {
   // Stampa autore del post
   if(author != NULL) {
     cout << author->get_cognome() << " ";
-  	cout << author->get_nome() << " (";
+    cout << author->get_nome() << " (";
     cout << author->get_email() << ")" << endl;
   }
 
@@ -127,11 +127,11 @@ void Post::visualizza_post(){
   if (lista_commenti.size() == 0) {
     cout << "Nessun commento" << endl << endl;
   } else {
-  	int i=0;
+    int i=0;
     list<Commento>::iterator iter; 
-  	for(iter = lista_commenti.begin(); iter != lista_commenti.end(); iter++){
-  	  cout << "Commento #" << ++i << endl;
-  	  iter->visualizza_commento();
+    for(iter = lista_commenti.begin(); iter != lista_commenti.end(); iter++){
+      cout << "Commento #" << ++i << endl;
+      iter->visualizza_commento();
     }
   }
 
@@ -141,7 +141,7 @@ void Post::visualizza_post(){
   } else {
     map<string,Utente*>::iterator iter_listalike;
     cout << "Utenti a cui piace questo post:" << endl;
-  	for (iter_listalike = lista_likes.begin(); iter_listalike != lista_likes.end(); iter_listalike++) {
+    for (iter_listalike = lista_likes.begin(); iter_listalike != lista_likes.end(); iter_listalike++) {
       cout << " " << iter_listalike->second->get_cognome() << " ";
       cout << iter_listalike->second->get_nome() << endl;
     }
@@ -168,7 +168,7 @@ void Post::commenta_post(Utente* autore){
   system("CLS");
 	
   switch(s){
-  	case 0:
+    case 0:
       // Torna alla schermata iniziale
       cout << "Pubblicazione del commento annullata!" << endl << endl;
       return;
@@ -223,7 +223,7 @@ void Post::aggiungi_like(Utente* autore){
     // Aggiunge l'utente alla lista dei like del post, utilizzando la mail come key
     lista_likes.insert( pair<string,Utente*> (autore->get_email(), autore) );
 
-  	// Scrittura su file
+    // Scrittura su file
     stringstream convert;
     convert << id_post;
 
@@ -232,11 +232,11 @@ void Post::aggiungi_like(Utente* autore){
     ofstream file;
     file.open(path.c_str(), ios::app);
 
-  	// Controllo apertura corretta file
-  	if(!file){ cerr << "Errore apertura file!" << endl; return;}
+    // Controllo apertura corretta file
+    if(!file){ cerr << "Errore apertura file!" << endl; return;}
   	
-  	// Stampa su file
-  	file << autore->get_email() << endl;  
+    // Stampa su file
+    file << autore->get_email() << endl;  
     file.close();
 
     system("CLS"); 
@@ -306,7 +306,7 @@ void Post::rimuovi_like(Utente* autore){
 // Inserisce la coppia passata all'interno della lista di likes
 // Usato per importare likes degli utenti da file nelle loro liste
 void Post::popola_lista_likes( pair<string, Utente* > pair ){
-	lista_likes.insert( pair );	
+  lista_likes.insert( pair );	
 }
 
 // Controlla se l'utente specificato ha messo o meno il proprio "mi piace" al post

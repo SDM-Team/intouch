@@ -18,15 +18,15 @@ int inputInt(int min, int max){
   	
     // Controllo input non-int
     while (true) {
-  	  cin.clear();
-  	  getline(cin, input);
-  			
-   	  // Questo codice converte da stringa a int in modo sicuro
-   	  stringstream myStream(input);
+      cin.clear();
+      getline(cin, input);
+
+      // Questo codice converte da stringa a int in modo sicuro
+      stringstream myStream(input);
       if (myStream >> t) {
         break;
       }
-   	  cerr << "Errore: numero non valido;" << endl;
+      cerr << "Errore: numero non valido;" << endl;
       cout << "Reinserire: ";
     }
     
@@ -118,7 +118,7 @@ string inputEmail(int max){
       break;	
     }
   }
-	return s;  
+  return s;  
 }
 
 string inputPassword(int max){
@@ -130,9 +130,9 @@ string inputPassword(int max){
     
     // Se invio gestisco eventuali errori
     if( c == '\r' ){
-	    // Errore se password vuota -> s.size() == 0
-	    if( s.empty() ){
-	      cerr << endl << "Errore: inserita password vuota;" << endl;
+      // Errore se password vuota -> s.size() == 0
+      if( s.empty() ){
+        cerr << endl << "Errore: inserita password vuota;" << endl;
         cout << "Reinserire password: ";
         s="";
       }
@@ -144,12 +144,12 @@ string inputPassword(int max){
       }
       // Errore se viene inserito carattere delimitatore per CSV (tab)
       else if( s.find( "\t" ) != string::npos ){ 
-  	    cerr << "Errore: la stringa contiene caratteri non validi (tab);" << endl;
+        cerr << "Errore: la stringa contiene caratteri non validi (tab);" << endl;
         cout << "Reinserire: "; 
-  	  }
+      }
       // Smette input se premi invio e la password è valida
       else {
-  	    return s;
+        return s;
       }
     }
     
@@ -158,15 +158,15 @@ string inputPassword(int max){
       // Controllo che la stringa contenga qualcosa prima di cancellare
       if(s.size() > 0){
         cout << char(8);
-  	    // Cancello un asterisco da schermo
-  	    cout<<" ";
-  	    cout << char(8);
-  	    s = s.substr( 0, (s.size() - 1) ); // Tronca la stringa al carattere precedente
+        // Cancello un asterisco da schermo
+        cout<<" ";
+        cout << char(8);
+        s = s.substr( 0, (s.size() - 1) ); // Tronca la stringa al carattere precedente
       }
     }
 	
     // Controllo che la stringa non sia piena
-  	else if( s.size() >= max_chars ) {
+    else if( s.size() >= max_chars ) {
       cerr << endl << "Errore: inseriti piu' di "<<max<<" caratteri;" << endl;
       cout << "Reinserire password: ";
       s="";

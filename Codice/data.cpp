@@ -108,9 +108,9 @@ void Data::imposta_data(){
       if(_giorno <= 30 && (_mese == 4 || _mese == 6 || _mese == 9 || _mese == 11) ) { break; }
 
       // Controllo anni bisestili e controllo standard su febbraio
-	    if(_giorno == 29 && _mese == 2 && (_anno % 400 == 0 || (_anno % 100 != 0 && _anno % 4 == 0)) ) { break; }
-	    if(_giorno <=28 && _mese == 2) { break; }
-	  }
+      if(_giorno == 29 && _mese == 2 && (_anno % 400 == 0 || (_anno % 100 != 0 && _anno % 4 == 0)) ) { break; }
+      if(_giorno <=28 && _mese == 2) { break; }
+    }
 	
     // Se non è una data valida si ripete l'input
     cerr << "La data inserita non e' valida! Reinserire." << endl << endl;

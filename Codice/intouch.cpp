@@ -513,8 +513,8 @@ void InTouch::importa_commenti(string _autore, int id_post) {
       id_c = id + 1;
     }
   } else { // se non riesco ad aprire il file
-	  cerr << "Errore import commenti!" << endl;	
-	}
+    cerr << "Errore import commenti!" << endl;	
+  }
 
   // Chiudo il file
   file_c.close();
@@ -679,10 +679,10 @@ void InTouch::importa_amicizie() {
         id_a = id + 1;
       }
     } else { // se non riesce ad aprire il file
-	    cerr << "Errore import amicizia!" << endl;	
-	}
+      cerr << "Errore import amicizia!" << endl;	
+    }
 	  
-	// Chiude il file
+    // Chiude il file
     file.close();
   }
 }
