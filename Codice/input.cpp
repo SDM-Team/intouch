@@ -53,17 +53,17 @@ string inputString(int max){
     } else if( s.empty() ){
 	  cerr<<"Errore: inserita stringa vuota; "<<endl;
       cout<<"Reinserire:";
-	} else if( s[0] == char(32) ){
+    } else if( s[0] == char(32) ){
 	  cerr << "Errore: la stringa non puo' iniziare con uno spazio;" << endl;
       cout << "Reinserire: ";
-	} else if( s.find( "\t" ) != string::npos ){ 
+    } else if( s.find( "\t" ) != string::npos ){ 
 	  cerr << "Errore: la stringa contiene caratteri non validi (tab);" << endl;
       cout << "Reinserire: "; 
-	} else {
+    } else {
       break;	
     }
   }
-	return s;  	
+  return s;  	
 }
 
 string inputEmail(int max){
