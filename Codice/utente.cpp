@@ -478,7 +478,7 @@ void Utente::visualizza_bacheca_generale() {
       cout << "Per commentare il post selezionato premi 1" << endl;
       cout << "Per";
     
-      if (get_bacheca()->get_listapost()->find(s)->second.check_like(get_email())) {
+      if (lista_post_amici.find(s)->second->check_like(get_email())) {
         cout << " togliere ";
       } else {
         cout << " mettere ";
