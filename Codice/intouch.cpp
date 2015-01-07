@@ -50,8 +50,8 @@ void InTouch::schermata_autenticazione() {
     cout << "3. Chiudi applicazione" << endl;
     cout << "4. Reset applicazione" << endl;
        
- 	s = inputInt(1,4);
-	system("CLS");
+    s = inputInt(1,4);
+    system("CLS");
 	
     switch (s) {
       case 1:
@@ -193,10 +193,14 @@ void InTouch::aggiungi_utente(const Utente& u) {
   mkdir(path.c_str());
 
   // Creazione file di default
-  // File profilo
+  // FILE PROFILO
   string path1 = path + "/" + nome_file_profilo;
   ofstream profilo(path1.c_str(), ios::out);
-  if(!profilo){cerr<<"Errore apertura file!"<<endl;}
+  
+  // Controllo corretta apertura file
+  if(!profilo){ cerr << "Errore apertura file!" << endl; }
+  
+  // Scrittura stringhe di default
   profilo << "ND" << "\t";
   profilo << "ND" << "\t";
   profilo << "ND" << "\t";
@@ -204,10 +208,14 @@ void InTouch::aggiungi_utente(const Utente& u) {
   profilo << "ND" << endl;
   profilo.close();
 
-  // File amicizie
+  // FILE AMICIZIE
   path1 = path + "/" + nome_file_amicizie;
   ofstream amicizie(path1.c_str(), ios::out);
-  if(!amicizie){cerr<<"Errore apertura file!"<<endl;}
+  
+  // Controllo corretta apertura file
+  if(!amicizie){ cerr << "Errore apertura file!" << endl; }
+  
+  // Scrittura stringhe di default
   amicizie << "";
   amicizie.close();
 }
@@ -323,7 +331,7 @@ void InTouch::importa_utenti() {
       // Quinto token: Password
       string password = strtok (NULL,"\n");
 
-      // CReazione istanza di utente con i parametri letti da file
+      // Creazione istanza di utente con i parametri letti da file
       Utente u(nome,cognome,email,password);
 
       // Inserimento utente nella lista degli utenti, con l'id come key
@@ -335,12 +343,18 @@ void InTouch::importa_utenti() {
 
       // Aggiorna l'id utente univoco in modo tale da riprendere la numerazione dall'ultimo esistente
       id_u = id_utente + 1;
-	}
+    }
   } else { // se non riesce ad aprire il file, reset utenti.tsv
-	string path = path_files + nome_file_utenti;
+    string path = path_files + nome_file_utenti;
     ofstream file(path.c_str(), ios::out);
-    if(!file){cerr<<"Errore apertura file!"<<endl;}
+    
+    // Messaggio di errore
+    if(!file){ cerr << "Errore apertura file!" << endl; }
+    
+    // Reset file
     file << "";
+    
+    // Chiusura flusso su file
     file.close();
   }
 	
@@ -417,9 +431,13 @@ void InTouch::importa_post() {
       id_p = id_post + 1;
     }
   } else { // se non riesce ad aprire il file, reset post.tsv
-	string path = path_files + nome_file_post;
+    string path = path_files + nome_file_post;
     ofstream file(path.c_str(), ios::out);
-    if(!file){cerr<<"Errore apertura file!"<<endl;}
+    
+    // Messaggio di errore
+    if(!file){ cerr << "Errore apertura file!" << endl; }
+    
+    // Reset file
     file << "";
     file.close();	
   }
@@ -474,13 +492,13 @@ void InTouch::importa_commenti(string _autore, int id_post) {
       // Token testo
       string testo = strtok (NULL,"\n");
 
-      // CReo un'istanza di data con i parametri letti da file
+      // Creo un'istanza di data con i parametri letti da file
       Data temp(giorno,mese,anno,ora,minuti);
 
       // Trovo l'utente autore del commento nella lista utenti
       iter_autore_commento = lista_utenti.find(autore);
      	
-      // CReo un'istanza di commento con i dati letti da file
+      // Creo un'istanza di commento con i dati letti da file
       Commento c(id,&(iter_autore_commento->second),temp,testo);
 
       map<int,Post>::iterator iter_post;
@@ -518,12 +536,12 @@ void InTouch::importa_likes(string _autore, int id_post){
     // Trovo l'utente autore del post nella lista utenti
     iter_autore_post = lista_utenti.find(_autore);
     
-	map<int,Post>::iterator iter_post;
+    map<int,Post>::iterator iter_post;
 	  
-	// Trovo il post il cui id è stato passato come parametro
-	iter_post = iter_autore_post->second.get_bacheca()->get_listapost()->find(id_post);
+    // Trovo il post il cui id è stato passato come parametro
+    iter_post = iter_autore_post->second.get_bacheca()->get_listapost()->find(id_post);
 	  
-	map<string,Utente>::iterator iter_autore_like;
+    map<string,Utente>::iterator iter_autore_like;
 
     char linea[MAXLUN+1];
 
@@ -535,8 +553,8 @@ void InTouch::importa_likes(string _autore, int id_post){
       iter_autore_like = lista_utenti.find(_email);
       
       // Aggiungo i like relativi al determinato post nella lista di likes relativa al post in questione
-	  iter_post->second.popola_lista_likes( pair<string,Utente*> (_email, &(iter_autore_like->second )) );
-	}	
+      iter_post->second.popola_lista_likes( pair<string,Utente*> (_email, &(iter_autore_like->second )) );
+    }	
   } else { // se non riesce ad aprire il file
     cerr << "Errore import likes!" << endl;	
   }
@@ -562,7 +580,7 @@ void InTouch::importa_profilo() {
       while (!file.getline(linea,((MAXLUN*4)+21)).eof()) {
 
         // Token sesso
-    	string t_sesso = strtok(linea,"\t");
+        string t_sesso = strtok(linea,"\t");
     	  
         // Token professione
       	string t_professione = strtok(NULL,"\t");
@@ -574,7 +592,7 @@ void InTouch::importa_profilo() {
    	    int t_giorno_nascita = atoi(strtok(NULL,"/"));
    	    
         // Token mese nascita
-    	int t_mese_nascita = atoi(strtok(NULL,"/"));
+        int t_mese_nascita = atoi(strtok(NULL,"/"));
     	  
         // Token anno nascita
       	int t_anno_nascita = atoi(strtok(NULL,"\t"));
@@ -592,12 +610,12 @@ void InTouch::importa_profilo() {
       	Data d(t_giorno_nascita, t_mese_nascita, t_anno_nascita);
       	iter->second.get_profilo()->set_datanasc_par(d);
       }
-	} else { // se non riesce d prire il file
-	  cerr << "Errore import profilo!" << endl;	
-	}
+    } else { // se non riesce d prire il file
+      cerr << "Errore import profilo!" << endl;	
+    }
 	  
-	// Chiude il file
-	file.close();
+    // Chiude il file
+    file.close();
   }
 }
 

@@ -2,7 +2,7 @@
 #include "amicizia.h"	/* Libreria di riferimento 				*/
 #include "config.h"		/* Definizione variabili globali 		*/
 
-//Costruttore specifico amicizia (passati puntatore ad utente e ruolo)
+// Costruttore specifico amicizia (passati puntatore ad utente e ruolo)
 Amicizia::Amicizia(Utente* _u, Ruolo _r) {
   id_amicizia = id_a;
   utente = _u;

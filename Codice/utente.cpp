@@ -111,7 +111,7 @@ void Utente::schermata_iniziale(map<string,Utente>* lista_utenti_p) {
     cout << "6. Crea post" << endl;
     cout << "7. Logout" << endl;
 	
-	s = inputInt(1,7);
+    s = inputInt(1,7);
       
     system("CLS");
     switch (s) {
@@ -121,7 +121,7 @@ void Utente::schermata_iniziale(map<string,Utente>* lista_utenti_p) {
         break;
       case 2:
         // Visualizzazione bacheca generale (post amici)
-    	visualizza_bacheca_generale();
+        visualizza_bacheca_generale();
         break;
       case 3:
         // Visualizzazione propria bacheca
@@ -177,11 +177,11 @@ void Utente::visualizza_profilo(){
     switch(s){
       case 0:
       	//ritorna alla schermata iniziale
-		return;
+        return;
       case 1: 
         // Modifica profilo
-		modifica_profilo();
-		break;          
+        modifica_profilo();
+        break;          
     }
   } while(s!=0);
 }
@@ -227,7 +227,7 @@ void Utente::modifica_profilo(){
     case 0:
       // Ritorno alla visualizzazione del profilo
   	  system("CLS");
-	  return;
+      return;
     case 1:
       // Modifica sesso
       cout << "Inserire Sesso (max " << MAXLUN << " caratteri): ";
@@ -285,7 +285,7 @@ void Utente::modifica_profilo(){
   system("CLS");
 }
 
-//Bacheca
+// Bacheca
 void Utente::visualizza_bacheca() {
   map<int,Post>::reverse_iterator iter;
   int s = 0;
@@ -319,7 +319,8 @@ void Utente::visualizza_bacheca() {
     } while( piter == get_bacheca()->get_listapost()->end() );   
     
     system("CLS");
-	do { // Ciclo per tornare a visualizzazione post dopo aver commentato o messo mi piace
+    
+    do { // Ciclo per tornare a visualizzazione post dopo aver commentato o messo mi piace
       // Se viene selezionato un post in particolare, lo visualizza in modo dettagliato
 	  
   	  get_bacheca()->get_listapost()->find(s)->second.visualizza_post();
@@ -337,19 +338,19 @@ void Utente::visualizza_bacheca() {
       p = inputInt(0,2);
 
    	  switch(p){
-    	case 0: 
+        case 0: 
           // Ritorno alla bacheca completa
-    	  system("CLS");
-    	  break;
-     	case 1:
+          system("CLS");
+          break;
+        case 1:
           // Aggiunta commento al post
           get_bacheca()->get_listapost()->find(s)->second.commenta_post(this);
-	      break;
-    	case 2:
+          break;
+        case 2:
           // Aggiunta like al post
           get_bacheca()->get_listapost()->find(s)->second.aggiungi_like(this);
-	      break;
-	  }
+          break;
+      }
     } while (p!=0);
   } while (true);
 }
@@ -388,11 +389,12 @@ void Utente::visualizza_bacheca_amico(Utente* u){
     } while( piter == get_bacheca()->get_listapost()->end() );   
     
     system("CLS");
-	do { // Ciclo per tornare a visualizzazione post dopo aver commentato o messo mi piace
+    
+    do { // Ciclo per tornare a visualizzazione post dopo aver commentato o messo mi piace
       // Se viene selezionato un post in particolare, lo visualizza in modo dettagliato
 	  
   	  get_bacheca()->get_listapost()->find(s)->second.visualizza_post();
-	  cout << "Per commentare il post selezionato premi 1" << endl;
+      cout << "Per commentare il post selezionato premi 1" << endl;
   	  cout << "Per";
     
       if (get_bacheca()->get_listapost()->find(s)->second.check_like(u->get_email())) {
@@ -406,17 +408,17 @@ void Utente::visualizza_bacheca_amico(Utente* u){
       p = inputInt(0,2);
 
       switch(p){
-  		case 0: 
+        case 0: 
           // Ritorno alla bacheca completa
-  		  system("CLS");
-  		  break;
-     	case 1:
+          system("CLS");
+          break;
+        case 1:
           // Aggiunta commento al post
           get_bacheca()->get_listapost()->find(s)->second.commenta_post(u);
-  		  break;
-  		case 2:
+          break;
+        case 2:
           // Aggiunta like al post
-  		  system("CLS");
+          system("CLS");
           get_bacheca()->get_listapost()->find(s)->second.aggiungi_like(u);
   	      break;
   	  }
@@ -491,14 +493,14 @@ void Utente::visualizza_bacheca_generale() {
           // Ritorno alla bacheca generale completa        
           system("CLS");
           break;	
-     	case 1:
+        case 1:
           // Aggiunta commento al post
           lista_post_amici.find(s)->second->commenta_post(this);
-    	  break;
-    	case 2:
+          break;
+        case 2:
           // Aggiunta like al post
           lista_post_amici.find(s)->second->aggiungi_like(this);
-    	  break;
+          break;
    	  }
     } while( p!=0 );
   } while(true); 
@@ -519,8 +521,8 @@ void Utente::visualizza_contenuto_amici(){
       if (iter->second.get_status() == A) {
         cout << "#" << iter->first <<" - ";
         cout << iter->second.get_utente()->get_cognome() << " ";
-		cout << iter->second.get_utente()->get_nome() << " (";
-		cout << iter->second.get_utente()->get_email() << ")" << endl;
+        cout << iter->second.get_utente()->get_nome() << " (";
+        cout << iter->second.get_utente()->get_email() << ")" << endl;
         count++;
       }
       // Altrimenti continuo a scorrere la lista amicizie 
@@ -548,15 +550,15 @@ void Utente::visualizza_contenuto_amici(){
       // Se non lo trovo, stampo "Non è amico"
       if(iter == lista_amicizie.end()) {cerr << "Non e' tuo amico! Riseleziona: ";}                              
     } while(iter == lista_amicizie.end()); // Continuo finchè non viene selezionato un amico
-	system("CLS");
+    system("CLS");
     do { // Ciclo per tornare al menu di selezione dopo aver visualizzato bacheca o profilo
       
-	  cout << "#" << iter->first << " - ";
-	  cout << iter->second.get_utente()->get_nome() << " ";
-	  cout << iter->second.get_utente()->get_cognome() << " (";
-	  cout << iter->second.get_utente()->get_email() << ")" << endl << endl;
+      cout << "#" << iter->first << " - ";
+      cout << iter->second.get_utente()->get_nome() << " ";
+      cout << iter->second.get_utente()->get_cognome() << " (";
+      cout << iter->second.get_utente()->get_email() << ")" << endl << endl;
 	
-	  // Menù di scelta         
+      // Menù di scelta         
       cout << "Per visualizzare la sua bacheca premi 1" << endl;
       cout << "Per visualizzare il suo profilo premi 2" << endl;
       cout << "Per tornare alla selezione dell'amico premi 3" << endl;
@@ -581,7 +583,7 @@ void Utente::visualizza_contenuto_amici(){
           // Torno alla schermata iniziale
           return;                    
       }
-	} while(t!=0 && t!=3);
+    } while(t!=0 && t!=3);
   } while (t!=0); // Continuo finchè t=0         
 }
 
@@ -652,7 +654,7 @@ void Utente::gestisci_amicizie(map<string,Utente>* lista_utenti_p) {
       	// Visualizzo lista amici
       	visualizza_amici();
       	break;
-	}
+    }
   } while (s != 0); // Continuo finchè s!=0
   system("CLS");
 }
@@ -674,44 +676,44 @@ void Utente::richiedi_amicizia(map<string,Utente>* lista_utenti_p){
     }
 	
     // Mostro elenco tutti utenti a cui è possibile richiedere l'amicizia
-	cout << "Lista utenti a cui puoi richiedere l'amicizia:" << endl << endl;
-	for(iter = lista_utenti_p->begin(); iter != lista_utenti_p->end(); iter++){
+    cout << "Lista utenti a cui puoi richiedere l'amicizia:" << endl << endl;
+    for(iter = lista_utenti_p->begin(); iter != lista_utenti_p->end(); iter++){
   	  // Controllo se è l'utente stesso
-	  if (email == iter->first) {
+      if (email == iter->first) {
         continue;
       } else {
         // Controllo se richiesta già effettuata (accettata, in corso, rifiutata)
   	    map<int,Amicizia>::iterator piter;
-	    int check = 0;
+        int check = 0;
   	    for (piter = lista_amicizie.begin(); piter != lista_amicizie.end(); piter++) {
     	    if (piter->second.get_utente()->get_email() == iter->first) {
     	      // Se email utente da lista utenti = email amico lista amici
      	      check = 1;
     	    }
-  		}
+        }
 		
-		// Se l'utente non è già amico o con una richiesta, lo stampo e inserisco nella lista provvisoria
-  		if(check != 1) {
-		  cout << "#" << iter->second.get_idutente() << " - ";
+        // Se l'utente non è già amico o con una richiesta, lo stampo e inserisco nella lista provvisoria
+        if(check != 1) {
+          cout << "#" << iter->second.get_idutente() << " - ";
           cout << iter->second.get_cognome() << " " << iter->second.get_nome() << endl;
           lista_amicizie_richiedibili.insert(pair<int,Utente*> (iter->second.get_idutente(), &iter->second));		  
-		}
+        }
       }
     }
 	
     // Se non ci sono amici a cui è possibile chiedere l'amicizia, lo stampo
-	if (lista_amicizie_richiedibili.size() == 0) {
+    if (lista_amicizie_richiedibili.size() == 0) {
       system("CLS");
       cout << "Nessun utente a cui chiedere l'amicizia!" << endl << endl;
       return;
     }
     cout << endl;
-	cout << "Seleziona utente a cui chiedere l'amicizia," << endl;
-	cout << "Premi 0 per tornare alla schermata precedente" << endl;
+    cout << "Seleziona utente a cui chiedere l'amicizia," << endl;
+    cout << "Premi 0 per tornare alla schermata precedente" << endl;
 	  
-	// Controllo se l'utente può chiedere l'amicizia a quello selezionato
-	do {
-	  s = inputInt(0,lista_utenti_p->size());
+    // Controllo se l'utente può chiedere l'amicizia a quello selezionato
+    do {
+      s = inputInt(0,lista_utenti_p->size());
   	  if(s == 0) {system("CLS"); return;}
       iter_lar = lista_amicizie_richiedibili.find(s);
       if( iter_lar == lista_amicizie_richiedibili.end() ) {
@@ -721,19 +723,19 @@ void Utente::richiedi_amicizia(map<string,Utente>* lista_utenti_p){
   	} while(iter_lar == lista_amicizie_richiedibili.end() );
 
     // Creo amicizia fittizia da inserire nella lista del mittente
-	Amicizia mitt(iter_lar->second, MITTENTE);
+    Amicizia mitt(iter_lar->second, MITTENTE);
 	  
-	// Inserisco amicizia nella lista del mittente
-	lista_amicizie.insert( pair<int,Amicizia> (id_a,mitt) );
+    // Inserisco amicizia nella lista del mittente
+    lista_amicizie.insert( pair<int,Amicizia> (id_a,mitt) );
 	 
     string path = path_files_u + email.c_str() + "/" + nome_file_amicizie;
     
     // Apro file mittente
-	ofstream file;
-	file.open(path.c_str(), ios::app);
+    ofstream file;
+    file.open(path.c_str(), ios::app);
 
-	// Controllo apertura corretta file
-	if(!file){ cerr<< "Errore apertura file!"; return;}
+    // Controllo apertura corretta file
+    if(!file){ cerr<< "Errore apertura file!"; return;}
   
     // Stampo su file
     file << id_a << "\t";
@@ -754,11 +756,11 @@ void Utente::richiedi_amicizia(map<string,Utente>* lista_utenti_p){
   	file.open(path.c_str(), ios::app);
 	  
     // Controllo apertura corretta file
-	if(!file){ cerr<< "Errore apertura file!"; return;}
+    if(!file){ cerr<< "Errore apertura file!"; return;}
   	file << id_a << "\t";
     file << email << "\t"; 
   	file << "X" << "\t";
-	file << "DESTINATARIO" << endl;
+    file << "DESTINATARIO" << endl;
 	     
     // Chiudo file destinatario
     file.close();
@@ -787,12 +789,12 @@ void Utente::accetta_rifiuta_amicizia(){
     // Scorro lista di amicizie
     for(iter = lista_amicizie.begin(); iter != lista_amicizie.end(); iter++){
       // Trovata richiesta in corso
-	  if( iter->second.get_status() == X && iter->second.get_ruolo() == DESTINATARIO){
-	  	cout << "#" << iter->second.get_idamicizia();
-		cout << " - " << iter->second.get_utente()->get_cognome();
-	  	cout << " " << iter->second.get_utente()->get_nome() << endl;
-	  	richieste_amicizia.insert( pair<int,Amicizia> (iter->second.get_idamicizia(),iter->second) );
-	  }
+      if( iter->second.get_status() == X && iter->second.get_ruolo() == DESTINATARIO){
+        cout << "#" << iter->second.get_idamicizia();
+        cout << " - " << iter->second.get_utente()->get_cognome();
+        cout << " " << iter->second.get_utente()->get_nome() << endl;
+        richieste_amicizia.insert( pair<int,Amicizia> (iter->second.get_idamicizia(),iter->second) );
+      }
     }
     
     // Controllo se non ci sono richieste
@@ -800,20 +802,20 @@ void Utente::accetta_rifiuta_amicizia(){
       system("CLS");
       cout << "Nessuna richiesta in attesa!" << endl << endl;
       return;
-	}
+    }
     
     cout << endl;
     cout << "Seleziona utente del quale accettare o rifiutare l'amicizia," << endl;
     cout << "Premi 0 per tornare alla schermata precedente" << endl;
     
     do { // Controllo input finché non si sceglie un'amicizia da accettare/rifiutare valida
-	  s = inputInt(0, (id_a-1) );
+      s = inputInt(0, (id_a-1) );
       if( s == 0 ) {system("CLS"); return;}
   	  iter_ra = richieste_amicizia.find(s);
   	  if( iter_ra == richieste_amicizia.end() ){
-		cerr << "Richiesta non trovata!" << endl;
-		cout << "Reinserire: ";
-	  }
+        cerr << "Richiesta non trovata!" << endl;
+        cout << "Reinserire: ";
+      }
   	} while( iter_ra == richieste_amicizia.end() );
 
     string e = "R";
@@ -826,14 +828,14 @@ void Utente::accetta_rifiuta_amicizia(){
   	cout << "Accettare o rifiutare l'amicizia (A/R)?";
   	  
     do { // Destino dell'amicizia selezionata
-	  e = inputString(1);
+      e = inputString(1);
   	  if (e == "A" || e == "a") { status = A; }
   	  else if (e == "R" || e == "r") { status = R; }
   	  else {
   	    cerr << "Comando non valido!" << endl;
-	    cout << "Inserire \"A\" per accettare o \"R\" per rifiutare: ";	
- 	  }
- 	} while ((e != "A") && (e != "a") && (e != "R") && (e != "r"));
+        cout << "Inserire \"A\" per accettare o \"R\" per rifiutare: ";	
+      }
+    } while ((e != "A") && (e != "a") && (e != "R") && (e != "r"));
 	
     int keep_id = iter_ra->second.get_idamicizia();
   	  
@@ -846,15 +848,16 @@ void Utente::accetta_rifiuta_amicizia(){
     
     if( iter_mit != iter_ra->second.get_utente()->get_listaamicizie()->end() ){
       // Se la trovo cancello quella vecchia e inserisco quella aggiornata
-	  iter_ra->second.get_utente()->get_listaamicizie()->erase(iter_mit);
+      iter_ra->second.get_utente()->get_listaamicizie()->erase(iter_mit);
   	  iter_ra->second.get_utente()->get_listaamicizie()->insert( pair<int,Amicizia> (keep_id,mitt) );
-	} else {
+    } else {
       // Altrimenti stampo un messaggio di errore
-	  system("CLS");
-	  cerr << "Richiesta non trovata!" << endl << endl;
-	  continue;
+      system("CLS");
+      cerr << "Richiesta non trovata!" << endl << endl;
+      continue;
     }
-	char linea[11+MAXLUN+17];
+	
+    char linea[11+MAXLUN+17];
     string path = path_files_u + (iter_ra->second.get_utente()->get_email()).c_str() + "/" + nome_file_amicizie;
     string path_copia = path_files_u + (iter_ra->second.get_utente()->get_email()).c_str() + "/" + "copia_" + nome_file_amicizie;
       
@@ -867,7 +870,7 @@ void Utente::accetta_rifiuta_amicizia(){
 
     // Apro file standard
     ifstream file2;
- 	file2.open(path.c_str(), ios::in);
+    file2.open(path.c_str(), ios::in);
 
     // Controllo apertura corretta file
     if(!file2){ cerr<< "Errore apertura file!"; return;}
@@ -886,15 +889,15 @@ void Utente::accetta_rifiuta_amicizia(){
         
       // Aggiorno l'amicizia da accettare o rifiutare
       if(_id == keep_id) { 
-	    if(status == A) { _s = "A"; }
+        if(status == A) { _s = "A"; }
         else if(status == R) { _s = "R"; }
-	  }
+      }
         
       // Riscrivo le amicizie nel file di copia aggiornando lo stato di quella in questione
       file_copia << _id << "\t";
-	  file_copia << _utente << "\t";
-	  file_copia << _s << "\t";
-	  file_copia << _r << endl;
+      file_copia << _utente << "\t";
+      file_copia << _s << "\t";
+      file_copia << _r << endl;
     }	
  
     // Chiudo i file
@@ -909,29 +912,29 @@ void Utente::accetta_rifiuta_amicizia(){
 
     // UTENTE DESTINATARIO
     // Creo amicizia fittizia con status aggiornato da inserire nella lista del destinatario
-	Amicizia dest(keep_id,iter_ra->second.get_utente(),status,DESTINATARIO);
+    Amicizia dest(keep_id,iter_ra->second.get_utente(),status,DESTINATARIO);
 	  
-	// Cerco la richiesta in questione nella lista del destinatario
-	iter_ra = lista_amicizie.find(s);
-	if(iter_ra != lista_amicizie.end() ) {
+    // Cerco la richiesta in questione nella lista del destinatario
+    iter_ra = lista_amicizie.find(s);
+    if(iter_ra != lista_amicizie.end() ) {
       // Se la trovo cancello quella preesistente e inserisco quella aggiornata
   	  lista_amicizie.erase(iter_ra);
   	  lista_amicizie.insert( pair<int,Amicizia> (keep_id,dest) );
-	} else {
+    } else {
       // Se non la trovo stampo un messaggio di errore
-	  system("CLS");
-	  cout << "Richiesta non trovata!" << endl << endl;
-	  continue;
-	}
+      system("CLS");
+      cout << "Richiesta non trovata!" << endl << endl;
+      continue;
+    }
     
     path = path_files_u + email.c_str() + "/" + nome_file_amicizie;
     path_copia = path_files_u + email.c_str() + "/" + "copia_" + nome_file_amicizie;
       
     // Apro il file di copia
-	file_copia.open(path_copia.c_str(), ios::out);
+    file_copia.open(path_copia.c_str(), ios::out);
   
   	// Controllo apertura corretta file
-	if(!file_copia){ cerr<< "Errore apertura file!"; return;}
+    if(!file_copia){ cerr<< "Errore apertura file!"; return;}
 
     // Apro il file standard
   	ifstream file;
@@ -955,14 +958,14 @@ void Utente::accetta_rifiuta_amicizia(){
       // Aggiorno l'amicizia da accettare o rifiutare
       if(_id == keep_id) { 
         if(status == A) { _s = "A"; }
-		else if(status == R) { _s = "R"; }
-	  }
+        else if(status == R) { _s = "R"; }
+      }
 
       // Riscrivo sul file di copia le amicizie preesistenti aggiornando lo status di quella in questione
       file_copia << _id << "\t";
   	  file_copia << _utente << "\t";
-	  file_copia << _s << "\t";
-	  file_copia << _r << endl;
+      file_copia << _s << "\t";
+      file_copia << _r << endl;
     }	
  
     // Chiudo i file
@@ -978,9 +981,9 @@ void Utente::accetta_rifiuta_amicizia(){
 	  // Stampo un messaggio di conferma
     system("CLS");
     cout << "Amicizia ";
-	if(status == A) { cout << "accettata"; }
-	else if(status == R) { cout << "rifiutata"; }
-	cout<<" correttamente!" << endl << endl;
+    if(status == A) { cout << "accettata"; }
+    else if(status == R) { cout << "rifiutata"; }
+    cout<<" correttamente!" << endl << endl;
       
     return;
   } while(true);
@@ -1017,7 +1020,7 @@ void Utente::cancella_amicizia(){
   cout << "Premi 0 per tornare alla schermata precedente" << endl;
 	
   do { // Controllo input fino ad amicizia valida
-	s = inputInt( 0, (id_a-1) );
+    s = inputInt( 0, (id_a-1) );
   	if( s == 0 ) { system("CLS"); return; }
   	iter_ra = lista_amicizie.find(s);
     if( iter_ra == lista_amicizie.end() ) {
@@ -1052,7 +1055,7 @@ void Utente::cancella_amicizia(){
   	iter_ra->second.get_utente()->get_listaamicizie()->insert( pair<int,Amicizia> (keep_id,mitt) );
   } else {
     system("CLS");
-	cerr << "Errore allineamento amicizie!" << endl << endl;
+    cerr << "Errore allineamento amicizie!" << endl << endl;
   	return;
   }
 
@@ -1093,7 +1096,7 @@ void Utente::cancella_amicizia(){
       
     // Scrivo sul file di copia le amicizie preesistenti aggiornando lo status di quella in questione  
     file_copia << _id << "\t";
-	file_copia << _utente << "\t";
+    file_copia << _utente << "\t";
   	file_copia << _s << "\t";
   	file_copia << _r << endl;
   }

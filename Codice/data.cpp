@@ -5,13 +5,13 @@
 #include "data.h"		/* Libreria di riferimento 				*/
 #include "input.h"		/* inputInt								*/
 
-// Costruttore di default, inizializza data e ora ad un valore casuale
+// Costruttore di default, inizializza data e ora ad un valore di default
 Data::Data() {
   giorno = 1;
   mese = 1;
   anno = 0;
-    ore = 88;
-    minuti = 88;             
+  ore = 88; // inizializzo ore a valore di default
+  minuti = 88; // inizializzo minuti a valore di default
 }
 
 // Costruttore di copia
@@ -19,8 +19,8 @@ Data::Data(const Data& d){
   giorno = d.giorno;
   mese = d.mese;
   anno = d.anno;
-    ore = d.ore;
-    minuti = d.minuti;                 
+  ore = d.ore;
+  minuti = d.minuti;                 
 }
 
 // Costruttore specifico, solo per la data
@@ -28,8 +28,8 @@ Data::Data(int _g, int _m, int _a) {
   giorno = _g;
   mese = _m;
   anno = _a;  
-    ore = 88;
-    minuti = 88;
+  ore = 88;
+  minuti = 88;
 }
 
 // Costruttore specifico, per data e ora
@@ -37,8 +37,8 @@ Data::Data(int _g, int _m, int _a, int _o, int _min) {
   giorno = _g;
   mese = _m;
   anno = _a;  
-    ore = _o;
-    minuti = _min;
+  ore = _o;
+  minuti = _min;
 }
 
 // L'operatore << aggiunge anche uno zero se il numero è valido e < 10
@@ -66,7 +66,7 @@ ostream& operator << (ostream& os,const Data& d) {
       os << "0";
     }
     
-    os<<d.ore<<":";
+    os << d.ore << ":";
     
     // Se i minuti sono tra 0 e 9 aggiunge uno 0 prima
     if (d.minuti < 10) {
@@ -103,11 +103,11 @@ void Data::imposta_data(){
     if((_anno < temp.anno) ||	(_anno == temp.anno && _mese < temp.mese) ||
       (_anno == temp.anno && _mese == temp.mese && _giorno <= temp.giorno)) {
     
-        // Controllo validità giorni rispetto al mese
-	    if(_giorno <= 31 && (_mese == 1 || _mese == 3 || _mese == 5 || _mese == 7 || _mese == 8 || _mese == 10 || _mese == 12) ){ break;}    
-        if(_giorno <= 30 && (_mese == 4 || _mese == 6 || _mese == 9 || _mese == 11) ) { break; }
+      // Controllo validità giorni rispetto al mese
+      if(_giorno <= 31 && (_mese == 1 || _mese == 3 || _mese == 5 || _mese == 7 || _mese == 8 || _mese == 10 || _mese == 12) ){ break;}    
+      if(_giorno <= 30 && (_mese == 4 || _mese == 6 || _mese == 9 || _mese == 11) ) { break; }
 
-        // Controllo anni bisestili e controllo standard su febbraio
+      // Controllo anni bisestili e controllo standard su febbraio
 	    if(_giorno == 29 && _mese == 2 && (_anno % 400 == 0 || (_anno % 100 != 0 && _anno % 4 == 0)) ) { break; }
 	    if(_giorno <=28 && _mese == 2) { break; }
 	  }

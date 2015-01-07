@@ -80,7 +80,7 @@ void Post::visualizza_post_light() {
   if(author != NULL) {
     cout << author->get_cognome() << " ";
   	cout << author->get_nome() << " (";
-	cout << author->get_email() << ")" << endl;
+    cout << author->get_email() << ")" << endl;
   }
 
   // Stampa data e ora di pubblicazione
@@ -128,11 +128,11 @@ void Post::visualizza_post(){
     cout << "Nessun commento" << endl << endl;
   } else {
   	int i=0;
-	list<Commento>::iterator iter; 
+    list<Commento>::iterator iter; 
   	for(iter = lista_commenti.begin(); iter != lista_commenti.end(); iter++){
   	  cout << "Commento #" << ++i << endl;
   	  iter->visualizza_commento();
-	}
+    }
   }
 
   // Stampa likes del post
@@ -143,7 +143,7 @@ void Post::visualizza_post(){
     cout << "Utenti a cui piace questo post:" << endl;
   	for (iter_listalike = lista_likes.begin(); iter_listalike != lista_likes.end(); iter_listalike++) {
       cout << " " << iter_listalike->second->get_cognome() << " ";
-	  cout << iter_listalike->second->get_nome() << endl;
+      cout << iter_listalike->second->get_nome() << endl;
     }
   }
   cout << endl;
@@ -154,14 +154,14 @@ void Post::commenta_post(Utente* autore){
   int s = 0;
   string testo_commento;
   do {
-	cout << "Inserisci testo:" << endl;
+    cout << "Inserisci testo:" << endl;
 
-	// Controllo input MAXPOST
-	testo_commento = inputString(MAXPOST);
+    // Controllo input MAXPOST
+    testo_commento = inputString(MAXPOST);
 
-	cout << "Per confermare ed aggiungere il commento al post premi 2" << endl;
-	cout << "Per modificare il testo del commento premi 1" << endl;
-	cout << "Per annullare e tornare alla schermata precedente premi 0" << endl;
+    cout << "Per confermare ed aggiungere il commento al post premi 2" << endl;
+    cout << "Per modificare il testo del commento premi 1" << endl;
+    cout << "Per annullare e tornare alla schermata precedente premi 0" << endl;
 
     s = inputInt(0,2);
   } while(s == 1);
@@ -172,7 +172,7 @@ void Post::commenta_post(Utente* autore){
       // Torna alla schermata iniziale
       cout << "Pubblicazione del commento annullata!" << endl << endl;
       return;
-	case 2:
+    case 2:
       // Esce dallo switch ed aggiunge il commento
       break;
   }
@@ -221,19 +221,19 @@ void Post::aggiungi_like(Utente* autore){
   // Se non lo trova, aggiunge il like
   if( iter == lista_likes.end() ){
     // Aggiunge l'utente alla lista dei like del post, utilizzando la mail come key
-	lista_likes.insert( pair<string,Utente*> (autore->get_email(), autore) );
+    lista_likes.insert( pair<string,Utente*> (autore->get_email(), autore) );
 
   	// Scrittura su file
-	stringstream convert;
-  	convert << id_post;
+    stringstream convert;
+    convert << id_post;
 
     // Apre il file relativo al like del determinato post   
     string path = path_files_p + convert.str() + "/" + nome_file_likes;
-  	ofstream file;
-  	file.open(path.c_str(), ios::app);
+    ofstream file;
+    file.open(path.c_str(), ios::app);
 
   	// Controllo apertura corretta file
-  	if(!file){ cerr<< "Errore apertura file!"; return;}
+  	if(!file){ cerr << "Errore apertura file!" << endl; return;}
   	
   	// Stampa su file
   	file << autore->get_email() << endl;  
@@ -244,7 +244,7 @@ void Post::aggiungi_like(Utente* autore){
     // Messaggio di conferma
   	cout << "Liked!" << endl << endl; 
   } else { // se trova l'autore nella lista, rimuove il suo like
-	rimuovi_like(autore);	
+    rimuovi_like(autore);	
   }
 }
 

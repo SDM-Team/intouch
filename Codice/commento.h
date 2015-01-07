@@ -16,15 +16,15 @@ using namespace std;
 class Commento{
   private:
     int id_commento;
-	Data tempo;
-	string testo;
-	Utente* autore;
+    Data tempo;
+    string testo;
+    Utente* autore;
   public:		
     Commento(Utente* _autore, string _testo);
-	Commento(int _id, Utente* _autore, Data _tempo, string _testo);
-	Commento(const Commento& c);
+    Commento(int _id, Utente* _autore, Data _tempo, string _testo);
+    Commento(const Commento& c);
     Data get_tempo() const;
-	void visualizza_commento();
+    void visualizza_commento();
 };
 
 #endif
