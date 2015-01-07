@@ -53,7 +53,7 @@ string inputString(int max){
       //s = s.substr( 0, MAX_CHARS ) ; //per troncare
     } else if( s.empty() ){
       cerr<<"Errore: inserita stringa vuota; "<<endl;
-      cout<<"Reinserire:";
+      cout<<"Reinserire: ";
     } else if( s[0] == char(32) ){
       cerr << "Errore: la stringa non puo' iniziare con uno spazio;" << endl;
       cout << "Reinserire: ";
@@ -80,7 +80,7 @@ string inputEmail(int max){
       //s = s.substr( 0, MAX_CHARS ) ; //per troncare
     } else if( s.empty() ){
       cerr<<"Errore: inserita stringa vuota; "<<endl;
-      cout<<"Reinserire:";
+      cout<<"Reinserire: ";
     } else if( s[0] == char(32) ){
       cerr << "Errore: la stringa non puo' iniziare con uno spazio;" << endl;
       cout << "Reinserire: ";
