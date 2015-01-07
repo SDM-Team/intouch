@@ -78,42 +78,42 @@ string inputEmail(int max){
       cout<<"Reinserire: ";
       //s = s.substr( 0, MAX_CHARS ) ; //per troncare
     } else if( s.empty() ){
-	    cerr<<"Errore: inserita stringa vuota; "<<endl;
+	  cerr<<"Errore: inserita stringa vuota; "<<endl;
       cout<<"Reinserire:";
-	  } else if( s[0] == char(32) ){
-	    cerr << "Errore: la stringa non puo' iniziare con uno spazio;" << endl;
+	} else if( s[0] == char(32) ){
+	  cerr << "Errore: la stringa non puo' iniziare con uno spazio;" << endl;
       cout << "Reinserire: ";
-	  } else if( s.find( "\t" ) != string::npos ){ 
-	    cerr << "Errore: la stringa contiene caratteri non validi (tab);" << endl;
+	} else if( s.find( "\t" ) != string::npos ){ 
+	  cerr << "Errore: la stringa contiene caratteri non validi (tab);" << endl;
       cout << "Reinserire: "; 
-	  } else if( s.find( "\\" ) != string::npos ){ 
-	    cerr << "Errore: la stringa contiene caratteri non validi (\\);" << endl;
+	} else if( s.find( "\\" ) != string::npos ){ 
+	  cerr << "Errore: la stringa contiene caratteri non validi (\\);" << endl;
       cout << "Reinserire: "; 
-	  } else if( s.find( "/" ) != string::npos ){ 
-	    cerr << "Errore: la stringa contiene caratteri non validi (/);" << endl;
+	} else if( s.find( "/" ) != string::npos ){ 
+	  cerr << "Errore: la stringa contiene caratteri non validi (/);" << endl;
       cout << "Reinserire: "; 
-	  } else if( s.find( ":" ) != string::npos ){ 
-	    cerr << "Errore: la stringa contiene caratteri non validi (:);" << endl;
+	} else if( s.find( ":" ) != string::npos ){ 
+	  cerr << "Errore: la stringa contiene caratteri non validi (:);" << endl;
       cout << "Reinserire: "; 
-	  } else if( s.find( "*" ) != string::npos ){ 
-	    cerr << "Errore: la stringa contiene caratteri non validi (*);" << endl;
+	} else if( s.find( "*" ) != string::npos ){ 
+	  cerr << "Errore: la stringa contiene caratteri non validi (*);" << endl;
       cout << "Reinserire: "; 
-	  } else if( s.find( "?" ) != string::npos ){ 
-	    cerr << "Errore: la stringa contiene caratteri non validi (?);" << endl;
+	} else if( s.find( "?" ) != string::npos ){ 
+	  cerr << "Errore: la stringa contiene caratteri non validi (?);" << endl;
       cout << "Reinserire: "; 
-	  } else if( s.find( "\"" ) != string::npos ){ 
-	    cerr << "Errore: la stringa contiene caratteri non validi (\");" << endl;
+	} else if( s.find( "\"" ) != string::npos ){ 
+	  cerr << "Errore: la stringa contiene caratteri non validi (\");" << endl;
       cout << "Reinserire: "; 
-	  } else if( s.find( "<" ) != string::npos ){ 
-	    cerr << "Errore: la stringa contiene caratteri non validi (<);" << endl;
+	} else if( s.find( "<" ) != string::npos ){ 
+	  cerr << "Errore: la stringa contiene caratteri non validi (<);" << endl;
       cout << "Reinserire: "; 
-	  } else if( s.find( ">" ) != string::npos ){ 
-	    cerr << "Errore: la stringa contiene caratteri non validi (>);" << endl;
+	} else if( s.find( ">" ) != string::npos ){ 
+	  cerr << "Errore: la stringa contiene caratteri non validi (>);" << endl;
       cout << "Reinserire: "; 
-	  } else if( s.find( "|" ) != string::npos ){ 
-	    cerr << "Errore: la stringa contiene caratteri non validi (|);" << endl;
+	} else if( s.find( "|" ) != string::npos ){ 
+	  cerr << "Errore: la stringa contiene caratteri non validi (|);" << endl;
       cout << "Reinserire: "; 
-	  } else {
+	} else {
       break;	
     }
   }
@@ -129,9 +129,9 @@ string inputPassword(int max){
     
     // Se invio gestisco eventuali errori
     if( c == '\r' ){
-	    // Errore se password vuota -> s.size() == 0
-	    if( s.empty() ){
-	      cerr << endl << "Errore: inserita password vuota;" << endl;
+	  // Errore se password vuota -> s.size() == 0
+	  if( s.empty() ){
+	    cerr << endl << "Errore: inserita password vuota;" << endl;
         cout << "Reinserire password: ";
         s="";
       }
@@ -156,19 +156,19 @@ string inputPassword(int max){
     else if( c == '\b' || c == char(8) || c == char(127) ){
       // Controllo che la stringa contenga qualcosa prima di cancellare
       if(s.size() > 0){
-	      cout << char(8);
+	    cout << char(8);
   	    // Cancello un asterisco da schermo
   	    cout<<" ";
   	    cout << char(8);
   	    s = s.substr( 0, (s.size() - 1) ); // Tronca la stringa al carattere precedente
-	    }
+	  }
     }
 	
-	  // Controllo che la stringa non sia piena
+	// Controllo che la stringa non sia piena
   	else if( s.size() >= max_chars ) {
-        cerr << endl << "Errore: inseriti piu' di "<<max<<" caratteri;" << endl;
-        cout << "Reinserire password: ";
-        s="";
+      cerr << endl << "Errore: inseriti piu' di "<<max<<" caratteri;" << endl;
+      cout << "Reinserire password: ";
+      s="";
     } else { // Inserisco il carattere digitato e stampo un asterisco
       cout << "*";
       s+=c;

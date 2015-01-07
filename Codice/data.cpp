@@ -19,8 +19,8 @@ Data::Data(const Data& d){
   giorno = d.giorno;
   mese = d.mese;
   anno = d.anno;
-  ore = d.ore;
-  minuti = d.minuti;                 
+    ore = d.ore;
+    minuti = d.minuti;                 
 }
 
 // Costruttore specifico, solo per la data
@@ -103,11 +103,11 @@ void Data::imposta_data(){
     if((_anno < temp.anno) ||	(_anno == temp.anno && _mese < temp.mese) ||
       (_anno == temp.anno && _mese == temp.mese && _giorno <= temp.giorno)) {
     
-      // Controllo validità giorni rispetto al mese
+        // Controllo validità giorni rispetto al mese
 	    if(_giorno <= 31 && (_mese == 1 || _mese == 3 || _mese == 5 || _mese == 7 || _mese == 8 || _mese == 10 || _mese == 12) ){ break;}    
-      if(_giorno <= 30 && (_mese == 4 || _mese == 6 || _mese == 9 || _mese == 11) ) { break; }
+        if(_giorno <= 30 && (_mese == 4 || _mese == 6 || _mese == 9 || _mese == 11) ) { break; }
 
-      // Controllo anni bisestili e controllo standard su febbraio
+        // Controllo anni bisestili e controllo standard su febbraio
 	    if(_giorno == 29 && _mese == 2 && (_anno % 400 == 0 || (_anno % 100 != 0 && _anno % 4 == 0)) ) { break; }
 	    if(_giorno <=28 && _mese == 2) { break; }
 	  }
@@ -127,9 +127,9 @@ void Data::imposta_dataOra(){
   time_t t = time(0);   //tempo corrente
   struct tm * now = localtime( & t );
 		 
-	giorno = now->tm_mday;
-	mese = (now->tm_mon +1);
-	anno = (now->tm_year + 1900);
-	ore = now->tm_hour;
-	minuti = now->tm_min;
+  giorno = now->tm_mday;
+  mese = (now->tm_mon +1);
+  anno = (now->tm_year + 1900);
+  ore = now->tm_hour;
+  minuti = now->tm_min;
 }

@@ -273,10 +273,10 @@ void InTouch::reset() {
 
   // Elimino cartella contenente i dati dei post
   cout<<"Cancello "<<(path_files_p).c_str()<<endl;
-	if( rmdir(path_files_p.c_str()) != 0){ cerr << " Errore eliminazione cartella\n"; }
+  if( rmdir(path_files_p.c_str()) != 0){ cerr << " Errore eliminazione cartella\n"; }
 	
 	// Elimino cartella contenente i dati degli utenti
-	cout<<"Cancello "<<(path_files_u).c_str()<<endl;
+  cout<<"Cancello "<<(path_files_u).c_str()<<endl;
   if( rmdir(path_files_u.c_str()) != 0){ cerr << " Errore eliminazione cartella\n"; }
   
   // Elimino cartella generale contenente tutti i file e le cartelle
@@ -478,9 +478,9 @@ void InTouch::importa_commenti(string _autore, int id_post) {
       Data temp(giorno,mese,anno,ora,minuti);
 
       // Trovo l'utente autore del commento nella lista utenti
-     	iter_autore_commento = lista_utenti.find(autore);
+      iter_autore_commento = lista_utenti.find(autore);
      	
-     	// CReo un'istanza di commento con i dati letti da file
+      // CReo un'istanza di commento con i dati letti da file
       Commento c(id,&(iter_autore_commento->second),temp,testo);
 
       map<int,Post>::iterator iter_post;
@@ -498,12 +498,12 @@ void InTouch::importa_commenti(string _autore, int id_post) {
 	  cerr << "Errore import commenti!" << endl;	
 	}
 
-	// Chiudo il file
+  // Chiudo il file
   file_c.close();
 }
 
 void InTouch::importa_likes(string _autore, int id_post){
-	stringstream convert;
+  stringstream convert;
   convert << id_post;
 
   // Apro il file dei likes relativo al post
@@ -518,12 +518,12 @@ void InTouch::importa_likes(string _autore, int id_post){
     // Trovo l'utente autore del post nella lista utenti
     iter_autore_post = lista_utenti.find(_autore);
     
-	  map<int,Post>::iterator iter_post;
+	map<int,Post>::iterator iter_post;
 	  
-	  // Trovo il post il cui id è stato passato come parametro
-	  iter_post = iter_autore_post->second.get_bacheca()->get_listapost()->find(id_post);
+	// Trovo il post il cui id è stato passato come parametro
+	iter_post = iter_autore_post->second.get_bacheca()->get_listapost()->find(id_post);
 	  
-	  map<string,Utente>::iterator iter_autore_like;
+	map<string,Utente>::iterator iter_autore_like;
 
     char linea[MAXLUN+1];
 
@@ -535,8 +535,8 @@ void InTouch::importa_likes(string _autore, int id_post){
       iter_autore_like = lista_utenti.find(_email);
       
       // Aggiungo i like relativi al determinato post nella lista di likes relativa al post in questione
-	    iter_post->second.popola_lista_likes( pair<string,Utente*> (_email, &(iter_autore_like->second )) );
-	  }	
+	  iter_post->second.popola_lista_likes( pair<string,Utente*> (_email, &(iter_autore_like->second )) );
+	}	
   } else { // se non riesce ad aprire il file
     cerr << "Errore import likes!" << endl;	
   }
@@ -592,12 +592,12 @@ void InTouch::importa_profilo() {
       	Data d(t_giorno_nascita, t_mese_nascita, t_anno_nascita);
       	iter->second.get_profilo()->set_datanasc_par(d);
       }
-	  } else { // se non riesce d prire il file
-	    cerr << "Errore import profilo!" << endl;	
-	  }
+	} else { // se non riesce d prire il file
+	  cerr << "Errore import profilo!" << endl;	
+	}
 	  
-	  // Chiude il file
-	  file.close();
+	// Chiude il file
+	file.close();
   }
 }
 
@@ -662,9 +662,9 @@ void InTouch::importa_amicizie() {
       }
     } else { // se non riesce ad aprire il file
 	    cerr << "Errore import amicizia!" << endl;	
-	  }
+	}
 	  
-	  // Chiude il file
+	// Chiude il file
     file.close();
   }
 }

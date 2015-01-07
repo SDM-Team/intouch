@@ -80,7 +80,7 @@ void Post::visualizza_post_light() {
   if(author != NULL) {
     cout << author->get_cognome() << " ";
   	cout << author->get_nome() << " (";
-		cout << author->get_email() << ")" << endl;
+	cout << author->get_email() << ")" << endl;
   }
 
   // Stampa data e ora di pubblicazione
@@ -128,11 +128,11 @@ void Post::visualizza_post(){
     cout << "Nessun commento" << endl << endl;
   } else {
   	int i=0;
-	  list<Commento>::iterator iter; 
+	list<Commento>::iterator iter; 
   	for(iter = lista_commenti.begin(); iter != lista_commenti.end(); iter++){
   	  cout << "Commento #" << ++i << endl;
   	  iter->visualizza_commento();
-	  }
+	}
   }
 
   // Stampa likes del post
@@ -143,7 +143,7 @@ void Post::visualizza_post(){
     cout << "Utenti a cui piace questo post:" << endl;
   	for (iter_listalike = lista_likes.begin(); iter_listalike != lista_likes.end(); iter_listalike++) {
       cout << " " << iter_listalike->second->get_cognome() << " ";
-	    cout << iter_listalike->second->get_nome() << endl;
+	  cout << iter_listalike->second->get_nome() << endl;
     }
   }
   cout << endl;
@@ -212,19 +212,19 @@ void Post::commenta_post(Utente* autore){
 }
 
 void Post::aggiungi_like(Utente* autore){	
-	// Controlla se piace già
-	map<string,Utente*>::iterator iter;
+  // Controlla se piace già
+  map<string,Utente*>::iterator iter;
 	
-	// Cerca se l'utente è già presente nella lista di utenti che hanno espresso il proprio like
-	iter = lista_likes.find( autore->get_email() );
+  // Cerca se l'utente è già presente nella lista di utenti che hanno espresso il proprio like
+  iter = lista_likes.find( autore->get_email() );
 
   // Se non lo trova, aggiunge il like
-	if( iter == lista_likes.end() ){
+  if( iter == lista_likes.end() ){
     // Aggiunge l'utente alla lista dei like del post, utilizzando la mail come key
-	  lista_likes.insert( pair<string,Utente*> (autore->get_email(), autore) );
+	lista_likes.insert( pair<string,Utente*> (autore->get_email(), autore) );
 
   	// Scrittura su file
-	  stringstream convert;
+	stringstream convert;
   	convert << id_post;
 
     // Apre il file relativo al like del determinato post   
@@ -243,9 +243,9 @@ void Post::aggiungi_like(Utente* autore){
     
     // Messaggio di conferma
   	cout << "Liked!" << endl << endl; 
-	} else { // se trova l'autore nella lista, rimuove il suo like
-	  rimuovi_like(autore);	
-	}
+  } else { // se trova l'autore nella lista, rimuove il suo like
+	rimuovi_like(autore);	
+  }
 }
 
 void Post::rimuovi_like(Utente* autore){
@@ -274,8 +274,8 @@ void Post::rimuovi_like(Utente* autore){
   // Controllo apertura file
   if(!file){ cerr << "Errore apertura file!"; return;}
 
-  char linea[150];
-  while (!file.getline(linea,150).eof()) {
+  char linea[MAXLUN+1];
+  while (!file.getline(linea,MAXLUN+1).eof()) {
     // Token mail
     string _email = strtok (linea,"\n");
     
