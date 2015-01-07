@@ -10,8 +10,8 @@ Data::Data() {
   giorno = 1;
   mese = 1;
   anno = 0;
-	ore = 88;
-	minuti = 88;             
+    ore = 88;
+    minuti = 88;             
 }
 
 // Costruttore di copia
@@ -28,8 +28,8 @@ Data::Data(int _g, int _m, int _a) {
   giorno = _g;
   mese = _m;
   anno = _a;  
-	ore = 88;
-	minuti = 88;
+    ore = 88;
+    minuti = 88;
 }
 
 // Costruttore specifico, per data e ora
@@ -37,8 +37,8 @@ Data::Data(int _g, int _m, int _a, int _o, int _min) {
   giorno = _g;
   mese = _m;
   anno = _a;  
-	ore = _o;
-	minuti = _min;
+    ore = _o;
+    minuti = _min;
 }
 
 // L'operatore << aggiunge anche uno zero se il numero è valido e < 10
